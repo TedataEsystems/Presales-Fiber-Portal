@@ -1,0 +1,115 @@
+<!-- <div class="search-div" fxLayout="row">
+    <mat-list-item class="header-tag" routerLink="/" > Home </mat-list-item>/
+     <mat-list-item class="header-tag" > Team Contacts <form action="" method="post"></form>  </mat-list-item>/
+    <mat-list-item class="header-tag active" > <span *ngIf="param1 === '1'">Presales</span>  <span *ngIf="param1 === '2'">ESPT</span>   </mat-list-item>
+
+  </div> -->
+
+  <!---->
+
+  <mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title>
+          <span *ngIf="param1 === '1'">Presales</span>  <span *ngIf="param1 === '2'">ESPT</span>  Team
+        </mat-card-title>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+  <!-- <div class="search-div" fxLayout="row">
+       <mat-form-field class="select">
+          <mat-select #select placeholder="select list" (selectionChange)="apply($event.value)">
+            <mat-option *ngFor="let version of versions" [value]="version">
+              {{version}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div> -->
+    <!-- </mat-card> -->
+
+      <!-- <div *ngIf="selected"> -->
+      <div class="search-div" fxLayout="row">
+        <div class="generate">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>mail</mat-label>
+                <input type="text"  id="picvalid" matInput formControlName="mail" [value]="valdata" >
+                <input type="hidden" id="picid" formControlName="id"  [value]="valuid"  placeholder="">
+
+
+              </mat-form-field><span style="margin-left: 3px;"> </span>
+
+              <mat-form-field class="example-full-widtho">
+
+                  <mat-select formControlName="type"     placeholder="type">
+                    <mat-option value="to">to</mat-option>
+                    <mat-option value="cc">cc</mat-option>
+
+                  </mat-select>
+
+              </mat-form-field>
+
+              <button type="submit" mat-raised-button  [disabled]='isDisable'   class="sub search example-full-widths">{{'Save'  }}</button>
+
+            </form>
+          </div>
+        <mat-form-field class="search-form-field" floatLabel="never">
+          <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter($event)">
+          <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+               <mat-icon>close</mat-icon>
+           </button>
+
+       </mat-form-field>
+      </div>
+       <!-- <div class="spinner" *ngIf="loading;else box">
+          <mat-spinner></mat-spinner>
+        </div>
+
+      <ng-template #box> -->
+        <div class="example-container mat-elevation-z8" #TABLE>
+      <!-- <div class="mat-elevation-z8"> -->
+        <mat-table [dataSource]="dataSource" matSort #table>
+
+         <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="id"> {{element.id}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="mail">
+        <mat-header-cell *matHeaderCellDef mat-sort-header4> mail </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="mail"> {{element.mail}} </mat-cell>
+      </ng-container>
+
+
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> type </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="desc" data-label="type"> {{element.type}} </mat-cell>
+      </ng-container>
+
+     <!-- Weight Column -->
+     <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="action">
+          <button mat-button (click)="onEdit(row)" matTooltip="edit" class="text-success">
+              <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-button color="warn" (click)="onDelete(row.id)" matTooltip="delete">
+            <mat-icon>delete_forever</mat-icon>
+        </button>
+
+      </mat-cell>
+      </ng-container>
+
+          <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: columnsToDisplay;">
+          </mat-row>
+        </mat-table>
+      <!-- </ng-template> -->
+    </div>
+        <mat-paginator  [pageSizeOptions]="[20, 50, 100]"   [pageSize]="20" ></mat-paginator>
+
+
+
+    </mat-card>

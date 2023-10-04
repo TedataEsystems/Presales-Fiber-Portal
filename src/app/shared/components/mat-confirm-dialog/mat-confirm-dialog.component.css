@@ -1,0 +1,12 @@
+.btn-dialog-close{
+    width: 20px;
+    min-width: 0px !important;
+    height: 20px;
+    padding: 0px !important;
+    background-color: transparent;
+    border: 1px solid #b1b3b7;
+    color: #b1b3b7;
+    line-height: inherit;
+  }
+ 
+ 

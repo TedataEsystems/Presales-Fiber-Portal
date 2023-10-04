@@ -1,0 +1,54 @@
+<div class="content-body">
+    <mat-card>
+        <mat-card-content>
+            <div class="header">
+                <span class="s1">Pre</span>
+                <span class="s2">$</span>
+                <span class="s3">ales Fiber Portal</span>
+            </div>
+             <h2>Join Now !!</h2>
+            <form (ngSubmit)="onSubmit()" name="form" [formGroup]="form">
+                <!-- <div class="email-input form-input"> -->
+                    <!--     Email       -->
+                    <mat-form-field class="full-width" >
+                        <mat-label>User Name</mat-label>
+                        <input formControlName="username" matInput required>
+                        <button mat-icon-button matSuffix >
+                          <mat-icon>account_circle</mat-icon>
+                        </button>
+
+
+                        <mat-error *ngIf="form.controls['username'].errors?.required">
+                         Required UserName
+                        </mat-error>
+
+                    </mat-form-field>
+                <!-- </div>
+                <div class="form-input"> -->
+                    <!-- <span class="aLink">Forgot Password ?</span> -->
+
+                     <!--    Password      -->
+                     <mat-form-field class="full-width" >
+                        <mat-label>Password</mat-label>
+                        <input formControlName="password" matInput type="password" required>
+                         <button mat-icon-button matSuffix >
+                            <mat-icon>https</mat-icon>
+                          </button>
+                        <!-- <button mat-icon-button matSuffix (click)="hide =!hide" [attr.aria-label]="'Hide Password'" [attr.aria-pressed]="hide">
+                          <mat-icon>{{hide ? "visibility_off" : "visibility"}}</mat-icon>
+                        </button> -->
+
+                        <mat-error *ngIf="form.controls['password'].errors?.required">Required password.</mat-error>
+
+                    </mat-form-field>
+
+                <!-- </div> -->
+                <button mat-flat-button class="login">Login</button>
+            </form>
+
+        </mat-card-content>
+    </mat-card>
+
+  </div>
+
+

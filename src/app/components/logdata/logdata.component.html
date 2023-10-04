@@ -1,0 +1,104 @@
+
+ <mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title>
+      Log Data
+
+
+        </mat-card-title>
+    </mat-card-header>
+    <mat-divider class="my-1"></mat-divider>
+<div class="search-div" fxLayout="row">
+
+
+    <mat-form-field class="search-form-field" floatLabel="never">
+        <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+       <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+</div>
+
+
+  <!-- <app-loader *ngIf="dataSource==null;else table"></app-loader>
+<ng-template #table> -->
+    <div class="example-container mat-elevation-z8">
+
+        <mat-table [dataSource]="dataSource" #table matSort multiTemplateDataRows (matSortChange)="sortData($event)" matSortActive="name" matSortDirection="asc" matSortDisableClear>
+
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Id'}}</mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Id"> {{element.id}} </mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="desciption">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Description'}} </mat-header-cell>
+                <mat-cell *matCellDef="let row" data-label="Description">
+                   <button mat-button class="text-success"    matTooltip="View Details"
+                   (click)="row.isExpanded = ! row.isExpanded">
+                  <mat-icon>content_paste_search</mat-icon>
+              </button>
+              </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="expandedDetail">
+                  <mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns2.length">
+
+                    <div class="row student-element-detail" [@detailExpand]="element.isExpanded ? 'expanded' : 'collapsed'">
+                      <mat-list>
+
+                        <mat-list-item >
+                          {{element.desciption}}
+
+                        </mat-list-item>
+                      </mat-list>
+                  </div>
+
+                  </mat-cell>
+                </ng-container>
+
+
+
+            <ng-container matColumnDef="tableName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Table Name'  }}  </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Table Name"> {{element.tableName}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actionType">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Action Type'  }}</mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Action Type"> {{element.actionType}} </mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="userName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>{{'User Name'  }}</mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="User Name"> {{element.userName}} </mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="creationDate">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Creation Date'  }}  </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Creation Date"> {{element.creationDate | date:'medium'}} </mat-cell>
+            </ng-container>
+
+
+            <mat-header-row *matHeaderRowDef="displayedColumns2"></mat-header-row>
+            <!-- <mat-row *matRowDef="let row; columns: displayedColumns2;"></mat-row> -->
+            <mat-row *matRowDef="let row; columns: displayedColumns2;" class="student-element-row"
+            [class.student-expanded-row]="row.isExpanded"></mat-row>
+             <!-- Extra row to show detail content column -->
+            <mat-row *matRowDef="let row; columns: ['expandedDetail']" class="student-detail-row"></mat-row>
+
+        </mat-table>
+</div>
+<!-- </ng-template> -->
+
+
+<mat-paginator [pageSizeOptions]="[ 50, 100,150]"   [pageSize]="50"  (page)="pageChanged($event)" showFirstLastButtons></mat-paginator>
+
+</mat-card>
+
+
+
+

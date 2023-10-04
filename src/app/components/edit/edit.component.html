@@ -1,0 +1,185 @@
+
+ <mat-card class="example-card">
+    <form [formGroup]="form" class="normal-form" (submit)="onSubmit()">
+    <mat-card-header>
+        <mat-card-title>
+           Microwave Service Request Form
+           <div class="" style="float: right;">
+               <span class="option submit" type="submit"><small>Submit</small></span> 
+               <span class="separator mx-1">|</span>
+               <span class="option text-danger"  (click)="onClose()"><small>Cancel</small></span>
+               
+            </div>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+
+
+
+    <!-- <mat-toolbar>
+        <span class="fill-remaining-space"></span>
+        <button class="btn-dialog-close" mat-stroked-button  tabIndex="-1" (click)="onClose()"><mat-icon>clear</mat-icon></button>
+      </mat-toolbar> -->
+      <mat-grid-list cols="2" rowHeight="90px">
+        <mat-grid-tile>
+          <div class="controles-container">
+            <mat-form-field>
+              <input formControlName="NameofSalesManager" matInput placeholder="Full Name*">
+              <mat-error>This field is mandatory.</mat-error> 
+            </mat-form-field>
+            </div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <div class="controles-container">
+            <mat-form-field>
+              <input formControlName="Contact" matInput placeholder="Contact*">
+              <mat-error>This field is mandatory.</mat-error> 
+            </mat-form-field>
+            </div>
+            </mat-grid-tile>
+            </mat-grid-list>
+        <mat-grid-list cols="2" rowHeight="200px">
+          <mat-grid-tile >
+            <div class="controles-container">
+              <input type="hidden" formControlName="$key">
+              <mat-form-field>
+                <input formControlName="CompanyName" matInput placeholder="Company Name*">
+                <mat-error>This field is mandatory.</mat-error> 
+              </mat-form-field>
+              <mat-form-field>
+                <input formControlName="ContactName" matInput placeholder="Contact Name*">
+                <mat-error>This field is mandatory.</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input formControlName="Email" matInput placeholder="Email*">
+                <mat-error>Invalid email address.</mat-error>
+              </mat-form-field>
+              
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="controles-container">
+              <mat-form-field>
+                <input formControlName="Mobile" matInput placeholder="Mobile*">
+                <!-- <mat-error *ngIf="form.controls['mobile'].errors?.required">This field is mandatory.</mat-error>
+                <mat-error *ngIf="form.controls['mobile'].errors?.minlength">Minimum 11 charactors needed.</mat-error> -->
+              </mat-form-field>
+              <mat-form-field>
+                <textarea formControlName="OtherInformation" matInput placeholder="Other Information">
+                  </textarea>
+              </mat-form-field>
+              
+              
+             
+            </div>
+          </mat-grid-tile>
+          
+        </mat-grid-list>
+        <mat-grid-list cols="2" rowHeight="200px">
+          <mat-grid-tile >
+            <div class="controles-container">
+            
+              <section class="example-section d-flex">
+                <h6>Requested Service / Speed :</h6>
+                <p><mat-checkbox formControlName="E1" >E1</mat-checkbox></p>
+                <p><mat-checkbox formControlName="E3" >E3</mat-checkbox></p>
+                <p><mat-checkbox formControlName="DS3" >DS3</mat-checkbox></p>
+                <p><mat-checkbox formControlName="STM1" >STM1</mat-checkbox></p>
+                <p><mat-checkbox formControlName="STM4" >STM4</mat-checkbox></p>
+                <p><mat-checkbox formControlName="STM16" >STM16</mat-checkbox></p>
+                <p><mat-checkbox formControlName="Ethernet">Ethernet</mat-checkbox></p>
+                <p><mat-checkbox formControlName="IPLC" >IPLC - دولي</mat-checkbox></p>
+                <p><mat-checkbox formControlName="DOMESTIC">DOMESTIC-دائره محليه</mat-checkbox></p>
+              
+             
+              </section>
+
+              <mat-form-field>
+                <input formControlName="NumberofCircuits" matInput placeholder="Number of Circuits*">
+                <mat-error>This field is mandatory.</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input formControlName="FullAddress" matInput placeholder="Full Address*">
+                <mat-error>This field is mandatory.</mat-error>
+              </mat-form-field>
+              </div>
+              </mat-grid-tile>
+              <mat-grid-tile >
+                <div class="controles-container">
+              <mat-form-field>
+                <input formControlName="ExchangeName" matInput placeholder="Exchange Name*">
+                <mat-error>This field is mandatory.</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input formControlName="NearestFixedLineNumber" matInput placeholder="Nearest Fixed Line Number*">
+                <mat-error>This field is mandatory.</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input formControlName="ExpectedUpgrades" matInput placeholder="Expected Upgrades*">
+                <mat-error>This field is mandatory.</mat-error>
+              </mat-form-field>
+             
+              </div>
+              </mat-grid-tile>
+              </mat-grid-list>
+              <mat-grid-list cols="1" rowHeight="150px">
+                <mat-grid-tile>
+                  <div class="controles-container">
+                    <mat-form-field>
+                      <input formControlName="ContractPeriod" matInput placeholder="Contract Period">
+                     
+                    </mat-form-field>
+                    <div class="add-bottom-padding">
+                      <label id="radio-group-label">Circuit Protection : </label>
+                      <mat-radio-group formControlName="CircuitProtection">
+                        <mat-radio-button value="1">Yes</mat-radio-button>
+                        <mat-radio-button value="2">No</mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+                    <div class="add-bottom-padding">
+                      <label id="radio-group-label">Path Protection : </label>
+                      <mat-radio-group formControlName="PathProtection">
+                        <mat-radio-button value="1">Yes</mat-radio-button>
+                        <mat-radio-button value="2">No</mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+                    <div class="add-bottom-padding">
+                      <label id="radio-group-label">Promising Area : </label>
+                      <mat-radio-group formControlName="PromisingArea">
+                        <mat-radio-button value="1">Yes</mat-radio-button>
+                        <mat-radio-button value="2">No</mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+                    </div>
+                    </mat-grid-tile>
+                    </mat-grid-list>
+        <mat-grid-list cols="2" rowHeight="80px">
+          <mat-grid-tile>
+            <div class="controles-container">
+              <mat-form-field>
+                <input formControlName="Name" matInput placeholder="Name*">
+                <mat-error>This field is mandatory.</mat-error>
+               
+              </mat-form-field>
+             
+              </div>
+              </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="controles-container">
+              <mat-form-field>
+                <input formControlName="Signature" matInput placeholder="Signature*">
+                <mat-error>This field is mandatory.</mat-error>
+               
+              </mat-form-field>
+              </div>
+              </mat-grid-tile>
+              </mat-grid-list>
+      </form>
+    
+
+    
+   
+
+
+
+</mat-card>

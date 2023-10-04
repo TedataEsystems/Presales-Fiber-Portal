@@ -1,0 +1,75 @@
+/* .search-form-field{
+    width: 30%;
+
+    position: absolute !important;
+    right: 25px;
+} */
+.example-form {
+  min-width: 150px;
+  max-width: 600px;
+  width: 100%;
+}
+.example-full-width {
+  width: 50%;
+}
+.example-full-widtho {
+  width:20%;
+}
+.example-full-widths {
+  width: 20%;
+}
+  .search{
+  
+   margin-left: 10px;
+}
+.select{
+    width: 40%;
+}
+mat-cell, mat-header-cell, mat-footer-cell{
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 25% !important;
+  width: 25% ;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  border-bottom:1px solid #ececec;
+ }
+ .mat-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button{
+  padding: 0 !important;
+}
+.mat-button{
+  min-width: 24px !important;
+}
+
+ /* scroll */
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px var(--third-color);
+  border-radius: 15px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+  background: var(--font-color);
+  border-radius: 15px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+  background: var(--font-color);
+  }

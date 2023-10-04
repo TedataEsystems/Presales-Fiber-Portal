@@ -1,0 +1,234 @@
+
+/* first header */
+a{
+  text-decoration: none;
+  color:white;
+}
+a:hover ,a:active{
+  color: lightgray;
+}
+a.mat-menu-item{
+  color: var(--main-color);
+  text-align: right;
+}
+
+li{
+  list-style: none;
+}
+ul{
+  margin-top:1rem !important;
+  display: flex;
+  flex-wrap: 15px;
+
+
+}
+.mat-button  span{
+  font-size: 18px;
+}
+.top li:first-of-type{
+  background: var(--forth-color);
+  padding-right: 5px;
+
+}
+
+li span{
+  font-size: 14px;
+}
+.seconed li span{
+  color:var(--cr2-color)
+}
+.mat-icon-button{
+  border-radius: 0;
+  background: #ffffff26;
+}
+
+
+.navigation-items{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+mat-toolbar{
+  /* background: linear-gradient(351deg,#0f1323,#1b3c51,#791a75,#8e2279); */
+  color: #fff;
+  background: linear-gradient(114deg,#000,#0f1323,#1b3c51,#791a75,#8e2279 50%,#1b3c51,#0f1323);
+  background: -moz-linear-gradient(114deg,#000,#0f1323,#1b3c51,#791a75,#8e2279 50%,#1b3c51,#0f1323);
+  background: -o-linear-gradient(114deg,#000,#0f1323,#1b3c51,#791a75,#8e2279 50%,#1b3c51,#0f1323);
+
+}
+.mat-toolbar-row, .mat-toolbar-single-row {
+  height: 45px !important;
+  padding:0 50px !important;
+  box-shadow: 0px 2px 30px 0px rgb(0 0 0 / 30%);
+}
+
+.mat-menu-panel {
+  min-width: 112px;
+  max-width: 280px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  max-height: calc(100vh - 48px);
+  border-radius: 4px;
+  outline: 0;
+  min-height: 64px;
+}
+.active{
+  background-color: var(--forth-color);
+  color: #fff;
+  border-radius: 0;
+}
+
+@media screen and (max-width: 960px) {
+  .mat-toolbar-row, .mat-toolbar-single-row {
+
+      padding:0 10px !important;
+
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+/* second header */
+
+
+.mat-toolbar:last-of-type{
+  height: 110px;
+  background: #ffffff;
+  color: var(--main-color);
+  border-bottom: 1px solid #dddddd;
+  box-shadow: 0px 4px 10px #cdcdcd;
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 0; /* Sets the sticky toolbar to be on top */
+  z-index: 19; /* Ensure that your app's content doesn't overlap the toolbar */
+}
+
+.brand{
+  color: #354654;
+    text-shadow: 0px 2px 2px #9b9191;
+    font-size: 20px;
+}
+
+.brand-box{
+  width: 80px;
+    text-align: right;
+    background: #000;
+    margin-left: -50px;
+}
+
+.separator{
+  vertical-align: middle;
+  color: #6c7073;
+  width: 10px;
+  border-right: 1px solid var(--third-color);
+}
+.brandTitle{
+font-size: 20px;
+color: #403c3c;
+font-weight: 500;
+vertical-align: middle;
+text-transform: uppercase;
+text-shadow: 0px 3px 3px #8e8686;
+letter-spacing: 2px;
+}
+a{
+text-decoration: none;
+color:white;
+}
+a:hover ,a:active{
+color: lightgray;
+}
+a.mat-menu-item{
+color: var(--main-color);
+text-align: right;
+}
+
+li{
+list-style: none;
+}
+ul{
+margin-top:1rem !important;
+display: flex;
+flex-wrap: 15px;
+
+
+}
+.mat-button  span{
+font-size: 18px;
+}
+/* li:nth-child(4){
+
+background: #5a7180c2;
+padding-right: 5px;
+
+} */
+li span{
+font-size: 14px;
+}
+.mat-icon-button{
+border-radius: 0;
+background: #ffffff26;
+}
+
+
+.mat-toolbar:last-of-type .navigation-items{
+list-style-type: none;
+padding: 0;
+margin: 0;
+}
+
+.mat-toolbar-row:last-of-type, .mat-toolbar-single-row:last-of-type {
+height: 64.6px !important;
+box-shadow: 0px 2px 30px 0px rgb(0 0 0 / 30%);
+}
+
+.mat-menu-panel {
+min-width: 112px;
+max-width: 280px;
+overflow: auto;
+-webkit-overflow-scrolling: touch;
+max-height: calc(100vh - 48px);
+border-radius: 4px;
+outline: 0;
+min-height: 64px;
+}
+.active{
+  color: var(--cr4-color);
+}
+.active1{
+
+  color: var(--cr4-color);
+  font-weight: bold;
+    background: var(--body-color);
+
+  }
+  .active1 mat-icon{
+    color: var(--cr4-color);
+  }
+
+@media screen and (max-width: 960px) {
+.mat-toolbar-row, .mat-toolbar-single-row {
+
+    padding:0 10px !important;
+
+}
+.brand-box{
+  width: 55px;
+    margin-left: -10px;
+
+}
+.brand{
+  font-size: 15px;
+}
+.teamname{
+  width: auto;
+}
+}

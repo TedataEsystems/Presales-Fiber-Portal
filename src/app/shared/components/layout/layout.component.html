@@ -1,0 +1,24 @@
+
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+<app-header (sidenavToggle)="sidenav.toggle()"></app-header>
+<mat-sidenav-container >
+    <mat-sidenav   #sidenav  id="sidenav" [class.menu-open]="isMenuOpen" [class.menu-close]="!isMenuOpen" opened>
+        <app-navlist></app-navlist>
+
+    </mat-sidenav>
+    <mat-sidenav-content #side  [ngStyle]="{ 'margin-left.px': contentMargin }">
+
+        <main #main>
+
+            <router-outlet>
+            </router-outlet>
+
+            <app-footer></app-footer>
+
+        </main>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+<ngx-spinner type="timer">
+  <h5>Loading</h5>
+</ngx-spinner>
+</div>

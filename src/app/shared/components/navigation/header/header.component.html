@@ -1,0 +1,154 @@
+
+
+<mat-toolbar>
+  <div>
+
+      <a routerLink="/">
+          <img src="../../../../assets/image/ccc.png" class="teamname" alt="Esystem team" height="36" width="150"/>
+
+      </a>
+  </div>
+
+  <div fxFlex fxLayout fxLayoutAlign="end" >
+      <ul fxLayout fxLayoutGap="5px" class="navigation.items top">
+
+
+          <li>
+            <button mat-icon-button>
+              <mat-icon>account_circle</mat-icon>
+            </button>
+            <span> {{UserName}}  </span>
+          </li>
+
+          <li>
+            <button mat-icon-button (click)="logOut()" matTooltip="Logout ">
+              <mat-icon>logout</mat-icon>
+            </button>
+          </li>
+
+
+
+
+
+      </ul>
+  </div>
+
+</mat-toolbar>
+
+
+
+
+<mat-toolbar>
+  <div class="brand-box">
+    <img src="../../../../assets/image/we-Logo/we-black.jpg" width="70" height="65px">
+
+  </div>
+  <div class="brandTitle">
+  <span class="brand ml-3">Presales Fiber Portal</span>
+  </div>
+     <span class="example-spacer"></span>
+  <!-- <div class="brand" style="width: 240px">
+    <a routerLink="#">
+      <img
+        class="d-inline-block"
+        src="../../../../assets/image/we-Logo/we-hor.png"
+        height="40"
+        width="60"
+      />
+      <span class="ml-2 mr-3 separator">|</span>
+      <span class="brandTitle">Presales Fiber Portal</span>
+    </a>
+  </div> -->
+
+  <div class="">
+    <button
+      class="my-1 bg-transparent"
+      mat-icon-button
+      (click)="onToggleSidenav()"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+
+  <div fxFlex fxLayout fxLayoutAlign="end">
+    <ul fxLayout fxLayoutGap="10px" class="navigation.items seconed">
+      <!-- <li>
+        <button
+          mat-icon-button matTooltip="fullscreen"
+          class="matero-toolbar-button"
+          fxHide.lt-sm
+          (click)="toggleFullscreen()"
+        >
+          <mat-icon>fullscreen</mat-icon>
+        </button>
+      </li> -->
+      <li [hidden]="!isPresales">
+        <!-- *ngIf="!isNotAdmin" -->
+          <button mat-icon-button [matMenuTriggerFor]="PreSalesmenu" matTooltip="Settings" routerLinkActive="active">
+           <mat-icon>settings</mat-icon>
+         
+            </button>
+
+            <mat-menu #PreSalesmenu="matMenu">
+              <button mat-menu-item routerLink="/sectors" routerLinkActive="active1" >
+
+                <span>Sectors</span>
+              </button>
+              </mat-menu>
+           </li>
+
+        <li [hidden]="isNotAdmin">
+        <button mat-icon-button matTooltip="Logs " routerLink="./logs" routerLinkActive="active">
+          <mat-icon>history</mat-icon>
+        </button>
+      </li>
+
+<div class="separator" [hidden]="isNotAdmin"></div>
+      <li [hidden]="isNotAdmin">
+        <!-- *ngIf="!isNotAdmin" -->
+          <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Settings" routerLinkActive="active">
+              <mat-icon>settings</mat-icon>
+            </button>
+
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item routerLink="/servicespeed" routerLinkActive="active1" [queryParams]="{serid: 1}">
+
+                <span>Copper Service Speed</span>
+              </button>
+                <button mat-menu-item routerLink="/servicespeed" routerLinkActive="active1" [queryParams]="{serid: 2}" >
+
+                <span>Fiber Service Speed</span>
+
+                </button>
+
+                <button mat-menu-item routerLink="/servicespeed" routerLinkActive="active1" [queryParams]="{serid: 3}">
+
+                <span>Microwave Service Speed</span>
+
+                </button>
+                <button mat-menu-item routerLink="/contacts" routerLinkActive="active1" [queryParams]="{team: 1}">
+
+                  <span>Presales Team</span>
+                </button>
+                  <!-- <button mat-menu-item routerLink="/contacts" routerLinkActive="active" [queryParams]="{team: 2}" >
+                    <mat-icon>group</mat-icon>
+                  <span>ESPT Team</span>
+
+                  </button> -->
+                  <button mat-menu-item routerLink="/status" routerLinkActive="active1" >
+
+                  <span>Service Status
+                  </span>
+
+                  </button>
+                  <button mat-menu-item routerLink="/sectors" routerLinkActive="active1" >
+
+                    <span>Sectors</span>
+                  </button>
+              </mat-menu>
+
+      </li>
+
+    </ul>
+  </div>
+</mat-toolbar>

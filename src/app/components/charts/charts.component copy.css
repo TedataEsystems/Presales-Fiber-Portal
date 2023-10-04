@@ -1,0 +1,30 @@
+.border-left-info {
+    border-left: .25rem solid  var(--main-color)!important;
+}
+.align-items-center {
+    align-items: center!important;
+}
+.col-auto {
+    flex: 0 0 auto;
+    width: auto;
+    max-width: 100%;
+}
+.text-xs {
+    font-size: .8rem;
+}
+
+.text-info {
+    color: var(--main-color)!important;
+}
+.bg-info {
+ background:  linear-gradient(45deg, #8e2279,#80868b, #d7d7d7);
+}
+.progress-sm {
+    height: .9rem;
+}
+mat-icon{
+    font-size: 2em;
+    font-weight: 900;
+    color: #bababa!important;
+   margin-top: 15px;
+}

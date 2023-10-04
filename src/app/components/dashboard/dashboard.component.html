@@ -1,0 +1,227 @@
+
+ <mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title>
+            Table list   
+            
+            <!-- <span class="option" (click)="addNew()">Create</span>  -->
+           
+           <div class="" style="float: right;">
+            <button mat-raised-button class="option" (click)="addNew()"><mat-icon>add</mat-icon> Create</button> 
+            <span class="separator mx-2">|</span>
+          <button mat-raised-button  class="option" [matMenuTriggerFor]="menu"><mat-icon>file_present</mat-icon> Generate Report</button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="import()">
+              <mat-icon>upload_file</mat-icon>
+              <span>Import Excel</span>
+            </button>
+            <button mat-menu-item (click)="importEmpty()">
+              <mat-icon>insert_drive_file</mat-icon>
+              <span>Import Empty Excel</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>post_add</mat-icon>
+              <span>Export Excel</span>
+            </button>
+
+            <button mat-menu-item>
+              <mat-icon>insert_drive_file</mat-icon>
+              <span>Export Empty Excel</span>
+            </button>
+
+          </mat-menu> 
+            </div>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-divider class="my-1"></mat-divider>
+<div class="search-div" fxLayout="row">
+    <div class="generate" *ngIf="show">
+    <div  class="import-excel d-inline-block">
+        <div class="input-group">
+            <label  class="btn browse">
+                <input class="file-upload-input" name="file" type="file" for="browse">
+           Browse
+               </label>
+            <input class="form-control rounded-0" placeholder="Choose file..." type="text" id="browse">
+
+
+       
+        </div>
+       
+        <p class="help-block" style="display: none;">
+        <small>error msg.</small></p>
+      
+    </div>
+    <span  class="input-group-btn d-inline-block">
+        <label  class="btn  file-upload-btn" matTooltip="Upload">
+            <input class="file-upload-input" type="button" (click)="Upload()" >
+        <mat-icon>upload</mat-icon>
+           </label>
+       </span>
+       </div>
+    
+
+    <mat-form-field class="search-form-field" floatLabel="never">
+        <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()"> 
+       <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+            <mat-icon>close</mat-icon>
+        </button> 
+    </mat-form-field>
+</div>
+
+<!-- <div class="spinner" *ngIf="dataSource==null;else table">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div> -->
+  <app-loader *ngIf="dataSource==null;else table"></app-loader>
+<ng-template #table>
+    <div class="example-container mat-elevation-z8">
+
+<mat-table class="table-striped" [dataSource]="dataSource"   matSort >
+
+
+  <ng-container matColumnDef="action">
+    <mat-header-cell mat-header-cell *matHeaderCellDef> Action</mat-header-cell>
+    <mat-cell *matCellDef="let row" data-label="action">
+
+
+        <ng-container *ngIf="!editdisabled">
+           
+            <button mat-button class="text-success font-weight-bolder"  matTooltip="Edit" (click)="editROw(row)">
+             <mat-icon>edit</mat-icon>
+               
+            </button>
+          
+            <button mat-button class="font-weight-bolder"  matTooltip="Delete" color="warn" (click)="onDelete(row)">
+             <mat-icon>delete_forever</mat-icon>
+              
+            </button>
+          </ng-container>
+          <ng-container *ngIf="editdisabled">
+            <button mat-button  class="mr-1 text-success"  matTooltip="Update" (click)="updateEdit()">
+             <mat-icon>check_circle</mat-icon>
+            </button>
+           
+            <button mat-button  class="" color="warn"  matTooltip="Cancel" (click)="cancelEdit()">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </ng-container>
+        
+    </mat-cell>
+
+  
+
+</ng-container>
+  
+ 
+    <ng-container matColumnDef="position">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="position">
+            
+            <!-- {{element.position}} -->
+        
+           
+                <ng-container *ngIf="!editdisabled">
+                 {{element.position || 'N/A'}} 
+                </ng-container>
+                <ng-container *ngIf="editdisabled">
+                  <mat-form-field hideRequiredMarker="false" appearance="legacy">
+                    <input matInput placeholder="No."  name="no" [(ngModel)]="element.position">
+                    <mat-error>ErrorMessage</mat-error>
+                  </mat-form-field>
+                </ng-container>
+             
+        
+        </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="name"> 
+            <!-- {{element.name}}  -->
+            <ng-container *ngIf="!editdisabled">
+                {{element.name|| 'N/A'}} 
+               </ng-container>
+               <ng-container *ngIf="editdisabled">
+                 <mat-form-field hideRequiredMarker="false" appearance="legacy">
+                   <input matInput placeholder="Name"  name="name" [(ngModel)]="element.name">
+                   <mat-error>ErrorMessage</mat-error>
+                 </mat-form-field>
+               </ng-container>
+        </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="weight">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Weight </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="weight">
+             <!-- {{element.weight}}  -->
+             <ng-container *ngIf="!editdisabled">
+                {{element.weight|| 'N/A'}} 
+               </ng-container>
+               <ng-container *ngIf="editdisabled">
+                 <mat-form-field hideRequiredMarker="false" appearance="legacy">
+                   <input matInput placeholder="Weight"  name="weight" [(ngModel)]="element.weight">
+                   <mat-error>ErrorMessage</mat-error>
+                 </mat-form-field>
+               </ng-container>
+            </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="symbol">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="symbol"> 
+            <!-- {{element.symbol}} -->
+            <ng-container *ngIf="!editdisabled">
+                {{element.symbol|| 'N/A'}} 
+               </ng-container>
+               <ng-container *ngIf="editdisabled">
+                 <mat-form-field hideRequiredMarker="false" appearance="legacy">
+                   <input matInput placeholder="Symbol"  name="symbol" [(ngModel)]="element.symbol">
+                   <mat-error>ErrorMessage</mat-error>
+                 </mat-form-field>
+               </ng-container>
+         </mat-cell>
+    </ng-container> 
+
+     
+
+   
+     
+    <ng-container matColumnDef="istolate">
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header hidden> istolate</mat-header-cell>
+      <mat-cell *matCellDef="let element" data-label="symbol" hidden> 
+          {{element.istolate}}
+         
+       </mat-cell>
+  </ng-container> 
+    
+      
+    <ng-container matColumnDef="noData">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+           No Data ...
+        </mat-footer-cell>
+
+    </ng-container>
+  
+  
+    
+    <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource.data.length==0 && dataSource !=null)}"></mat-footer-row>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'hi': row.istolate}"></mat-row>
+   
+
+</mat-table>
+<!-- end test -->
+</div>
+</ng-template>
+
+
+<mat-paginator [pageSizeOptions]="[5,20, 50, 100]"   [pageSize]="5"   showFirstLastButtons></mat-paginator>
+
+</mat-card>
+
+
+
+
+<!-- <app-loader *ngIf="dataSource==null;else table"></app-loader> -->

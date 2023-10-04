@@ -1,0 +1,72 @@
+<!-- loader for loading login page -->
+<div class="content-body">
+  <mat-card>
+
+      <mat-card-content>
+
+          <div class="tool">
+
+             <span class="topic">Presales Fiber Portal</span>
+
+          </div>
+
+           <h2>
+
+           Login
+           </h2>
+
+           <form  class="mt-4" (ngSubmit)="onSubmit()" name="form" [formGroup]="form">
+            <mat-form-field class="full-width" >
+              <mat-label>Username </mat-label>
+              <input formControlName="username" matInput required>
+
+                <mat-icon  mat-icon-button matSuffix>account_circle</mat-icon>
+
+
+
+              <mat-error *ngIf="form.controls['username'].errors?.required">
+                *Username is Required
+              </mat-error>
+
+          </mat-form-field>
+
+
+           <!--    Password      -->
+           <mat-form-field class="full-width" >
+              <mat-label>Password </mat-label>
+              <input formControlName="password" matInput type="password" required>
+
+                  <mat-icon mat-icon-button matSuffix>https</mat-icon>
+
+
+              <mat-error *ngIf="form.controls['password'].errors?.required">*Password is Required </mat-error>
+
+          </mat-form-field>
+          <div class="msg-error">
+            <mat-error *ngIf="warning">
+               <mat-icon>warning</mat-icon>
+               *Invalid Username or Password
+              </mat-error>
+         </div>
+              <button mat-flat-button class="login"   type="submit">Login</button>
+          </form>
+
+      </mat-card-content>
+
+  </mat-card>
+
+  <div class="text-center mt-2">
+     <span class="rights">© Copyright 2022. All Rights Reserved. | Powered by <span class="text-white">:Esystems</span> </span>
+
+      </div>
+  <div class="WElogo">
+
+     <img src="../../../../assets/image/we-Logo/mini_logo.png" width="150" height="200">
+
+ </div>
+ <div class="Esystems">
+
+  <img src="../../../../assets/image/ccc.png" width="150" height="50">
+
+</div>
+</div>

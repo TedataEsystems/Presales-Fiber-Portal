@@ -1,0 +1,552 @@
+
+<mat-tab-group mat-align-tabs="center">
+  <mat-tab label="Microwave Service Request Form">
+    <img *ngIf="param1" src="../../../assets/image/pdf.png" width="58" height="58" class="pdfbtn" matTooltip="convert to pdf" (click)="convetToPDF()">
+    <!-- <button class="pdfbtn" (click)="convetToPDF()">convert to pdf</button> -->
+    <div id="contentToConvert" #contentTopdf style="font-family: Amiri-Regular">
+ <!-- <mat-card id="dd"   class="example-card"> -->
+ <mat-card  id="contentToConvert0"  class="example-card">
+  <form [formGroup]="form" class="normal-form" (submit)="onSubmit()">
+
+    <mat-form-field [hidden]="true">
+      <input matInput [readonly]="isReadonly" type="number" [ngModel]="3" formControlName="serviceTypeID">
+  </mat-form-field>
+  <!-- <mat-divider></mat-divider> -->
+  <mat-card-header class="mb-3">
+      <mat-card-title>
+        <img src="../../../assets/image/iso.PNG" class="d-inline-block iso"  width="13%" height="100">
+        <img src="../../../assets/image/mini_logo.png" class="d-inline-block iso mt-2" width="100" height="130">
+        <img src="../../../assets/image/slogan.PNG" class="d-inline-block iso float-right mt-5" width="30%" height="50">
+        <div class="text-center d-inline-block" style="width: 100%;">
+          <span class="ar" >طلب شبكات الاتاحة على الميكروويف</span>
+          <br>
+          <span class="eng"> Microwave Service Request Form</span>
+        </div>
+      </mat-card-title>
+  </mat-card-header>
+          <mat-grid-list cols="5" rowHeight="150px" class="mx-3">
+            <mat-grid-tile>
+              <div class="controles-container">
+                <mat-label> Name of Sales Manager :</mat-label>
+                <mat-label> Contact:</mat-label>
+
+                </div>
+                </mat-grid-tile>
+
+                <mat-grid-tile   colspan="3">
+                  <div class="controles-container pt-4">
+                    <mat-form-field>
+                      <input formControlName="managerName" matInput [readonly]="isReadonly">
+                      <mat-error>This field is mandatory.</mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <input formControlName="Contact" matInput [readonly]="isReadonly">
+                      <mat-error>This field is mandatory.</mat-error>
+                    </mat-form-field>
+                    </div>
+                    </mat-grid-tile>
+
+                <mat-grid-tile>
+                  <div class="controles-container">
+
+                    <mat-label class="text-right"> : اسم مدير المبيعات</mat-label>
+                <mat-label class="text-right"> : بيانات الاتصال  </mat-label>
+                </div>
+                </mat-grid-tile>
+                </mat-grid-list>
+
+
+<mat-card class="example-card">
+  <mat-card-header>
+      <mat-card-title>
+          Customer Information
+          <span class="float-right"> بيانات العميل</span>
+          </mat-card-title>
+          </mat-card-header>
+          <!-- <mat-divider></mat-divider> -->
+        <mat-grid-list cols="5" rowHeight="300px" class="mx-3">
+
+          <mat-grid-tile >
+            <div class="controles-container">
+              <input type="hidden" formControlName="$key">
+
+              <mat-label>Company Name :</mat-label>
+
+                <mat-label>Contact Name :</mat-label>
+
+                <mat-label>Email :</mat-label>
+                <mat-label>Mobile :</mat-label>
+                <mat-label>Other Information :</mat-label>
+
+
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="3" >
+            <div class="controles-container">
+              <mat-form-field>
+                  <input formControlName="CompanyName" matInput [readonly]="isReadonly">
+                  <mat-error>This field is mandatory in <strong>Arabic</strong>.</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                  <input formControlName="ContactName" matInput [readonly]="isReadonly">
+                  <mat-error>This field is mandatory in <strong>Arabic</strong>.</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                  <input formControlName="Email" matInput [readonly]="isReadonly">
+                  <mat-error>Invalid email address.</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+
+                  <input formControlName="Mobile" matInput [readonly]="isReadonly">
+                  <mat-error *ngIf="form.controls.Mobile.errors?.required">This field is mandatory.</mat-error>
+                  <mat-error *ngIf="form.controls.Mobile.errors?.minlength">Minimum 11 charactors needed.</mat-error>
+                  <mat-error *ngIf="form.controls.Mobile.errors?.pattern">Numbers only.</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+
+                  <textarea formControlName="OtherInformation"  matInput [readonly]="isReadonly">
+                    </textarea>
+                </mat-form-field>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="controles-container">
+
+              <mat-label class="text-right">:  اسم الشركة بالسجل التجاري </mat-label>
+
+                <mat-label class="text-right">:  الاسم </mat-label>
+
+                <mat-label class="text-right">: البريد الالكتروني</mat-label>
+                <mat-label class="text-right">:  الموبايل </mat-label>
+
+               <mat-label class="text-right"> : بيانات اخرى </mat-label>
+
+
+
+
+            </div>
+          </mat-grid-tile>
+
+        </mat-grid-list>
+        </mat-card>
+        <mat-card class="example-card">
+          <mat-card-header>
+              <mat-card-title>
+                  Requested Service Data
+                  <span class="float-right"> بيانات الخدمة المطلوبه</span>
+
+                  </mat-card-title>
+                  </mat-card-header>
+
+      <mat-grid-list cols="5" rowHeight="300px" class="mx-3">
+        <mat-grid-tile >
+          <div class="controles-container">
+            <mat-label class="mb-4">Requested Service / Speed :</mat-label>
+
+
+              <mat-label>Number of Circuits :</mat-label>
+
+              <mat-label>Full Address :</mat-label>
+              <mat-label>Exchange Name :</mat-label>
+
+              <mat-label>Nearest Fixed Line Number :</mat-label>
+
+              <mat-label>Expected Upgrades :</mat-label>
+
+            </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3" >
+              <div class="controles-container" >
+
+                <mat-radio-group   aria-label="Select an option" formControlName="serviceSpeedID"  [disabled]="isReadonly">
+                  <mat-radio-button *ngFor="let choice of serviceSpeedList" [value]=choice.id >{{choice.value}}</mat-radio-button>
+
+                </mat-radio-group>
+                <mat-error *ngIf="form.controls.serviceSpeedID.errors?.required">This speed is mandatory.</mat-error>
+
+                <mat-form-field>
+
+                  <input type="number" formControlName="NumberofCircuits" matInput [readonly]="isReadonly">
+                  <mat-error>This field is mandatory.</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+
+                  <input formControlName="FullAddress" matInput [readonly]="isReadonly">
+                  <mat-error>This field is mandatory in <strong>Arabic</strong>.</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+
+                  <input formControlName="ExchangeName" matInput [readonly]="isReadonly">
+
+                </mat-form-field>
+                <mat-form-field>
+
+                  <input formControlName="NearestFixedLineNumber" matInput [readonly]="isReadonly">
+                  <mat-error>This field is mandatory.</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+
+                  <input formControlName="ExpectedUpgrades" matInput [readonly]="isReadonly" >
+                  <mat-error>This field is mandatory.</mat-error>
+                </mat-form-field>
+                </div>
+                </mat-grid-tile>
+            <mat-grid-tile >
+              <div class="controles-container">
+
+                <mat-label class="text-right mb-3">: السرعة المطلوبة </mat-label>
+                <mat-label class="text-right mb-2">:  عدد الدوائر </mat-label>
+                <mat-label class="text-right">:  عنوان الخدمة </mat-label>
+              <mat-label class="text-right">: اسم السنترال </mat-label>
+
+              <mat-label class="text-right mb-1">: اقرب تليفون </mat-label>
+
+              <mat-label class="text-right">: الترقية المتوقعة</mat-label>
+
+
+
+
+            </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="5" >
+
+
+                <div class="feed w-100 p-2">
+                  <mat-label class="inquire w-100 text-right">  (ملاحظات ( رجاء كتابة أي ملاحظات أو أستفسارات</mat-label>
+                <!-- <mat-label class="d-block"> </mat-label> -->
+          <div class="divide d-inline-block">
+            <div class="add-bottom-padding">
+              <mat-label class="radio-group-label">Contract Period: </mat-label>
+              <mat-form-field class="example-section d-inline-block" >
+                <input formControlName="contractPeriod" matInput [readonly]="isReadonly" >
+
+              </mat-form-field>
+              </div>
+
+                <div class="add-bottom-padding">
+                  <mat-label class="radio-group-label">Circuit Protection : </mat-label>
+                  <!-- <mat-radio-group   formControlName="CircuitProtection">
+                    <mat-radio-button [value]=true>Yes</mat-radio-button>
+                    <mat-radio-button [value]=false>No</mat-radio-button>
+                  </mat-radio-group> -->
+                  <section class="example-section d-inline-block  mt-1" >
+                    <mat-radio-group   formControlName="CircuitProtection" [disabled]="isReadonly">
+                      <mat-radio-button [value]=true>Yes</mat-radio-button>
+                      <mat-radio-button [value]=false>No</mat-radio-button>
+                    </mat-radio-group>
+                    <!-- <mat-checkbox  value="true">Yes</mat-checkbox>
+                    <mat-checkbox  value="false">No</mat-checkbox> -->
+
+                   </section>
+                </div>
+                <div class="add-bottom-padding">
+                  <mat-label class="radio-group-label">Path Protection : </mat-label>
+                  <!-- <mat-radio-group   formControlName="PathProtection">
+                    <mat-radio-button [value]=true>Yes</mat-radio-button>
+                    <mat-radio-button [value]=false>No</mat-radio-button>
+                  </mat-radio-group> -->
+                  <section class="example-section d-inline-block "    >
+                    <mat-radio-group   formControlName="PathProtection" [disabled]="isReadonly">
+                      <mat-radio-button [value]=true>Yes</mat-radio-button>
+                      <mat-radio-button [value]=false>No</mat-radio-button>
+                    </mat-radio-group>
+                   <!-- <mat-checkbox  value="true">Yes</mat-checkbox>
+                   <mat-checkbox  value="false">No</mat-checkbox> -->
+
+                  </section>
+                </div>
+              </div>
+                <mat-form-field floatLabel="always" class="d-inline-block divide" >
+                  <mat-label> </mat-label>
+
+                  <textarea formControlName="notes" row="10" class="text-left"  [readonly]="isReadonly" matInput placeholder="write your Notes here">
+                  </textarea>
+
+                </mat-form-field>
+              </div>
+
+
+              </mat-grid-tile>
+
+            </mat-grid-list>
+            <mat-grid-list cols="2" rowHeight="200px" class="mx-3">
+              <mat-grid-tile>
+                <div class="controles-container">
+                  <mat-label class="w-25">Name : </mat-label>
+                  <mat-form-field  class="w-75">
+
+                    <input matInput [readonly]="true" >
+                    <mat-error>This field is mandatory in <strong>Arabic</strong>.</mat-error>
+
+                  </mat-form-field>
+                  <mat-label  class="w-25">Signature : </mat-label>
+                  <mat-form-field  class="w-75">
+
+                    <input  matInput [readonly]="true"  >
+                    <mat-error>This field is mandatory in <strong>Arabic</strong>.</mat-error>
+                  </mat-form-field>
+                  <div id="hideStatusId">
+                  <mat-label  class="w-25" [hidden]="hideflag">Status :</mat-label>
+                  <mat-form-field  class="w-75" [hidden]="hideflag">
+
+                    <mat-select formControlName="statusId" [disabled]="!adminflag0">
+                      <mat-option>None</mat-option>
+                      <ng-container *ngFor="let item of statusList">
+                        <mat-option [value]="item.id">{{item.value}}</mat-option>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                  </div>
+                  </mat-grid-tile>
+                  <mat-grid-tile>
+                    <div class="controles-container">
+
+                      <mat-form-field  class="w-75">
+
+                        <input matInput [readonly]="true" >
+                        <mat-error>This field is mandatory in <strong>Arabic</strong>.</mat-error>
+
+                      </mat-form-field>
+                      <mat-label class="w-25 text-right">   :الاسم    </mat-label>
+                      <mat-form-field  class="w-75">
+
+                        <input  matInput [readonly]="true"  >
+                        <mat-error>This field is mandatory in <strong>Arabic</strong>.</mat-error>
+                      </mat-form-field>
+                      <mat-label  class="w-25 text-right"> : التوقيع   </mat-label>
+                      <div id="hideStatusId0">
+                        <mat-label  class="w-25" [hidden]="hideflag">Action :</mat-label>
+                        <mat-form-field  class="w-75" [hidden]="hideflag">
+
+                          <mat-select formControlName="acceptstatusId" >
+                            <mat-option>None</mat-option>
+                            <ng-container *ngFor="let item of actionstatusList">
+                              <mat-option [value]="item.id">{{item.value}}</mat-option>
+                            </ng-container>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+
+                      </div>
+                      </mat-grid-tile>
+                  </mat-grid-list>
+            </mat-card>
+
+<!-- <mat-card class="example-card">
+  <mat-card-header>
+      <mat-card-title>
+         Signature
+          </mat-card-title>
+          </mat-card-header> -->
+
+      <!-- <mat-grid-list cols="3" rowHeight="80px" class="mx-3">
+        <mat-grid-tile>
+          <div class="controles-container">
+            <mat-form-field floatLabel="always">
+              <mat-label>Name / الاسم </mat-label>
+              <input matInput [readonly]="isReadonly" >
+              <mat-error>This field is mandatory.</mat-error>
+
+            </mat-form-field>
+
+
+            </div>
+            </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="controles-container">
+            <mat-form-field floatLabel="always">
+              <mat-label>Signature / التوقيع </mat-label>
+              <input  matInput [readonly]="isReadonly"  >
+              <mat-error>This field is mandatory.</mat-error>
+            </mat-form-field>
+            </div>
+            </mat-grid-tile>
+            <mat-grid-tile  [hidden]="hideflag">
+              <div class="controles-container" id='hideStatusId'>
+                <mat-form-field floatLabel="always">
+                  <mat-label>Status</mat-label>
+                  <mat-select formControlName="statusId"    placeholder="Status">
+                    <mat-option>None</mat-option>
+                    <ng-container *ngFor="let item of statusList">
+                      <mat-option [value]="item.id">{{item.value}}</mat-option>
+                    </ng-container>
+                  </mat-select>
+                </mat-form-field>
+                </div>
+                </mat-grid-tile>
+
+            </mat-grid-list> -->
+
+
+     <!-- </mat-card>
+     <mat-card class="example-card" >
+      <div  [hidden]="hideflag"> -->
+
+
+               <mat-grid-list cols="1" rowHeight="50px" [hidden]="hideflag">
+
+                  <mat-grid-tile>
+                    <div class="controles-container" id='SubmitId'>
+                         <div class="text-right">
+                           <button mat-button class="mr-1 bac" type="button" routerLink="../microwave">Back</button>
+
+                         <button mat-button     class="sub" type="submit">Submit</button>
+                          </div>
+
+                        </div>
+                        </mat-grid-tile>
+                        </mat-grid-list>
+
+                        <mat-grid-list cols="1" rowHeight="50px">
+
+                          <mat-grid-tile>
+                            <div class="controles-container text-center" >
+                              <span class="address"> القرية الذكية ,الكيلو28, طريق القاهرة اسكندرية الصحراوي, الجيزة 12577, مصرB7  </span>
+                              </div>
+                              </mat-grid-tile>
+                              </mat-grid-list>
+                      <!-- </div> -->
+         <!-- </mat-card> -->
+    </form>
+</mat-card>
+</div>
+  </mat-tab>
+  <mat-tab label="Comments" *ngIf="param1" >
+    <form [formGroup]="formComment" class="normal-form" (submit)="saveComment()">
+      <div class="Comment w-50">
+    <mat-form-field floatLabel="always" class="w-100">
+      <mat-label>Comment</mat-label>
+      <textarea matInput  formControlName="comment" placeholder="write your comment here" rows="3"></textarea>
+      <mat-error>This field is mandatory.</mat-error>
+    </mat-form-field>
+
+    <button mat-button class="sub subcoment" [disabled]="formComment.invalid" type="submit">Submit</button>
+  </div>
+  </form>
+  <app-loader *ngIf="dataSource==null;else table"></app-loader>
+  <ng-template #table>
+  <div class="example-container mat-elevation-z8" #TABLE>
+    <!-- <div class="mat-elevation-z8"> -->
+      <mat-table [dataSource]="dataSourceComment"  class="shadow" matSort #table>
+
+
+        <ng-container matColumnDef="comment">
+          <mat-header-cell *matHeaderCellDef mat-sort-header > {{'comments'  }} </mat-header-cell>
+            <mat-cell *matCellDef="let element" title="{{element.comment}} " data-label="comment"> {{element.comment?.length>50?  (element.comment | slice:0:50 )+' ...' :element.comment }} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="creationDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Creation date'   }}</mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="Creation date"> {{element.creationDate| date:'medium'}} </mat-cell>
+              </ng-container>
+
+          <ng-container matColumnDef="createdBy">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Created by'  }} </mat-header-cell>
+           <mat-cell *matCellDef="let element" data-label="Created by"> {{element.createdBy}}   </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="createdByTeam">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Created by team'  }}</mat-header-cell>
+             <mat-cell *matCellDef="let element" data-label="Created by team"> {{element.createdByTeam}} </mat-cell>
+             </ng-container>
+
+    <ng-container matColumnDef="noData">
+      <mat-footer-cell *matFooterCellDef colspan="1">
+         No Data ...
+      </mat-footer-cell>
+
+  </ng-container>
+  <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSourceComment.data.length==0 && dataSourceComment !=null)}"></mat-footer-row>
+
+        <mat-header-row *matHeaderRowDef="displayedCommentColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedCommentColumns;">
+        </mat-row>
+      </mat-table>
+
+      <mat-paginator  [pageSizeOptions]="[30, 50, 100]"   [pageSize]="30" ></mat-paginator>
+
+    </div>
+  </ng-template>
+     </mat-tab>
+  <mat-tab label="File Upload" *ngIf="param1" >
+
+    <div class="mb-4" >
+      <div  class="import-excel d-inline-block">
+          <div class="input-group">
+              <label  class="btn browse">
+                  <input class="file-upload-input"  #fileInput   name="file" type="file"  for="browse" (change)="uploadFileEvt($event)">
+             Browse
+                 </label>
+              <input class="form-control rounded-0" placeholder="Choose File..." [(ngModel)]="fileAttr" type="text"  id="browse">
+          </div>
+
+          <!-- <p class="help-block" style="display:block;">
+          <small>error msg.</small></p> -->
+
+      </div>
+      <span  class="input-group-btn d-inline-block">
+          <label  class="btn  file-upload-btn" matTooltip="Upload">
+              <input class="file-upload-input" type="button" (click)="Upload()" >
+          <mat-icon>upload</mat-icon>
+             </label>
+         </span>
+         </div>
+
+
+         <app-loader *ngIf="dataSource==null;else table"></app-loader>
+         <ng-template #table>
+         <div class="example-container mat-elevation-z8" #TABLE>
+          <!-- <div class="mat-elevation-z8"> -->
+            <mat-table [dataSource]="dataSource" matSort  class="shadow" #table>
+
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef  > {{'name'  }} </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="Value"> {{element.name}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Download">
+            <mat-header-cell *matHeaderCellDef> {{'Download'}}</mat-header-cell>
+            <mat-cell *matCellDef="let row" data-label="Download">
+                <button mat-button class="text-success font-weight-bolder" matTooltip="download"   (click)="onDownLoad(row)">
+                    <mat-icon>download</mat-icon>
+                </button>
+
+            </mat-cell>
+
+        </ng-container>
+        <ng-container matColumnDef="creationDate">
+          <mat-header-cell *matHeaderCellDef  > {{'Creation date'}}</mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="Creation date"> {{element.creationDate| date:'medium'}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="createdByTeam">
+                <mat-header-cell *matHeaderCellDef  > {{'Created by team'  }}</mat-header-cell>
+               <mat-cell *matCellDef="let element" data-label="Created by team"> {{element.createdByTeam}} </mat-cell>
+               </ng-container>
+          <ng-container matColumnDef="createdBy">
+           <mat-header-cell *matHeaderCellDef  > {{'Created by'  }} </mat-header-cell>
+           <mat-cell *matCellDef="let element" data-label="Created by"> {{element.createdBy}} </mat-cell>
+            </ng-container>
+        <ng-container matColumnDef="noData">
+          <mat-footer-cell *matFooterCellDef colspan="2">
+             No Data ...
+          </mat-footer-cell>
+
+      </ng-container>
+
+      <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource.data.length==0 && dataSource !=null)}"></mat-footer-row>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;">
+              </mat-row>
+            </mat-table>
+          <!-- </ng-template> -->
+            <mat-paginator  [pageSizeOptions]="[30, 50, 100]"   [pageSize]="30" ></mat-paginator>
+
+          </div>
+</ng-template>
+  </mat-tab>
+</mat-tab-group>
+
+
+<app-loader *ngIf="loading"></app-loader>

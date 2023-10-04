@@ -1,0 +1,100 @@
+
+ <mat-card class="example-card">
+  <mat-card-header>
+      <mat-card-title>
+        Status charts
+      </mat-card-title>
+  </mat-card-header>
+  <mat-divider class="my-1"></mat-divider>
+  <!-- first card -->
+<div class="row py-5 justify-content-center ">
+
+  <!-- second card -->
+  <!-- <div class="col-xl-3 col-md-4 col-sm-4 mb-4"> -->
+    <div class="col-xl-12 col-md-12 col-sm-12 mb-4">
+    <div class="card border-left-info shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Microwave ({{waveCount}})</div>
+            <div class="row no-gutters align-items-center" *ngFor="let item of wavelist;">
+              <div class="col-auto" >
+
+                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{item.key}}({{item.value}})</div>
+              </div>
+              <div class="col" >
+                <div class="progress progress-sm mr-2">
+                  <div class="progress-bar bg-info" role="progressbar" [style.width.%]="(item.value/waveCount)*100" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-auto">
+            <mat-icon>router</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="col-xl-3 col-md-4 col-sm-4 mb-4"> -->
+    <div class="col-xl-12 col-md-12 col-sm-12 mb-4">
+    <div class="card border-left-info shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Fiber ({{FiberCount}})</div>
+            <div class="row no-gutters align-items-center" *ngFor="let item of fiberlist;"  >
+              <div class="col-auto" >
+
+                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{item.key}}({{item.value}})</div>
+              </div>
+              <div class="col" >
+                <div class="progress progress-sm mr-2">
+                  <div class="progress-bar bg-info" role="progressbar" [style.width.%]="(item.value/FiberCount)*100" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-auto">
+            <mat-icon>cable</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+       <!--Third     -->
+       <!-- <div class="col-xl-3 col-md-4 col-sm-4 mb-4"> -->
+        <div class="col-xl-12 col-md-12 col-sm-12 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Copper ({{CopperCount}})</div>
+                <div class="row no-gutters align-items-center" *ngFor="let item of copperList;">
+                  <div class="col-auto" >
+
+                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{item.key}}({{item.value}})</div>
+                  </div>
+                  <div class="col" >
+                    <div class="progress progress-sm mr-2">
+                      <div class="progress-bar bg-info" role="progressbar" [style.width.%]="(item.value/CopperCount)*100" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-auto">
+                <mat-icon>power_input</mat-icon>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+</div>
+</mat-card>
+
+

@@ -1,0 +1,40 @@
+.btn-dialog-close{
+    width: 25px;
+    min-width: 0px !important;
+    height: 25px;
+    padding: 0px !important;
+    background-color: transparent;
+border: 0;
+outline: none;
+color: #fff;
+    line-height: 1;
+  }
+  btn-dialog-close:focus ,.content-container:focus .btn-dialog-close{
+    overflow: hidden;
+    border: none !important;
+    outline: none !important;
+  }
+  /* .cdk-global-overlay-wrapper  .cdk-overlay-pane.confirm-dialog-container{
+    position: absolute !important;
+    top:20px !important;
+} */
+mat-toolbar{
+  height: 45px;
+  /* background:-webkit-linear-gradient(#fcfcfc, #eeeacf);
+  background:-o-linear-gradient(#fcfcfc, #eeeacf);
+  background:-moz-linear-gradient(#fcfcfc, #eeeacf);
+  background:linear-gradient(#fcfcfc, #eeeacf);
+  color:#ba0000 !important; */
+  background: var(--main-color);
+    color: #fff;
+
+}
+span{
+  padding-left: 10px;
+  font-family: 'Electrolize', sans-serif;
+  font-weight: 800;
+}
+#trash{
+  color:#fff !important;
+  font-size: 25px;
+}

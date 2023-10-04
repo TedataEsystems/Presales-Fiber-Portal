@@ -1,0 +1,149 @@
+span{
+  padding: 10px 5px;
+  font-size: 25px;
+  font-weight: bold;
+  color: #232a2e;
+  text-shadow: 2px 2px 2px grey;
+}
+span.total{
+  /* position: absolute;
+    left: 44%;
+    top: 50%;
+    transform: translateY(-50%); */
+    display: block;
+    width: 90px;
+    margin: auto;
+    font-size: 20px;
+    font-weight: bold;
+    color: gray;
+    margin-top: 10px
+}
+span.tot{
+  position: absolute;
+  left: 44%;
+  top: 45%;
+  transform: translatey(-50%);
+  font-size: 18px;
+  font-weight: bold;
+  color: gray;
+}
+.mat-badge-medium.mat-badge-above .mat-badge-content {
+  top: 5px !important;
+}
+
+.mat-badge-medium .mat-badge-content {
+  width: 22px ;
+  height: 22px;
+  line-height: 2px !important;
+  font-size: 10px !important;
+}
+
+
+
+
+.input-group{
+height: 35px;
+}
+
+
+
+
+.mat-button{
+  min-width: 24px !important;
+}
+
+
+/* new */
+.border-left-info {
+  border-left: .25rem solid  var(--main-color)!important;
+}
+.align-items-center {
+  align-items: center!important;
+}
+.col-auto {
+  flex: 0 0 auto;
+  width: auto;
+  max-width: 100%;
+}
+.text-xs {
+  font-size: .8rem;
+}
+
+.text-info {
+  color: var(--main-color)!important;
+}
+.bg-info {
+  /* background-color: #17a2b8 !important; */
+  background:linear-gradient(45deg, #8e2279,#80868b, #d7d7d7);
+  /* background: linear-gradient(45deg, #2f3e42, #9bd6e5); */
+}
+.progress-sm {
+  height: .9rem;
+}
+.box{
+margin-top: -40px;
+position: relative;
+background: #fff;
+padding-top: 50px;
+}
+
+.detailscharttxt {
+width: 100%;
+height: 60px;
+/* float: left; */
+margin-bottom: 5px;
+
+}
+.breakline {
+border: 1px solid #efefef;
+width: 100%;
+float: left;
+margin-top: 10px;
+}
+.detailschartblocks {
+border-right: 1px solid #e1e1e1;
+width: 50%;
+height: 60px;
+float: left;
+
+}
+.detailschartblocks:last-child {
+border-right: none;
+}
+.lblevaulatestat {
+text-align: center;
+display: block;
+padding: 18px;
+font-size: 22px;
+color: #fff;
+background-color:#19374b;
+}
+.lblevaulatestat2 {
+text-align: center;
+display: block;
+padding: 17px;
+font-size: 22px;
+color: #333;
+}
+.lblbigtxt {
+font-size: 25px;
+width: 100%;
+float: left;
+text-align: center;
+color: #3a3a3a;
+}
+.lblbigtxtunder {
+font-size: 20px;
+font-weight: 500;
+width: 100%;
+float: left;
+text-align: center;
+color: var(--font-color);
+}
+.lblevaulatestat3 {
+text-align: center;
+display: block;
+padding: 17px;
+font-size: 22px;
+color: #c93a3a;
+}

@@ -1,0 +1,112 @@
+<!-- <div class="search-div" fxLayout="row">
+  <mat-list-item class="header-tag" routerLink="/" > Home </mat-list-item>/
+   <mat-list-item class="header-tag" > Service Speed <form action="" method="post"></form>  </mat-list-item>/
+  <mat-list-item class="header-tag active" > <span *ngIf="param1 === '1'">Copper</span>  <span *ngIf="param1 === '2'">Fiber</span> <span *ngIf="param1 === '3'">Microwave</span>    </mat-list-item>
+
+</div>
+   -->
+
+
+  <mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title>
+          <span *ngIf="param1 === '1'">Copper</span>  <span *ngIf="param1 === '2'">Fiber</span> <span *ngIf="param1 === '3'">Microwave</span>
+          Service Speed
+        </mat-card-title>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+  <!-- <div class="search-div" fxLayout="row">
+       <mat-form-field class="select">
+          <mat-select #select placeholder="select list" (selectionChange)="apply($event.value)">
+            <mat-option *ngFor="let version of versions" [value]="version">
+              {{version}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div> -->
+    <!-- </mat-card> -->
+
+      <!-- <div *ngIf="selected"> -->
+      <div class="search-div" fxLayout="row" >
+        <div class="generate">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>{{'Value'  }}</mat-label>
+                <input type="text"  id="picvalid" matInput formControlName="value" [value]="valdata" >
+                <input type="hidden" id="picid" formControlName="id"  [value]="valuid"  placeholder="">
+
+
+              </mat-form-field><span style="margin-left: 10px;"> </span>
+
+              <mat-form-field class="example-full-widtho">
+                <mat-label>{{'Order'  }}</mat-label>
+
+                <input type="number"  id="piclid" matInput formControlName="orderInList"  >
+
+
+              </mat-form-field>
+
+              <button type="submit" mat-raised-button    class="sub search example-full-widths">{{'Save'  }}</button>
+            </form>
+          </div>
+        <mat-form-field class="search-form-field" floatLabel="never">
+          <input matInput [(ngModel)]="searchKey" placeholder="{{'Search'}}" autocomplete="off" (keyup)="applyFilter($event)">
+          <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+               <mat-icon>close</mat-icon>
+           </button>
+
+       </mat-form-field>
+      </div>
+       <!-- <div class="spinner" *ngIf="loading;else box">
+          <mat-spinner></mat-spinner>
+        </div>
+
+      <ng-template #box> -->
+        <div class="example-container mat-elevation-z8" #TABLE>
+      <!-- <div class="mat-elevation-z8"> -->
+        <mat-table [dataSource]="dataSource" matSort #table>
+
+         <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'No ' }}</mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="No"> {{element.id}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="value">
+        <mat-header-cell *matHeaderCellDef mat-sort-header4> {{'Value'  }} </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="Value"> {{element.value}} </mat-cell>
+      </ng-container>
+
+
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="orderInList">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Order in list'  }} </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="desc" data-label="Order in list"> {{element.orderInList}} </mat-cell>
+      </ng-container>
+
+     <!-- Weight Column -->
+     <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Action'  }}</mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Action ">
+          <button mat-button (click)="onEdit(row)" class="text-success" matTooltip="Edit">
+              <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-button color="warn" (click)="onDelete(row.id)" matTooltip="Delete">
+            <mat-icon>delete_forever</mat-icon>
+        </button>
+
+      </mat-cell>
+      </ng-container>
+
+          <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: columnsToDisplay;">
+          </mat-row>
+        </mat-table>
+      <!-- </ng-template> -->
+
+      </div>
+   <mat-paginator [pageSizeOptions]="[20, 50, 100]"   [pageSize]="20"   showFirstLastButtons></mat-paginator>
+
+    </mat-card>

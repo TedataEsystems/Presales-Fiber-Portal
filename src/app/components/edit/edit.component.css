@@ -1,0 +1,23 @@
+.submit{
+   
+    color: slategray;
+  
+}
+mat-radio-button{
+    margin:0 5px;
+    vertical-align: sub;
+}
+#radio-group-label{
+    margin: 5px 5px 5px 0;
+}
+.mat-icon-button{
+    color: #a0a68d !important;
+    
+}
+.option:hover{
+    cursor: pointer;
+}
+
+mat-card{
+    height: 1900px;
+}

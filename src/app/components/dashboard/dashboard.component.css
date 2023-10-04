@@ -1,0 +1,158 @@
+.mat-stroked-button:not(.mat-button-disabled) {
+    border-color: rgb(160 162 78);
+}
+.hi{
+  background-color: #9ead9a;
+ 
+}
+.generate{
+  position: absolute;
+  right: 25px;
+}
+/* .mat-icon{
+    text-shadow: 3px 3px 5px #40403e;
+  } */
+  .mat-icon.beig{
+    text-shadow: 0px 0px 0px transparent; 
+  }
+  .cdk-overlay-connected-position-bounding-box {
+    position: absolute;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    min-width: 1px;
+    min-height: 1px;
+    right: 0 !important;
+}
+.separator{
+  color: #f4f3f3;
+  font-size: 17px;
+ 
+}
+.option{
+  font-size: 12px;
+  color:#99996d
+}
+.option:hover{
+  cursor: pointer;
+  color: #c4c4a2;
+  
+}
+.input-group{
+  height: 35px;
+}
+span.input-group-btn {
+  background: #ccc;
+  height: 35px;
+}
+.file-upload-btn {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  height: 34px;
+  color:#fff;
+  background: linear-gradient(45deg, #0d2f3c, #c0c19e);
+}
+.help-block {
+  display: block;
+  margin-top: -4px;
+  margin-bottom: 10px;
+  color: crimson;
+}
+.file-upload-input {
+    bottom: 0;
+    cursor: inherit;
+    font-size: 1000px;
+    margin: 0;
+    opacity: 0;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 100%;
+}
+.form-control{
+  height: 35px;
+  box-shadow: inset 2px 2px 6px #d4d4b6, inset -2px -2px 6px #d4d4b6;
+  border: 0;
+}
+.mat-menu-item{
+    padding: 0 5px !important;
+}
+li{
+    border-bottom: 1px solid #eee;
+}
+li:last-of-type{
+    border-bottom: 0 !important;
+}
+
+
+
+#uploadFile {
+    top: 0px;
+    left: 0px;
+    width: 100%;    
+    z-index: 9;
+    opacity: 0;
+    height: 100%;
+    cursor: pointer;
+    position: absolute;
+    
+  }
+  #upload{
+    background-color: transparent;
+    border: 1px dashed #252131;
+    position: static;
+    margin: 20px auto 10px auto;
+    width: 140px;
+    color: #252131;
+    font-size: 20px;
+    font-weight: 700;
+  
+  }
+  .mat-button{
+    min-width: 24px !important;
+}
+
+
+  
+.btn-color{
+    color: #fff;
+    background-color: #3a5a81;
+    width: 120px;
+    text-align: center;
+   }
+   .field{
+     padding: 10px 15px;
+  
+   }
+   .data{
+    border: 1px dashed #3a5a81;
+    padding: 10px 15px;
+    font-size: 13px;
+    margin: 0 20px;
+    font-family: 'ZCOOL XiaoWei', serif;
+   }
+   .sheet{
+     width: 100% !important;
+   }
+   mat-header-row {
+    min-height: 50px !important;
+    background-color: #c4c4a2;
+  }
+  .mat-toolbar-row, .mat-toolbar-single-row {
+    height: 40px !important;
+}
+.add:hover{
+  cursor: pointer;
+}
+.browse{
+  height: 35px;
+    box-shadow: inset 0px 0px 6px #d4d4b6, inset 0px 0px 6px #d4d4b6;
+    border: 0;
+    background: #d5d37c;
+    border-radius: 2px;
+    z-index: 1;
+    
+    color: #fff;
+}
