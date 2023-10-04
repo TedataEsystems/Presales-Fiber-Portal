@@ -203,11 +203,13 @@ debugger;
      var elem = document.getElementById('hideStatusId') as HTMLElement;
      var elemA = document.getElementById('hideStatusId0') as HTMLElement;
      var elemB = document.getElementById('hideStatusId1') as HTMLElement;
+     var elemc = document.getElementById('hideStatusId2') as HTMLElement;
      var elem0 = document.getElementById('SubmitId') as HTMLElement;
-      elem.style.display = 'none';
+       elem.style.display = 'none';
       elem0.style.display = 'none';
       elemA.style.display = 'none';
       elemB.style.display = 'none';
+      elemc.style.display = 'none';
 
       const pdfTable = this.pageEl?.nativeElement;
 let pdf =new jsPDF();
@@ -264,6 +266,7 @@ let pdf =new jsPDF();
        elem0.style.display = 'block';
        elemA.style.display = 'block';
        elemB.style.display = 'block';
+       elemc.style.display = 'block';
         }).catch(error => {
         });
 
