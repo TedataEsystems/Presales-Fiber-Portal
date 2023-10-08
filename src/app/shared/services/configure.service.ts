@@ -1,14 +1,16 @@
 
 import { Injectable } from '@angular/core';
 import {Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConfigureService {
 //Apiurl:string = "https://localhost:44339/api/";//
-   Apiurl:string = "http://172.29.29.80:6060/api/";
-   
+  //  Apiurl:string = "http://172.29.29.80:6060/api/";
+
+  Apiurl=`${environment.Apiurl}`
 //
 public pIn:number=0;
   constructor(  private router: Router)
