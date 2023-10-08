@@ -78,7 +78,7 @@
 <ng-template #table> -->
     <div class="example-container mat-elevation-z8">
 
-        <mat-table [dataSource]="dataSource" #table matSort  multiTemplateDataRows (matSortChange)="sortData($event)" matSortActive="name" matSortDirection="asc" matSortDisableClear>
+        <mat-table [dataSource]="dataSource" #table matSort  (matSortChange)="sortData($event)" matSortActive="name" matSortDirection="asc" matSortDisableClear>
             <ng-container matColumnDef="action">
                 <mat-header-cell *matHeaderCellDef> {{'Action'}}</mat-header-cell>
                 <mat-cell *matCellDef="let row" data-label="Action">
@@ -218,11 +218,10 @@
 
             <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource.data.length==0 && dataSource !=null)}"></mat-footer-row>
             <mat-header-row *matHeaderRowDef="displayedColumns2"></mat-header-row>
-            <!-- <mat-row *matRowDef="let row; columns: displayedColumns2;"></mat-row> -->
-            <mat-row *matRowDef="let row; columns: displayedColumns2;" class="student-element-row"
-            [class.student-expanded-row]="row.isExpanded"></mat-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns2;"></mat-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns2;" ></mat-row>
              <!-- Extra row to show detail content column -->
-            <mat-row *matRowDef="let row; columns: ['expandedDetail']" class="student-detail-row"></mat-row>
+
 
         </mat-table>
 </div>
