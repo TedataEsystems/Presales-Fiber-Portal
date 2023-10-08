@@ -14,8 +14,8 @@ import { ConfigureService } from 'src/app/shared/services/configure.service';
 
 @NgModule({
   declarations: [
-    AppComponent,
-   
+    AppComponent
+
   ],
   imports: [
     BrowserModule,
@@ -23,8 +23,8 @@ import { ConfigureService } from 'src/app/shared/services/configure.service';
     BrowserAnimationsModule,
    LayoutModule,
    LoginModule
-    
-  
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]

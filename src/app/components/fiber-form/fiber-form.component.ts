@@ -367,7 +367,7 @@ console.log(this.datafiles);
 
       });
     }
-
+this.form;
   }
   ngAfterViewInit() {
 
@@ -388,25 +388,25 @@ console.log(this.datafiles);
   });
   form: FormGroup = new FormGroup({
     $key: new FormControl(null),
-    managerName: new FormControl(''),
+    managerName: new FormControl('',Validators.required),
     Contact: new FormControl(''),
     serviceTypeID: new FormControl(2),
-    ContactName: new FormControl('',  [Validators.required,Validators.pattern(this.RegExpAr)]),
-    CompanyName: new FormControl('', [Validators.required,Validators.pattern(this.RegExpAr)]),
+    ContactName: new FormControl('',[Validators.required,Validators.pattern(this.RegExpAr)]),
+    CompanyName: new FormControl('',[Validators.required,Validators.pattern(this.RegExpAr)]),
     OtherInformation: new FormControl(''),
     Email: new FormControl('', Validators.email),
     Mobile: new FormControl('',[Validators.required, Validators.minLength(11),Validators.pattern(/^-?(0|[0-9]\d*)?$/)]),
-    NumberofCircuits: new FormControl(0, Validators.required),
+    NumberofCircuits: new FormControl(0),
     FullAddress: new FormControl('', [Validators.required,Validators.pattern(this.RegExpAr)]),
     ExchangeName: new FormControl(''),
-    NearestFixedLineNumber: new FormControl('', Validators.required),
+    NearestFixedLineNumber: new FormControl(''),
     ExpectedUpgrades: new FormControl(''),
     contractPeriod: new FormControl(''),
     CircuitProtection: new FormControl(false),
     notes: new FormControl(''),
     PathProtection: new FormControl(false),
     PromisingArea: new FormControl(false),
-    serviceSpeedID: new FormControl(null,Validators.required),
+    serviceSpeedID: new FormControl('',Validators.required),
     numOfSpeed: new FormControl(null,Validators.required),
     statusId: new FormControl(null)   ,
     acceptstatusId: new FormControl(null),

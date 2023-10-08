@@ -14,13 +14,14 @@ import { statusComponent } from './components/status/status.component';
 import { TeamcontactComponent } from './components/teamcontact/teamcontact.component';
 import { ChartsComponent } from './components/charts/charts.component';
 import { LogdataComponent } from './components/logdata/logdata.component';
+import { FeedbackComponent } from './components/feedback/feedback.component';
 
 const routes: Routes = [
   {
     path: 'loginuser',
     component: LoginComponent,
   },
-  
+
   {
     path: '',
     component: LayoutComponent,
@@ -30,8 +31,8 @@ const routes: Routes = [
       path: '',
       component: ChartsComponent,
 
-    }, 
-   
+    },
+
     {
       path: 'servicespeed',
       component: ServiceSpeedComponent,
@@ -45,7 +46,7 @@ const routes: Routes = [
     {
       path: 'microwaveRequestForm',
       component: MicrowaveFormComponent,
-      
+
 
     },
     {
@@ -69,6 +70,11 @@ const routes: Routes = [
 
     },
     {
+      path: 'feedBack',
+      component: FeedbackComponent,
+
+    },
+    {
       path: 'status',
       component: statusComponent,
 
@@ -82,10 +88,10 @@ const routes: Routes = [
       path:'logs',
       component:LogdataComponent,
     }
-    
-  
-    
-    
+
+
+
+
     ]
   }
 ];

@@ -38,6 +38,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ChartsModule } from 'ng2-charts';
+import { FeedbackComponent } from 'src/app/components/feedback/feedback.component';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { ChartsModule } from 'ng2-charts';
     ServiceSpeedComponent,
     statusComponent,
     TeamcontactComponent,
-    LogdataComponent
+    LogdataComponent,
+    FeedbackComponent
 
   ],
   imports: [

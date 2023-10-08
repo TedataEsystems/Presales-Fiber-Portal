@@ -74,7 +74,7 @@
                     matInput
                     [readonly]="isReadonly"
                   />
-                  <mat-error>This field is mandatory.</mat-error>
+
                 </mat-form-field>
               </div>
             </mat-grid-tile>
@@ -139,7 +139,7 @@
                       matInput
                       [readonly]="isReadonly"
                     />
-                    <mat-error>Invalid email address.</mat-error>
+
                   </mat-form-field>
                   <mat-form-field>
                     <input
@@ -221,8 +221,9 @@
                       >{{ choice.value }}</mat-radio-button
                     >
                     <mat-error>This speed is mandatory.</mat-error>
+                    <!-- <mat-error *ngIf="(form.controls.serviceSpeedID?.errors?.required) && !isReadonly ">This speed is mandatory.</mat-error> -->
                   </mat-radio-group>
-                  <!-- <mat-error *ngIf="form.controls.serviceSpeedID.errors?.required">This speed is mandatory.</mat-error> -->
+
 
                   <mat-form-field>
                     <input
@@ -231,7 +232,7 @@
                       matInput
                       [readonly]="isReadonly"
                     />
-                    <mat-error>This field is mandatory.</mat-error>
+
                   </mat-form-field>
                   <mat-form-field>
                     <input
@@ -257,7 +258,7 @@
                       matInput
                       [readonly]="isReadonly"
                     />
-                    <mat-error>This field is mandatory.</mat-error>
+
                   </mat-form-field>
                   <mat-form-field>
                     <input
@@ -265,7 +266,7 @@
                       matInput
                       [readonly]="isReadonly"
                     />
-                    <mat-error>This field is mandatory.</mat-error>
+                  
                   </mat-form-field>
                 </div>
               </mat-grid-tile>
