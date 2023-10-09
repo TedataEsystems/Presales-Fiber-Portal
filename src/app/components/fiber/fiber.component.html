@@ -219,7 +219,7 @@
             <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource.data.length==0 && dataSource !=null)}"></mat-footer-row>
             <mat-header-row *matHeaderRowDef="displayedColumns2"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns2;"></mat-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns2;" ></mat-row>
+            <!-- <mat-row *matRowDef="let row; columns: displayedColumns2;" ></mat-row> -->
              <!-- Extra row to show detail content column -->
 
 

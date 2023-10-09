@@ -6,8 +6,187 @@
       </mat-card-title>
   </mat-card-header>
   <mat-divider class="my-1"></mat-divider>
-  <div class="example-container mat-elevation-z8">
+  <div class="example-container mt-2">
+    <form  [formGroup]="form" class="normal-form" (submit)="onSubmit()" >
+      <mat-grid-list cols="2" rowHeight="350px">
+        <mat-grid-tile>
+          <div class="controles-container">
+            <!-- <input type="hidden" formControlName="Id">
+            <input type="hidden" formControlName="CreationDate">
+            <input type="hidden" formControlName="CreatedBy">
+            <input type="hidden" formControlName="UpdateDate">
+            <input type="hidden" formControlName="UpdatedBy"> -->
+            <mat-label>Notes</mat-label>
+            <mat-form-field appearance="outline">
+              <textarea rows="14" formControlName="textData" matInput placeholder="write your notes here...."></textarea>
+            </mat-form-field>
 
+
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="controles-container">
+            <div class="import-excel d-inline-block">
+              <mat-label>Upload an Attachments</mat-label>
+              &nbsp; &nbsp;
+              <mat-hint> (e.g: e-mail )</mat-hint>
+              <div class="input-group">
+                <label class="btn browse">
+                  <input
+                    class="file-upload-input"
+                    formControlName="uploadAttach"
+                    #fileInputAttach
+                    name="file"
+                    type="file"
+                    for="browse"
+                    (change)="uploadFileEvtAttach($event)"
+                  />
+                  Browse
+                </label>
+                <input
+                  class="form-control rounded-0"
+                  placeholder="Choose File..."
+                  [(ngModel)]="fileAttrAttach"
+                  [ngModelOptions]="{standalone: true}"
+                  type="text"
+                  id="browse"
+                />
+              </div>
+            </div>
+            <!-- <span class="input-group-btn d-inline-block">
+              <label class="btn file-upload-btn" matTooltip="Upload">
+                <input class="file-upload-input" type="button" (click)="Upload()" />
+                <mat-icon>upload</mat-icon>
+              </label>
+            </span> -->
+
+            <div class="import-excel d-inline-block">
+              <mat-label>Upload Image</mat-label>
+              &nbsp; &nbsp;
+              <mat-hint> (e.g: .png , .jpg , .svg ,.gif)</mat-hint>
+              <div class="input-group">
+                <label class="btn browse">
+                  <input
+                    class="file-upload-input"
+                    #fileInputImg
+                    name="file"
+                    type="file"
+                    formControlName="uploadImag"
+                    multiple
+                    accept="image/*"
+                    for="browse"
+                    (change)="uploadFileEvtImg($event)"
+                  />
+                  Browse
+                </label>
+                <input
+                  class="form-control rounded-0"
+                  placeholder="Choose File..."
+                  [(ngModel)]="fileAttrImg"
+                  type="text"
+                  [ngModelOptions]="{standalone: true}"
+                  id="browse"
+                />
+              </div>
+            </div>
+            <!-- <span class="input-group-btn d-inline-block">
+              <label class="btn file-upload-btn" matTooltip="Upload">
+                <input class="file-upload-input" type="button" (click)="Upload()" />
+                <mat-icon>upload</mat-icon>
+              </label>
+            </span> -->
+
+
+            <div class="import-excel d-inline-block">
+              <mat-label>Upload Vedio or Audio</mat-label>
+              &nbsp; &nbsp;
+              <mat-hint>(e.g: .mp4 , .mp3 , etc... )</mat-hint>
+              <div class="input-group">
+                <label class="btn browse">
+                  <input
+                    class="file-upload-input"
+                    #fileInputVed
+                    name="file"
+                    formControlName="uploadVedio"
+                    type="file"
+                    for="browse"
+                    multiple
+                         accept="video/mp4,audio/*"
+                    (change)="uploadFileEvtVedio($event)"
+                  />
+                  Browse
+                </label>
+                <input
+                  class="form-control rounded-0"
+                  placeholder="Choose File..."
+                  [(ngModel)]="fileAttrVed"
+                  type="text"
+                  [ngModelOptions]="{standalone: true}"
+                  id="browse"
+                />
+              </div>
+
+            </div>
+            <!-- <span class="input-group-btn d-inline-block">
+              <label class="btn file-upload-btn" matTooltip="Upload">
+                <input class="file-upload-input" type="button" (click)="Upload()" />
+                <mat-icon>upload</mat-icon>
+              </label>
+            </span> -->
+            <div class="import-excel d-inline-block">
+              <mat-label>Upload Document</mat-label>
+              &nbsp; &nbsp;
+              <mat-hint> (e.g: .doc , .xlsx , .pdf , .txt )</mat-hint>
+
+              <div class="input-group">
+                <label class="btn browse">
+                  <input
+                    class="file-upload-input"
+                    #fileInputDoc
+                    name="file"
+                    formControlName="uploadDocument"
+                    type="file"
+                    multiple
+                    accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+                    text/plain, application/pdf"
+                    for="browse"
+                    (change)="uploadFileEvtDoc($event)"
+                  />
+                  Browse
+                </label>
+                <input
+                  class="form-control rounded-0"
+                  placeholder="Choose File..."
+                  [(ngModel)]="fileAttrDoc"
+                  [ngModelOptions]="{standalone: true}"
+                  type="text"
+                  id="browse"
+                />
+              </div>
+
+            </div>
+
+            <!-- <span class="input-group-btn d-inline-block">
+              <label class="btn file-upload-btn" matTooltip="Upload">
+                <input class="file-upload-input" type="button" (click)="Upload()" />
+                <mat-icon>upload</mat-icon>
+              </label>
+            </span> -->
+
+          </div>
+        </mat-grid-tile>
+
+
+      </mat-grid-list>
+      <mat-grid-list cols="1" rowHeight="50px">
+        <mat-grid-tile>
+        <div class="button-row w-100 text-center">
+          <button mat-raised-button class="btn-success w-50" type="submit" >ارسال</button>
+
+        </div>
+        </mat-grid-tile>
+        </mat-grid-list>
+    </form>
 
    </div>
 </mat-card>
