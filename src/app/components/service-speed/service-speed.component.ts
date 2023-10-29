@@ -187,6 +187,10 @@ delpic:any;
 //this.router.navigate(['/Simdetail'],{ queryParams: {id: r.id}});
 
   }
+
+
+
+
   form: FormGroup = new FormGroup({
     id: new FormControl(0),
     value: new FormControl('',[Validators.required]),
@@ -194,6 +198,10 @@ delpic:any;
 
   });//18
   isDisable=false;
+
+
+
+
 
   onSubmit() {
     //
@@ -211,6 +219,8 @@ delpic:any;
       listval.value=this.form.value.value.trim();
 
       listval.orderInList=this.form.value.orderInList;
+
+      
       if(this.form.value.id==0||this.form.value.id==null||this.form.value.id==undefined){
         var HWData= this.serviceSpeedListTab?.find(x=>x.value==this.form.value.value.trim());
         if(HWData)

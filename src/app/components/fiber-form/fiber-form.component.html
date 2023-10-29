@@ -266,7 +266,7 @@
                       matInput
                       [readonly]="isReadonly"
                     />
-                  
+
                   </mat-form-field>
                 </div>
               </mat-grid-tile>
@@ -461,11 +461,11 @@
                     <mat-form-field class="">
                       <mat-select formControlName="sector">
                         <mat-option>None</mat-option>
-                        <!-- <ng-container *ngFor="let item of actionstatusList">
+                        <ng-container *ngFor="let item of sectorList">
                           <mat-option [value]="item.id">{{
                             item.value
                           }}</mat-option>
-                        </ng-container> -->
+                        </ng-container>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -490,7 +490,7 @@
               </mat-grid-tile>
               <mat-grid-tile colspan="1">
                 <div class="controles-container">
-                  <div id="hideStatusId1" class="mt-5">
+                  <div id="hideStatusId1" class="mt-5"  [hidden]="isSales">
                     <mat-label class="w-100"  *ngIf="hideflag"
                       >Rejection Reason :</mat-label>
                     <mat-form-field class="w-100" *ngIf="hideflag">

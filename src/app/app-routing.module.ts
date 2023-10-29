@@ -15,6 +15,7 @@ import { TeamcontactComponent } from './components/teamcontact/teamcontact.compo
 import { ChartsComponent } from './components/charts/charts.component';
 import { LogdataComponent } from './components/logdata/logdata.component';
 import { FeedbackComponent } from './components/feedback/feedback.component';
+import { SectorsComponent } from './Settings/sectors/sectors.component';
 
 const routes: Routes = [
   {
@@ -26,78 +27,66 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
 
+    children: [
+      {
+        path: '',
+        component: ChartsComponent,
+      },
 
-    children: [{
-      path: '',
-      component: ChartsComponent,
-
-    },
-
-    {
-      path: 'servicespeed',
-      component: ServiceSpeedComponent,
-
-    },
-    {
-      path: 'microwave',
-      component: MicrowaveComponent,
-
-    },
-    {
-      path: 'microwaveRequestForm',
-      component: MicrowaveFormComponent,
-
-
-    },
-    {
-      path: 'copper',
-      component: CopperComponent,
-
-    },
-    {
-      path: 'copperRequestForm',
-      component: CopperFormComponent,
-
-    },
-    {
-      path: 'fiber',
-      component: FiberComponent,
-
-    },
-    {
-      path: 'fiberRequestForm',
-      component: FiberFormComponent,
-
-    },
-    {
-      path: 'feedBack',
-      component: FeedbackComponent,
-
-    },
-    {
-      path: 'status',
-      component: statusComponent,
-
-    },
-    {
-      path:'contacts',
-      component:TeamcontactComponent,
-    }
-    ,
-    {
-      path:'logs',
-      component:LogdataComponent,
-    }
-
-
-
-
-    ]
-  }
+      {
+        path: 'servicespeed',
+        component: ServiceSpeedComponent,
+      },
+      {
+        path: 'microwave',
+        component: MicrowaveComponent,
+      },
+      {
+        path: 'microwaveRequestForm',
+        component: MicrowaveFormComponent,
+      },
+      {
+        path: 'copper',
+        component: CopperComponent,
+      },
+      {
+        path: 'copperRequestForm',
+        component: CopperFormComponent,
+      },
+      {
+        path: 'fiber',
+        component: FiberComponent,
+      },
+      {
+        path: 'fiberRequestForm',
+        component: FiberFormComponent,
+      },
+      {
+        path: 'feedBack',
+        component: FeedbackComponent,
+      },
+      {
+        path: 'status',
+        component: statusComponent,
+      },
+      {
+        path: 'contacts',
+        component: TeamcontactComponent,
+      },
+      {
+        path: 'logs',
+        component: LogdataComponent,
+      },
+      {
+        path: 'sectors',
+        component: SectorsComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

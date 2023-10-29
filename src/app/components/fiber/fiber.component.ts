@@ -51,8 +51,8 @@ export class FiberComponent implements OnInit {
   @ViewChild(MatSort) sort?: MatSort;
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   displayedColumns2: string[] = ['id', 'action', 'managerName', 'companyName', 'contactName'
-    , 'email', "mobile", 'numberOfCircuits', 'fullAddress', 'exchangeName', 'nearestFixedLineNumber', 'expectedUpgrades', 'contractPeriod', 'serviceSpeed'
-    ,'status', 'notes', 'creationDate', 'modificationDate', 'createdBy', 'modifyiedBy', 'createdByTeam', 'modifyiedByTeam'
+    , 'email', "mobile", 'numberOfCircuits', 'fullAddress', 'exchangeName', 'nearestFixedLineNumber', 'expectedUpgrades', 'contractPeriod','sector','serviceSpeed'
+    ,'status','rejectionReason', 'notes', 'creationDate', 'modificationDate', 'createdBy', 'modifyiedBy', 'createdByTeam', 'modifyiedByTeam'
   ];
   columnsToDisplay: string[] = this.displayedColumns2.slice();
   public reqs: registerDetail[] = [];
@@ -145,7 +145,7 @@ export class FiberComponent implements OnInit {
         if (initflag)
           this.RequetFilter = this.Requetss;
 
-        console.log(this.Requetss);
+        console.log('fiber request:',this.Requetss);
 
         this.dataSource = new MatTableDataSource<any>(this.Requetss);
         //this.dataSource._updateChangeSubscription();

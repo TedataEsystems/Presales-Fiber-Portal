@@ -1,0 +1,86 @@
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>
+        Sectors
+        <div class="" style="float: right;">
+          <button mat-button class="opt  "  (click)="add()">
+            <!-- <button mat-button class="opt  "  (click)="onCreate()"> -->
+            <mat-icon class="add-new ico" >add</mat-icon>
+         <span class="txt mr-1"> Add New </span>
+        </button>
+        </div>
+      </mat-card-title>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+
+      <div class="search-div"  fxLayout="row" >
+        <div class="generate" *ngIf="isShowDiv">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Sector Name</mat-label>
+                <input type="text"  matInput formControlName="value">
+                <input type="hidden"  formControlName="id" >
+              </mat-form-field>
+              <button type="submit" mat-raised-button    class="sub search example-full-widths">Save</button>
+
+            </form>
+            </div>
+        <mat-form-field class="search-form-field" floatLabel="never">
+          <input matInput [(ngModel)]="searchKey" placeholder="{{'Search'  }}" autocomplete="off" (keyup)="applyFilter($event)">
+          <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+               <mat-icon>close</mat-icon>
+           </button>
+
+       </mat-form-field>
+      </div>
+
+        <div class="example-container mat-elevation-z8" #TABLE>
+
+        <mat-table [dataSource]="dataSource" matSort #table>
+
+         <!-- No Column -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>No</mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="No"> {{element.id}} </mat-cell>
+      </ng-container>
+
+      <!-- value Column -->
+      <ng-container matColumnDef="value">
+        <mat-header-cell *matHeaderCellDef mat-sort-header4> Sector Name </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="Value"> {{element.value}} </mat-cell>
+      </ng-container>
+
+
+
+      <!-- Symbol Column -->
+      <!-- <ng-container matColumnDef="orderInList">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Order in list'  }} </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="desc" data-label="Order in list"> {{element.orderInList}} </mat-cell>
+      </ng-container> -->
+
+     <!-- Action Column -->
+     <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Action</mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Action ">
+          <button mat-button (click)="onEdit(row)" matTooltip="edit" class="text-success">
+              <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-button color="warn" (click)="onDelete(row.id)" matTooltip="delete">
+            <mat-icon>delete_forever</mat-icon>
+        </button>
+
+      </mat-cell>
+      </ng-container>
+
+          <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: columnsToDisplay;">
+          </mat-row>
+        </mat-table>
+
+    </div>
+        <mat-paginator  [pageSizeOptions]="[20, 50, 100]"   [pageSize]="20" ></mat-paginator>
+
+
+
+    </mat-card>

@@ -175,6 +175,10 @@
                 <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Contract Period'  }} </mat-header-cell>
                 <mat-cell *matCellDef="let element" data-label="contractPeriod"> {{element.contractPeriod}} </mat-cell>
             </ng-container>
+            <ng-container matColumnDef="sector">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Sector'  }} </mat-header-cell>
+              <mat-cell *matCellDef="let element" data-label=" Sector"> {{element.sector}} </mat-cell>
+          </ng-container>
             <ng-container matColumnDef="serviceSpeed">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Service Speed'  }} </mat-header-cell>
                 <mat-cell *matCellDef="let element" data-label="Service Speed"> {{element.serviceSpeed}} </mat-cell>
@@ -183,6 +187,10 @@
                 <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Status'   }}</mat-header-cell>
                 <mat-cell *matCellDef="let element" data-label="Status"> {{element.status}} </mat-cell>
                     </ng-container>
+                    <ng-container matColumnDef="rejectionReason">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Rejection Reason</mat-header-cell>
+                      <mat-cell *matCellDef="let element" data-label="rejectionReason"> {{element.rejectionReason}} </mat-cell>
+                          </ng-container>
            <ng-container matColumnDef="creationDate">
             <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Creation date'   }}</mat-header-cell>
             <mat-cell *matCellDef="let element" data-label="Creation date"> {{element.creationDate| date:'medium'}} </mat-cell>

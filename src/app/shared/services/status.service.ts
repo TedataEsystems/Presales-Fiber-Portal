@@ -1,4 +1,4 @@
- 
+
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -23,6 +23,16 @@ private headers = new HttpHeaders();
     this.headers = this.headers.set('Authorization',"Bearer "+ this.config.UserToken());
     return this.http.get<any>(`${this.apiUrl}/getActionStatus`, {headers:this.headers});
   }
+  public getPreSalesActions() : Observable<any>
+  {
+    this.headers = this.headers.set('Authorization',"Bearer "+ this.config.UserToken());
+    return this.http.get<any>(`${this.apiUrl}/getPreSalesActions`, {headers:this.headers});
+  }
+  public getEsptActions() : Observable<any>
+  {
+    this.headers = this.headers.set('Authorization',"Bearer "+ this.config.UserToken());
+    return this.http.get<any>(`${this.apiUrl}/getEsptActions`, {headers:this.headers});
+  }
 
 public getAll() : Observable<any>
 {
@@ -37,7 +47,7 @@ public getchart() : Observable<any>
 
 public getByOption(attribute:any,pageSize:number=0,pageNum:number=0 ,search:string="",sortColumn:string="id",sortDir:string='ASC')
  {
-   this.headers =this.headers.set('Authorization',"Bearer "+ this.config.UserToken()); 
+   this.headers =this.headers.set('Authorization',"Bearer "+ this.config.UserToken());
      var urlval=`${this.apiUrl}?pagesize=${pageSize}&pagenumber=${pageNum}&sortcolumn=${sortColumn}&sortcolumndir=${sortDir}&searchvalue=${search}&servicetype=${attribute}`;
      return this.http.get<any>(urlval,{headers: this.headers});
  }
@@ -55,16 +65,16 @@ public Add(model : any)
 }
 
 
-public Update(model : any) 
+public Update(model : any)
 {
-  return this.http.post<any>(this.apiUrl + '/updatestatus' , model , {headers : this.headers});  
+  return this.http.post<any>(this.apiUrl + '/updatestatus' , model , {headers : this.headers});
 }
 
 
 public Remove(Val:number)
-  { 
+  {
     return this.http.get<any>(this.apiUrl + "/removeStatus/" + Val,{headers: this.headers});
-    
+
   }
 
 

@@ -39,6 +39,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ChartsModule } from 'ng2-charts';
 import { FeedbackComponent } from 'src/app/components/feedback/feedback.component';
+import { SectorsComponent } from 'src/app/Settings/sectors/sectors.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { FeedbackComponent } from 'src/app/components/feedback/feedback.componen
     statusComponent,
     TeamcontactComponent,
     LogdataComponent,
-    FeedbackComponent
+    FeedbackComponent,
+    SectorsComponent
 
   ],
   imports: [

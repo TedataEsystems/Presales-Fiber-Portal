@@ -2,28 +2,24 @@ import { Component, OnInit , ViewChild, ElementRef} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceRegisterService } from 'src/app/shared/services/service-register.service';
-import { NotificationService} from 'src/app/shared/services/notification.service';
 import { registerDetail } from 'src/app/Models/ServiceRegister';
 import { ConfigureService } from 'src/app/shared/services/configure.service';
 import { ServicespeedService } from 'src/app/shared/services/servicespeed.service';
 import { FileuploadService } from 'src/app/shared/services/fileupload.service';
 import { ServiceSpeed } from 'src/app/Models/ServiceSpeed';
-import * as jspdf from 'jspdf';
 import { jsPDF } from 'jspdf';
-
-
-import html2canvas from 'html2canvas';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { saveAs } from 'file-saver';
 import { statusService } from 'src/app/shared/services/status.service';
-import { AmiriFontService } from 'src/app/shared/services/amiri-font.service';
 import * as moment from 'moment';
 import domToImage, { Options } from 'dom-to-image';
 import { ToastrService } from 'ngx-toastr';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Title } from '@angular/platform-browser';
+import { SectorService } from 'src/app/shared/services/sector.service';
+import { SectorDto } from 'src/app/Models/sectorDTO';
 
 
 var mimetype=[
@@ -67,14 +63,26 @@ adminflag:boolean=false;
   serviceSpeedList?:ServiceSpeed[]=[];
   commentsList:any[]=[];
   statusList:any[]=[];
+  sectorList:SectorDto[]=[];
   actionstatusList:any[]=[];
   datafiles:any[]=[];
   adminflag0:boolean=false;
   isReadonly:boolean=true;
   isSales:boolean=false;
   RegExpAr="^[\u0621-\u064A\u0660-\u0669 ]+$";
+  @ViewChild(MatSort) sort?:MatSort ;
+  @ViewChild(MatPaginator) paginator?:MatPaginator ;
+  displayedColumns: string[] = [ 'name','Download' , 'creationDate', 'createdBy','createdByTeam' ];
+  dataSource = new MatTableDataSource<any>();
+  @ViewChild(MatSort) sortComment?:MatSort ;
+  @ViewChild(MatPaginator) paginatorComment?:MatPaginator ;
+  displayedCommentColumns: string[] = [ 'comment', 'creationDate', 'createdBy','createdByTeam' ];
+  dataSourceComment = new MatTableDataSource<any>();
+  @ViewChild('contentTopdf',{static:false}) div !: ElementRef;
+
   constructor(private title:Title ,private statusSer:statusService,private route: ActivatedRoute,private speedSer:ServicespeedService,private fileser: FileuploadService ,
-    private router: Router,private registerSer:ServiceRegisterService,private NotificationService:ToastrService,private config:ConfigureService) {
+    private router: Router,private registerSer:ServiceRegisterService,private NotificationService:ToastrService,private config:ConfigureService,
+    private sectorServ: SectorService, private toast :ToastrService) {
 
    this.title.setTitle("Fiber request form")
 
@@ -99,7 +107,7 @@ adminflag:boolean=false;
               if(this.registerDetail.serviceTypeID!=2){
           this.router.navigate(['/'] );
               }
-               console.log(this.registerDetail);
+              // console.log(this.registerDetail);
                if(groupval=="PresalesFiber_sales"&&(this.registerDetail.statusId==1||this.registerDetail.statusId==2))
                {
                     this.isReadonly=false;
@@ -164,7 +172,34 @@ adminflag:boolean=false;
 
     })
 
-    this.statusSer.getAllAction().subscribe(res => {
+    // this.statusSer.getAllAction().subscribe(res => {
+    //   if (res.status == true) {
+
+    //     this.loading = false;
+
+    //     this.actionstatusList = res.data;
+
+
+    //   } else this.NotificationService.error(res.error);
+    // }, err => {
+
+    //   if (err.status == 401)
+    //     this.router.navigate(['/loginuser']);
+    //   else
+    //     this.NotificationService.warning("! Fail");
+
+
+    // })
+    this.getActions();
+
+     }
+
+
+
+getActions(){
+  var groupval= this.config.UserTeam();
+  if(groupval=="PresalesFiber_Presale"){
+    this.statusSer.getPreSalesActions().subscribe(res => {
       if (res.status == true) {
 
         this.loading = false;
@@ -172,7 +207,7 @@ adminflag:boolean=false;
         this.actionstatusList = res.data;
 
 
-      } else this.NotificationService.error(res.error);
+      } else this.toast.error(res.error);
     }, err => {
 
       if (err.status == 401)
@@ -183,22 +218,51 @@ adminflag:boolean=false;
 
     })
 
-     }
-     @ViewChild(MatSort) sort?:MatSort ;
-     @ViewChild(MatPaginator) paginator?:MatPaginator ;
-     displayedColumns: string[] = [ 'name','Download' , 'creationDate', 'createdBy','createdByTeam' ];
-     dataSource = new MatTableDataSource<any>();
-     @ViewChild(MatSort) sortComment?:MatSort ;
-     @ViewChild(MatPaginator) paginatorComment?:MatPaginator ;
-     displayedCommentColumns: string[] = [ 'comment', 'creationDate', 'createdBy','createdByTeam' ];
-     dataSourceComment = new MatTableDataSource<any>();
-     @ViewChild('contentTopdf',{static:false}) div !: ElementRef;
+  }
+  else if(groupval=="PresalesFiber_ESPT"){
+    this.statusSer.getEsptActions().subscribe(res => {
+      if (res.status == true) {
+
+        this.loading = false;
+
+        this.actionstatusList = res.data;
+
+
+      } else this.toast.error(res.error);
+    }, err => {
+
+      if (err.status == 401)
+        this.router.navigate(['/loginuser']);
+      else
+        this.NotificationService.warning("! Fail");
+
+
+    })
+
+
+  }
+  else{
+  this.isSales=true;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
      public convetToPDF() {
-    //  this.hideflag=false;
-   // this.loading=true;
-debugger;
+
     window.scrollTo(0,0);
      var elem = document.getElementById('hideStatusId') as HTMLElement;
      var elemA = document.getElementById('hideStatusId0') as HTMLElement;
@@ -213,8 +277,7 @@ debugger;
 
       const pdfTable = this.pageEl?.nativeElement;
 let pdf =new jsPDF();
-      //const div = document.getElementById('contentToConvert');
-      console.log('div:',this.div )
+
 
       const options = {
         background: 'white',
@@ -224,7 +287,7 @@ let pdf =new jsPDF();
 
 
         const width = this.div.nativeElement.clientWidth;
-        const height = this.div.nativeElement.clientHeight + 40;
+        const height = this.div.nativeElement.clientHeight ;
         let orientation = '';
         let imageUnit = 'pt';
         if (width > height) {
@@ -252,12 +315,7 @@ let pdf =new jsPDF();
           format: [width + 50, height + 115]
         });
 
-        // pdf.setFontSize(48);
-        // pdf.setTextColor('#2585fe');
-       // pdf.text(this.pdfName.value ? this.pdfName.value.toUpperCase() : 'Untitled dashboard'.toUpperCase(), 25, 75);
-        // pdf.setFontSize(24);
-        // pdf.setTextColor('#131523');
-        //pdf.text('Report date: ' + moment().format('ll'), 10, 10);
+
         pdf.addImage(result, 'PNG', 25, 115, width, height);
         pdf.save(`Fiber Request Form /   ${moment().format('ll')}.pdf`);
 
@@ -334,13 +392,13 @@ onDownLoad(data:any){
 
 }
   ngOnInit(): void {
-
+this.getSectors()
 this.fileser.getAll(this.param1).subscribe(res=>{
-console.log('img');
-console.log(res);
+//console.log('img');
+//console.log(res);
 if(res.status==true){
 this.datafiles=res.data;
-console.log(this.datafiles);
+//console.log(this.datafiles);
 
         this.dataSource = new MatTableDataSource<any>(this.datafiles);
         //this.dataSource._updateChangeSubscription();
@@ -356,7 +414,7 @@ console.log(this.datafiles);
 
     this.speedSer.getAll(2).subscribe(res=>{
       this.serviceSpeedList = res.result?.data;
-     console.log(this.serviceSpeedList);
+     //console.log(this.serviceSpeedList);
     });
     if(this.param1!=undefined){
       this.registerSer.getAllComments(this.param1).subscribe(res=>{
@@ -415,6 +473,25 @@ this.form;
 
   });
 
+
+
+  getSectors(){
+    this.sectorServ.getSectors().subscribe(res=>{
+
+      if(res.status)
+      {
+       this.sectorList= res.data;
+
+
+      }
+      else{
+       this.toast.error(res.error)
+      }
+
+
+    })
+
+  }
   onClear(){
     this.form.reset();
     this.initializeFormGroup();
@@ -423,11 +500,11 @@ this.form;
   onSubmit() {
     this.loading = true;
     const p = { ...this.registerDetail, ...this.form.value }
-debugger;
+
     if (this.form.valid) {
       if (p.id === 0) {
-        debugger;
-        console.log(p);
+
+        //console.log(p);
         this.registerSer.Add(p).subscribe(res => {
           this.loading = false;
           if (res.status == true) {
@@ -604,7 +681,7 @@ debugger;
     formData.append('formFile', this.fileVal);
 this.fileser.addfile(formData,this.param1).subscribe(res=>{
   this.loading=false
-  console.log(res);
+  //console.log(res);
   this.resetfile();
 if(res.status){
   this.NotificationService.success('Uploaded');

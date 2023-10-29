@@ -7,14 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from './shared/components/layout/layout.module';
 
 import { LoginModule } from './shared/components/login/login.module';
-import {ServicespeedService} from'src/app/shared/services/servicespeed.service';
-import {statusService} from'src/app/shared/services/status.service';
-import { ConfigureService } from 'src/app/shared/services/configure.service';
+
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+
 
   ],
   imports: [

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigureService } from './configure.service';
 import { Observable } from 'rxjs';
+import { SectorDto } from 'src/app/Models/sectorDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +14,31 @@ export class SectorService {
 
     constructor(private config:ConfigureService , private http : HttpClient)
     {
-      this.apiUrl = config.ApiUrl() + 'status';
+      this.apiUrl = config.ApiUrl();
 
     }
 
-    getAllSectors():Observable<any>{
+    getAllSectors(pagesize :number=0,pagenumber:number=0,statusId:number,searchvalue:string="",sortcolumn:string="id",servicetype:number,sortcolumndir:string='ASC',attributeName:string):Observable<any>{
+
       this.headers = this.headers.set('Authorization',"Bearer "+ this.config.UserToken());
-      return this.http.get<any>(`${this.apiUrl}Sector/GetAllSector`,{headers:this.headers})
+      let url=`${this.apiUrl}Sector/GetAllSector?pagesize=${pagesize}&pagenumber=${pagenumber}&statusId=${statusId}&searchvalue=${searchvalue}&sortcolumn=${sortcolumn}&servicetype=${servicetype}&sortcolumndir=${sortcolumndir}&attributeName=${attributeName}`
+      return this.http.get<any>(url,{headers:this.headers})
+    }
+    addSector(model:SectorDto):Observable<any>{
+      this.headers = this.headers.set('Authorization',"Bearer "+ this.config.UserToken());
+      return this.http.post<any>(`${this.apiUrl}Sector/AddSector`,model,{headers:this.headers})
+    }
+    updateSector(model:SectorDto):Observable<any>{
+      this.headers = this.headers.set('Authorization',"Bearer "+ this.config.UserToken());
+      return this.http.post<any>(`${this.apiUrl}Sector/UpdateSector`,model,{headers:this.headers})
+    }
+    deleteSector(id:number):Observable<any>{
+      this.headers = this.headers.set('Authorization',"Bearer "+ this.config.UserToken());
+      return this.http.get<any>(`${this.apiUrl}Sector/RemoveSector/${id}`,{headers:this.headers})
     }
 
     getSectors():Observable<any>{
-     
-      return this.http.get<any>(`${this.apiUrl}Sector/getSectors`)
+      this.headers = this.headers.set('Authorization',"Bearer "+ this.config.UserToken());
+      return this.http.get<any>(`${this.apiUrl}Sector/getSectors`,{headers:this.headers})
     }
 }
