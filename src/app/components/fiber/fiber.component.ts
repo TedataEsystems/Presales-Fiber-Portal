@@ -253,7 +253,8 @@ debugger;
 
   }
   renew(r: any){
-    this.router.navigate(['/fiberRequestForm'], { queryParams: { id: r.id } });
+
+    this.router.navigate(['/fiberRequestForm'], { queryParams: { id: r.id ,renew:true} });
   }
   isall: boolean = false;
   selectallviewflag = false;

@@ -59,6 +59,7 @@ export class FiberFormComponent implements OnInit {
   esptFlag:boolean=false;
 adminflag:boolean=false;
   param1:any;
+  renew=false;
   requestid:any;
   reqid:number=0;
   serviceSpeedList?:ServiceSpeed[]=[];
@@ -99,6 +100,7 @@ adminflag:boolean=false;
        }
       this.route.queryParams.subscribe((params:any) => {
         this.param1 = params['id'];
+        this.renew=params['renew'];
                   if(this.param1!=undefined){
 
           this.registerSer.getById(this.param1).subscribe((res)=>{

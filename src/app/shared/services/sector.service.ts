@@ -25,6 +25,7 @@ export class SectorService {
       return this.http.get<any>(url,{headers:this.headers})
     }
     addSector(model:SectorDto):Observable<any>{
+   
       this.headers = this.headers.set('Authorization',"Bearer "+ this.config.UserToken());
       return this.http.post<any>(`${this.apiUrl}Sector/AddSector`,model,{headers:this.headers})
     }

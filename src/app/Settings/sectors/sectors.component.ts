@@ -75,29 +75,31 @@ export class SectorsComponent implements OnInit ,AfterViewInit{
   }
 
   onSubmit(){
-    debugger
+
     if (this.form.invalid||this.form.value.value==' ') {
       if (this.form.value.value==' ')
        this.setReactValue(Number(0),"");
-       
         return;
     }
 
     if(this.form.value.id==0||this.form.value.id==null||this.form.value.id==undefined){
-
 
       //add
       var sectorValue=  this.sectorList?.find(x=>x.value==this.form.value.value.trim());
       if(sectorValue)
       {
 
-
         this.toast.warning("Sector is already exist");
-        this.form.reset();
+       // this.form.reset();
         return;
       }
+      let list={
+            id: Number(this.form.value.id),
+            value:this.form.value.value
+      }
 
-       this._SectorService.addSector(this.form.value).subscribe(res=>{
+
+       this._SectorService.addSector(list).subscribe(res=>{
 
         if(res.status){
 
@@ -124,7 +126,7 @@ export class SectorsComponent implements OnInit ,AfterViewInit{
 
       this.toast.warning("Sectore is already exist");
 
-      this.form.reset();
+      //this.form.reset();
       return;
     }
     this._SectorService.updateSector(this.form.value).subscribe(res=>{

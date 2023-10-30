@@ -221,7 +221,7 @@
                       >{{ choice.value }}</mat-radio-button
                     >
                     <mat-error  *ngIf="submit && form.controls.serviceSpeedID.invalid">This speed is mandatory.</mat-error>
-                
+
                   </mat-radio-group>
 
 
@@ -819,7 +819,7 @@
       </div>
     </ng-template>
   </mat-tab>
-  <mat-tab label="ESPT Feedback" *ngIf="param1">
+  <mat-tab label="ESPT Feedback" *ngIf="param1 && renew">
     <div class="mb-4">
       </div>
       </mat-tab>
