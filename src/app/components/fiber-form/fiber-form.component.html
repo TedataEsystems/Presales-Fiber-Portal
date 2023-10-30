@@ -220,8 +220,8 @@
                       [value]="choice.id"
                       >{{ choice.value }}</mat-radio-button
                     >
-                    <mat-error>This speed is mandatory.</mat-error>
-                    <!-- <mat-error *ngIf="(form.controls.serviceSpeedID?.errors?.required) && !isReadonly ">This speed is mandatory.</mat-error> -->
+                    <mat-error  *ngIf="submit && form.controls.serviceSpeedID.invalid">This speed is mandatory.</mat-error>
+                
                   </mat-radio-group>
 
 

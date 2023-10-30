@@ -51,6 +51,7 @@ var mimetype=[
 
 export class FiberFormComponent implements OnInit {
   loading=false;
+  submit=false
   @ViewChild('fileInput',{static:false}) fileInput?: any;
   @ViewChild('contentTopdf',{static:false}) pageEl?: ElementRef;
   fileAttr = 'Choose File ...';
@@ -503,6 +504,7 @@ this.form;
     const p = { ...this.registerDetail, ...this.form.value }
 
     if (this.form.valid) {
+      this.submit=false
       if (p.id === 0) {
 
         //console.log(p);
@@ -556,6 +558,7 @@ this.form;
     }
     else {
       this.loading = false;
+      this.submit=true;
       return ;
 
 
