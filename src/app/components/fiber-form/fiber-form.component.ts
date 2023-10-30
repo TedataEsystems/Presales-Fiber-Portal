@@ -124,6 +124,7 @@ adminflag:boolean=false;
                  this.isReadonly=false;
                }
              this.setReactValue(res.data);
+             console.log('res:', res.data)
 
             }else
             this.NotificationService.error(res.error)
@@ -392,7 +393,7 @@ onDownLoad(data:any){
 
 }
   ngOnInit(): void {
-this.getSectors()
+     this.getSectors()
 this.fileser.getAll(this.param1).subscribe(res=>{
 //console.log('img');
 //console.log(res);
@@ -620,7 +621,8 @@ this.form;
       PromisingArea: reqreact.promisingArea,
       serviceTypeID:2,
       serviceSpeedID: reqreact.serviceSpeedID ,
-      statusId:reqreact.statusId,
+      // statusId:reqreact.statusId,
+      statusId:reqreact.status,
       acceptstatusId:reqreact.acceptstatusId
     });
 

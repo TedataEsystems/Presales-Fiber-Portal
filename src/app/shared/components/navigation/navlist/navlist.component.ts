@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfigureService } from 'src/app/shared/services/configure.service';
 import { statusService } from 'src/app/shared/services/status.service';
 
 @Component({
@@ -43,8 +44,15 @@ export class NavlistComponent implements OnInit {
   isShowing9 = false;
 
   showSubSubMenu: boolean = false;
+  isNotAdmin=false;
+isPresales=false;
 
-  constructor(private statusSer:statusService) {
+
+  constructor(private statusSer:statusService,private conser:ConfigureService ) {
+    var teamval=this.conser.UserTeam();
+
+    if(teamval?.toLocaleLowerCase() == "presalesfiber_presale" || teamval?.toLocaleLowerCase() =="admin_all")
+    this.isPresales=true;
 
 
   }
