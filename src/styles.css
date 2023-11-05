@@ -811,7 +811,7 @@ mat-sidenav{
     background-color: #ffffffc7 !important;
 }
 .mat-drawer:not(.mat-drawer-side){
-    box-shadow: inset -5px 0px 5px #a59f76;
+    box-shadow: inset -5px 0px 5px #bfbfbf;
 }
 
 #sidenav {
