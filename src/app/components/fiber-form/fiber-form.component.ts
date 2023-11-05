@@ -69,13 +69,16 @@ adminflag:boolean=false;
   actionstatusList:any[]=[];
   datafiles:any[]=[];
   adminflag0:boolean=false;
-  isReadonly:boolean=true;
+  isReadonly:boolean=false;
+  showStatus:boolean=false;
   isSales:boolean=false;
   RegExpAr="^[\u0621-\u064A\u0660-\u0669 ]+$";
   @ViewChild(MatSort) sort?:MatSort ;
   @ViewChild(MatPaginator) paginator?:MatPaginator ;
   displayedColumns: string[] = [ 'name','Download' , 'creationDate', 'createdBy','createdByTeam' ];
   dataSource = new MatTableDataSource<any>();
+  dataSourceEsptFeedback=new MatTableDataSource<any>();
+  displayedFeedColumns: string[] = [ 'comment', 'Availability','Distance','Attachments','creationDate', 'createdBy','createdByTeam' ];
   @ViewChild(MatSort) sortComment?:MatSort ;
   @ViewChild(MatPaginator) paginatorComment?:MatPaginator ;
   displayedCommentColumns: string[] = [ 'comment', 'creationDate', 'createdBy','createdByTeam' ];
@@ -93,6 +96,8 @@ adminflag:boolean=false;
         this.esptFlag=false
        this.adminflag=true;
        this.isSales=true;
+
+
        };
         if(groupval=="admin_all"){
            this.adminflag=true;
@@ -102,6 +107,7 @@ adminflag:boolean=false;
         this.param1 = params['id'];
         this.renew=params['renew'];
                   if(this.param1!=undefined){
+                    this.showStatus=true;
 
           this.registerSer.getById(this.param1).subscribe((res)=>{
              if(res.status==true){
@@ -127,6 +133,7 @@ adminflag:boolean=false;
                  this.isReadonly=false;
                }
              this.setReactValue(res.data);
+
              console.log('res:', res.data)
 
             }else
@@ -250,21 +257,6 @@ getActions(){
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
      public convetToPDF() {
 
     window.scrollTo(0,0);
@@ -368,9 +360,6 @@ let pdf =new jsPDF();
 
 
     }
-
-
-
 onDownLoad(data:any){
   var mimeVal=""
    var extArr= data.name.split('.')
@@ -431,6 +420,8 @@ this.datafiles=res.data;
     }
 this.form;
   }
+
+
   ngAfterViewInit() {
 
     this.dataSource.sort = this.sort as MatSort;
@@ -472,7 +463,7 @@ this.form;
     numOfSpeed: new FormControl(null,Validators.required),
     statusId: new FormControl(null)   ,
     acceptstatusId: new FormControl(null),
-    rejectionReason:new FormControl('',Validators.required),
+    rejectionReason:new FormControl(''),
     sector:new FormControl(null)
 
   });
@@ -502,6 +493,7 @@ this.form;
     this.NotificationService.success(':: Submitted successfully');
   }
   onSubmit() {
+    debugger
     this.loading = true;
     const p = { ...this.registerDetail, ...this.form.value }
 
@@ -514,9 +506,10 @@ this.form;
           this.loading = false;
           if (res.status == true) {
             this.NotificationService.success(':: Submitted successfully');
+
+            this.router.navigate(['/fiber']);
             this.form.reset();
             this.initializeFormGroup();
-            this.router.navigate(['/fiber']);
           }
           else {
             this.NotificationService.error(res.error);
@@ -627,8 +620,9 @@ this.form;
       serviceTypeID:2,
       serviceSpeedID: reqreact.serviceSpeedID ,
       // statusId:reqreact.statusId,
-      statusId:reqreact.status,
-      acceptstatusId:reqreact.acceptstatusId
+      numOfSpeed:reqreact.numberOfSpeed,
+      statusId:reqreact.statusId,
+      acceptstatusId:reqreact.acceptstatusId,
     });
 
  }
