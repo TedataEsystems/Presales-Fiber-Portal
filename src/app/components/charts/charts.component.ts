@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartOptions, ChartType} from 'chart.js';
 import { Color, Label,MultiDataSet } from 'ng2-charts';
-
-
-import { ActivatedRoute, Router } from '@angular/router';
-
+import { Router } from '@angular/router';
 import {ConfigureService}from'src/app/shared/services/configure.service';
 import {statusService}from'src/app/shared/services/status.service';
-import {NotificationService}from'src/app/shared/services/notification.service';
 import { Title } from '@angular/platform-browser';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 import { ToastrService } from 'ngx-toastr';
@@ -36,13 +32,14 @@ CopperCount:any=1;
  fiberlist:any[]=[]
  wavelist:any[]=[]
  copperList:any[]=[];
+ nullfiber=0;
+nullcopper=0;
+nullmc=0;
+
   // public doughnutChartType: ChartType = 'doughnut';
   constructor(private chartser:statusService,private loader:LoadingService ,private notser:ToastrService ,private titleService:Title ,private conser:ConfigureService,private router: Router) {
     this.titleService.setTitle('Home');
   }
-nullfiber=0;
-nullcopper=0;
-nullmc=0;
 
 
 
@@ -52,14 +49,26 @@ nullmc=0;
     this.router.navigate(['/loginuser'] );
 
 
+this.getChart();
 
+
+  }
+
+
+
+  ngAfterViewInit() {
+    setTimeout(()=>this.loader.idle(),1000)
+
+  }
+
+
+getChart(){
 
     ////////chart/////////////////////
 
     this.chartser.getchart().subscribe(x=>{
-      console.log(x);
       if(x.status==true){
-        console.log('data:',x.data)
+
         this.FiberCount=x.data.fiber;
         this.CopperCount=x.data.copper  ;
         this.waveCount=x.data.microwave ;
@@ -82,15 +91,16 @@ nullmc=0;
 
         let fbOfNull={key:"Null Value",value:this.FiberCount-this.nullfiber}
         this.fiberlist.push(fbOfNull);
+
         this.fiberlist.forEach(item => {
           this.doughnutChartLabels.push(item.key);
            this.doughnutChartData.push(item.value);
+
         });
 
         let cpOfNull={key:"Null Value",value:this.CopperCount-this.nullcopper}
         this.copperList.push(cpOfNull)
         this.copperList.forEach(item => {
-
           this.doughnutChartLabelsps.push(item.key);
           this.doughnutChartDataps.push(item.value);
         });
@@ -102,9 +112,7 @@ nullmc=0;
           this.doughnutChartLabelsp.push(item.key);
           this.doughnutChartDatap.push(item.value);
         });
-        console.log('this.doughnutChartData:',this.doughnutChartData)
-        console.log('this.doughnutChartDataps:',this.doughnutChartDataps)
-console.log('this.doughnutChartDatap:',this.doughnutChartDatap)
+
 
 
 
@@ -123,39 +131,32 @@ console.log('this.doughnutChartDatap:',this.doughnutChartDatap)
 
 
       ////////////////end chart////////////////////////////////
-
-  }
-
-
-
-  ngAfterViewInit() {
-    setTimeout(()=>this.loader.idle(),1000)
-
-  }
-
-
-
+}
   /////////////////donut chart//////////////////
+
   doughnutChartOptions:ChartOptions = {
     responsive: true,
-    legend: {
-      position: 'left'
-   }
+
+      legend: {
+          position: 'left',
+
+      }
+
+
 
   };
 
   doughnutChartLabels: Label[] = [];
   doughnutChartData: MultiDataSet = [
-    []
   ];
   doughnutChartLabelsp: Label[] = [];
   doughnutChartDatap: MultiDataSet = [
-    []
+
   ];
 
   doughnutChartLabelsps: Label[] = [];
   doughnutChartDataps: MultiDataSet = [
-    []
+
   ];
 
   doughnutChartType: ChartType = 'doughnut';
@@ -169,7 +170,7 @@ console.log('this.doughnutChartDatap:',this.doughnutChartDatap)
  "#1b3c51",
  "#791a75",
 
-        'blue', 'red','pink','orange','purple','brown','DeepPink','DarkOrange'
+        '#3e2c5d', '#384a5a','#bf3fa6','pink','orange','purple','brown','DarkOrange'
       ]
     }
   ];
@@ -177,6 +178,7 @@ console.log('this.doughnutChartDatap:',this.doughnutChartDatap)
   doughnutChartPlugins = [{
 
     afterLayout: function (chart:any) {
+
       chart.legend.legendItems.forEach(
         (label:any) => {
           let value = chart.data.datasets[0].data[label.index];

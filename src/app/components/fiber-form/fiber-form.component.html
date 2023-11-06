@@ -512,7 +512,7 @@
               </mat-grid-tile>
               <mat-grid-tile colspan="1">
                 <div class="controles-container">
-                  <div id="hideStatusId" class="mt-5" [hidden]="isSales && !showStatus">
+                  <div id="hideStatusId" class="mt-5" *ngIf="isSales && showStatus">
                     <mat-label class="" >Status :</mat-label>
                     <mat-form-field class="">
                       <mat-select

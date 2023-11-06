@@ -145,8 +145,8 @@ export class FiberComponent implements OnInit {
         if (initflag)
           this.RequetFilter = this.Requetss;
 
-        console.log('fiber request:',this.Requetss);
-
+      //   console.log('fiber request:',this.Requetss);
+      //  console.log('summary:', this.Requetss)
         this.dataSource = new MatTableDataSource<any>(this.Requetss);
         //this.dataSource._updateChangeSubscription();
         this.dataSource.paginator = this.paginator as MatPaginator;
