@@ -89,7 +89,7 @@
                     <button mat-button color="warn" [hidden]="esptFlag" (click)="onDelete(row.id)" matTooltip="Delete">
                         <mat-icon>delete_forever</mat-icon>
                     </button>
-                    <button mat-button class="text-warning" [hidden]="esptFlag" (click)="renew(row)" matTooltip="Renew request">
+                    <button mat-button class="text-warning" *ngIf="isSales" [disabled]="!(row.renew > 0)" (click)="renew(row)" matTooltip="Renew request">
                       <mat-icon>autorenew</mat-icon>
                   </button>
                 </mat-cell>

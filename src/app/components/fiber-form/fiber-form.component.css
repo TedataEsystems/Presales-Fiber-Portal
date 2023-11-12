@@ -309,3 +309,6 @@ mat-card-title:nth-child(1) span.ar,mat-card-title:nth-child(1) span.eng,.addres
 {
   height: 0 !important;
 }
+.mat-list-base .mat-list-item .mat-list-item-content{
+  font-size: 13px !important;
+}

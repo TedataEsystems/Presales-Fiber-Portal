@@ -1,3 +1,38 @@
+
+.submit{
+  background-color: var(--fifth-color);
+  color:#fff;
+  width: 100px;
+}.clr{
+  background-color: #747678;
+
+}
+mat-toolbar.top{
+  background-color: var(--main-color);
+  color:#fff;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+}
+mat-toolbar.bottom{
+  background-color: #c6cacd;
+  color:#fff;
+  position: absolute;
+  bottom: 0;
+  z-index: 2;
+
+}
+
+.btn-dialog-close {
+  width: 45px;
+  min-width: 0px !important;
+  height: 40px;
+  padding: 0px !important;
+  float: right;
+}
+.import-excel {
+  width: 80%;
+}
 .file-upload-btn {
   display: inline-block;
   overflow: hidden;
@@ -7,6 +42,7 @@
   background: var(--fifth-color);
 
 }
+
 .help-block {
   display: block;
   margin-top: -4px;
@@ -27,12 +63,13 @@
 }
 .browse{
   height: 35px;
-    box-shadow: inset 0px 0px 6px #d4d4b6, inset 0px 0px 6px #d4d4b6;
+    box-shadow: inset 0px 0px 6px #a2a2a1, inset 0px 0px 6px #a2a2a1;
     border: 0;
     background: var(--main-color);
     border-radius: 2px;
     z-index: 1;
-
+   font-size: 10px;
+   line-height: 2.2;
     color: #fff;
 }
 .form-control{
@@ -43,6 +80,9 @@
 .mat-form-field {
   margin-bottom: 20px;
 }
+mat-radio-button{
+  color: var(--main-color);
+}
 mat-label {
   color: #000000 !important;
   font-weight: 600 !important;
@@ -51,4 +91,24 @@ mat-label {
   padding: 0.5rem 0;
   height: 40px;
 
+}
+mat-list-item
+{
+  font-size: 12px !important;
+    height: 18px !important;
+
+}
+.text-sm{
+  font-size: 12px !important;
+}
+.fileList{
+  height: 120px;
+    overflow-y: auto;
+}
+mat-grid-list
+{
+  margin-top: 70px
+}
+.commentbox{
+  margin-top: -78px;
 }

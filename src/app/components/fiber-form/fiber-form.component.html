@@ -14,7 +14,15 @@
       <!-- <mat-card id="dd"   class="example-card"> -->
       <mat-card id="contentToConvert0" class="example-card">
         <form [formGroup]="form" class="normal-form" (submit)="onSubmit()">
-          <mat-form-field [hidden]="true">
+
+
+
+          <input
+          matInput
+          type="number"
+          hidden
+          formControlName="serviceType"
+        /> <mat-form-field [hidden]="true">
             <input
               matInput
               type="number"
@@ -140,7 +148,7 @@
                       [readonly]="isReadonly"
                     />
                     <mat-error
-                    >email should include '@'</mat-error
+                    >email should include "example &#64; gmail.com"</mat-error
                   >
 
                   </mat-form-field>
@@ -279,7 +287,7 @@
                     <mat-form-field class="speednum mr-1">
                       <input
                         type="number"
-                        formControlName="numOfSpeed"
+                        formControlName="numberOfSpeed"
                         matInput
                         [readonly]="isReadonly"
                       />
@@ -462,7 +470,7 @@
                   <div id="hideStatusId2" class="mt-5" >
                     <mat-label class="">Sector :</mat-label>
                     <mat-form-field class="">
-                      <mat-select formControlName="sector">
+                      <mat-select formControlName="sectorID">
                         <mat-option>None</mat-option>
                         <ng-container *ngFor="let item of sectorList">
                           <mat-option [value]="item.id">{{
@@ -515,7 +523,7 @@
                   <div id="hideStatusId" class="mt-5" *ngIf="isSales && showStatus">
                     <mat-label class="" >Status :</mat-label>
                     <mat-form-field class="">
-                      <mat-select
+                      <!-- <mat-select
                           formControlName="statusId"
                           [disabled]="!adminflag0"
                         >
@@ -525,7 +533,10 @@
                               item.value
                             }}</mat-option>
                           </ng-container>
-                        </mat-select>
+                        </mat-select> -->
+                        <input matInput  formControlName="status" [readonly]="true" />
+
+
 
                     </mat-form-field>
                   </div>
@@ -581,7 +592,7 @@
             placeholder="write your comment here"
             rows="3"
           ></textarea>
-          <mat-error>This field is mandatory</mat-error>
+
         </mat-form-field>
 
         <button
@@ -818,7 +829,8 @@
       </div>
     </ng-template>
   </mat-tab>
-  <mat-tab label="ESPT Feedback" *ngIf="param1 && renew">
+  <!-- <mat-tab label="ESPT Feedback" *ngIf="param1 && renew"> -->
+    <mat-tab label="ESPT Feedback" *ngIf="param1">
     <div class="mb-4 example-container">
       <mat-card class="example-card">
 
@@ -826,9 +838,10 @@
 
               Feedbacks
 
-               <div class="" style="float: right;">
-                <button mat-button class="opt  " >
-                  <!-- <button mat-button class="opt  "  (click)="onCreate()"> -->
+               <!-- <div class="" style="float: right;" *ngIf="isEspt"> -->
+                <div class="" style="float: right;" >
+                <button mat-button class="opt  " (click)="onCreate()" >
+
                   <mat-icon class="add-new ico" >add</mat-icon>
                <span class="txt mr-1"> Add New </span>
               </button>
@@ -845,50 +858,33 @@
           multiTemplateDataRows
           #table
         >
+
+
           <!-- comment Column -->
           <ng-container matColumnDef="comment">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
-              {{ "Notes" }}
+              {{ "Comments" }}
             </mat-header-cell>
-            <!--
-          <mat-cell *matCellDef="let element" title="{{element.comment}} " data-label="comment"> {{element.comment?.length>50?  (element.comment | slice:0:50 )+' ...' :element.comment }} </mat-cell> -->
 
-            <mat-cell *matCellDef="let row" data-label="comments">
+
+
+            <mat-cell *matCellDef="let row" >
               <button
-                mat-button
-                class="text-success"
-                matTooltip="View Details"
-                (click)="row.isExpanded = !row.isExpanded"
-              >
-                <mat-icon>content_paste_search</mat-icon>
-              </button>
-            </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="expandedDetail2">
-            <mat-cell
-              *matCellDef="let element"
-              [attr.colspan]="displayedFeedColumns.length"
+              mat-button
+              class="text-success"
+              matTooltip="View Comments"
+              (click)="expand(row,'Comment')"
             >
-              <div
-                class="row student-element-detail"
-                [@detailExpand]="element.isExpanded ? 'expanded' : 'collapsed'"
-              >
-                <mat-list>
-                  <mat-list-item>
-
-                  </mat-list-item>
-                </mat-list>
-              </div>
+              <mat-icon>content_paste_search</mat-icon>
+            </button>
             </mat-cell>
           </ng-container>
-
           <ng-container matColumnDef="Availability">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
               Availability</mat-header-cell
             >
             <mat-cell *matCellDef="let element" data-label="Availability">
-
+{{element.availability}}
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="Distance">
@@ -896,37 +892,61 @@
               Distance</mat-header-cell
             >
             <mat-cell *matCellDef="let element" data-label="Distance">
-
+             {{element.distance}}
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="Attachments">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
               Attachments  </mat-header-cell
             >
-            <mat-cell *matCellDef="let row" data-label="comments">
+            <mat-cell *matCellDef="let row" class="text-center">
               <button
                 mat-button
-                class="text-success"
+                class="text-warning "
                 matTooltip="View Attachments"
-                (click)="row.isExpanded = !row.isExpanded"
+                (click)="expand(row,'Attach')"
               >
-                <mat-icon>content_paste_search</mat-icon>
+                <mat-icon>attach_file</mat-icon>
               </button>
             </mat-cell>
           </ng-container>
-          <ng-container matColumnDef="expandedDetail">
+          <ng-container matColumnDef="expandedDetail" >
+
             <mat-cell
               *matCellDef="let element"
               [attr.colspan]="displayedFeedColumns.length"
+
             >
               <div
-                class="row student-element-detail"
+                class="row student-element-detail1"
+
                 [@detailExpand]="element.isExpanded ? 'expanded' : 'collapsed'"
               >
                 <mat-list>
-                  <mat-list-item>
+                  <ng-container *ngIf="elementName=='Attach'">
+                    <mat-list-item  *ngFor="let file of element.attaches">
 
-                  </mat-list-item>
+                      <mat-list-item>
+                         <button
+                        mat-button
+                        class="text-success font-weight-bolder"
+                        matTooltip="download"
+                        (click)="onDownLoadAttach(file)"
+                      >
+                        <mat-icon>download</mat-icon>
+                      </button>
+
+&nbsp;&nbsp;
+                      {{file.name}}
+                    </mat-list-item>
+
+                       </mat-list-item>
+                  </ng-container>
+
+                  <mat-list-item *ngIf="elementName=='Comment'">
+
+                    {{element.comment}}
+                                      </mat-list-item>
                 </mat-list>
               </div>
             </mat-cell>
@@ -936,7 +956,7 @@
               {{ "Creation date" }}</mat-header-cell
             >
             <mat-cell *matCellDef="let element" data-label="Creation date">
-
+           {{element.creationDate | date:'short'}}
             </mat-cell>
           </ng-container>
 
@@ -945,19 +965,42 @@
               {{ "Created by" }}
             </mat-header-cell>
             <mat-cell *matCellDef="let element" data-label="Created by">
-
+                {{element.createdBy}}
             </mat-cell>
           </ng-container>
-          <ng-container matColumnDef="createdByTeam">
+
+          <ng-container matColumnDef="modificationDate">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
-              {{ "Created by team" }}</mat-header-cell
-            >
-            <mat-cell *matCellDef="let element" data-label="Created by team">
-
+              {{ "Modification Date" }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element" >
+                {{element.modificationDate | date:'short'}}
             </mat-cell>
           </ng-container>
+          <ng-container matColumnDef="modifyiedBy">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{ "Modifyied By" }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element" >
+                {{element.modifyiedBy}}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Action"  >
+            <mat-header-cell *matHeaderCellDef > {{'Action'}}</mat-header-cell>
+            <!-- <mat-cell *matCellDef="let row" data-label="Action" [hidden]="!isEspt"> -->
+              <mat-cell *matCellDef="let row" data-label="Action" >
+                <button mat-button class="text-success font-weight-bolder" matTooltip="Edit"   (click)="onEditFeedback(row)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-button color="warn" [hidden]="esptFlag" (click)="onDelete(row.id)" matTooltip="Delete">
+                  <mat-icon>delete_forever</mat-icon>
+              </button>
+
+            </mat-cell>
+
+        </ng-container>
           <ng-container matColumnDef="noData">
-            <mat-footer-cell *matFooterCellDef colspan="4">
+            <mat-footer-cell *matFooterCellDef colspan="12">
               No Data ...
             </mat-footer-cell>
           </ng-container>
@@ -981,16 +1024,18 @@
             [class.student-expanded-row]="row.isExpanded"
           ></mat-row>
           <!-- Extra row to show detail content column -->
-          <mat-row
-            *matRowDef="let row; columns: ['expandedDetail','expandedDetail2']"
-            class="student-detail-row"
-          ></mat-row>
-        </mat-table>
 
-        <mat-paginator
-          [pageSizeOptions]="[30, 50, 100]"
-          [pageSize]="30"
-        ></mat-paginator>
+          <mat-row
+          *matRowDef="let row; columns: ['expandedDetail']"
+          class="student-detail-row"
+        ></mat-row>
+
+        </mat-table>
+        <mat-paginator #paginatorFeedback
+        [pageSizeOptions]="[5, 10, 25,50,100]"
+        [pageSize]="5"
+      ></mat-paginator>
+
       </div>
       </mat-card>
       </div>

@@ -69,7 +69,12 @@ export class registerDetail{
   renew?: any
   sectorID?: any
   serviceSpeedID?: any
+  serviceSpeed= null
+  serviceType=null
   serviceTypeID?: any
   statusId?: number
+  sector=null
+  status=null
+  acceptableStatus=null
 }
 

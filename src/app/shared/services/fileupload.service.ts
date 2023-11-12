@@ -24,13 +24,20 @@ public getAll(attribute:any) : Observable<any>
 
 public getById(id : any)
 {
+  console.log('id',id)
   return this.http.get(`${this.apiUrl}/getFile/${id}`,
-  {responseType: 'blob',headers: this.headers}); 
+  {responseType: 'blob',headers: this.headers});
 }
 
 public addfile(Val:FormData,id:number)
   {
     return this.http.post<any>(`${this.apiUrl}/AddFromFile/${id}`,Val,{headers: this.headers});
+  }
+  public AddEsptFeedbackFile(Val:FormData,id:number)
+  {
+    debugger;
+    console.log('formdata:',Val )
+    return this.http.post<any>(`${this.apiUrl}/AddEsptFeedbackFile/${id}`,Val,{headers: this.headers});
   }
 
 public Remove(id : any)

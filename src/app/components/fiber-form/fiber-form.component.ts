@@ -12,6 +12,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { saveAs } from 'file-saver';
+import { DeleteService } from 'src/app/shared/services/delete.service';
 import { statusService } from 'src/app/shared/services/status.service';
 import * as moment from 'moment';
 import domToImage, { Options } from 'dom-to-image';
@@ -26,6 +27,10 @@ import {
 import { Title } from '@angular/platform-browser';
 import { SectorService } from 'src/app/shared/services/sector.service';
 import { SectorDto } from 'src/app/Models/sectorDTO';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { FeedbackComponent } from '../feedback/feedback.component';
+import { FeedbackDto } from 'src/app/Models/feedbackDTO';
+import html2canvas from 'html2canvas';
 
 var mimetype = [
   { ext: 'txt', fileType: 'text/plain' },
@@ -72,20 +77,23 @@ export class FiberFormComponent implements OnInit {
   esptFlag: boolean = false;
   adminflag: boolean = false;
   param1: any;
+  elementName:string=''
   renew = false;
   requestid: any;
   reqid: number = 0;
   serviceSpeedList?: ServiceSpeed[] = [];
   commentsList: any[] = [];
+  feedbackList: FeedbackDto[] = [];
   statusList: any[] = [];
   sectorList: SectorDto[] = [];
   actionstatusList: any[] = [];
   datafiles: any[] = [];
   adminflag0: boolean = false;
-  isReadonly: boolean = false;
+  isReadonly: boolean = true;
   showStatus: boolean = false;
   isSales: boolean = false;
   isPreSales: boolean = false;
+  isEspt:boolean=false;
   RegExpAr = '^[\u0621-\u064A\u0660-\u0669 ]+$';
   @ViewChild(MatSort) sort?: MatSort;
   @ViewChild(MatPaginator) paginator?: MatPaginator;
@@ -105,10 +113,13 @@ export class FiberFormComponent implements OnInit {
     'Attachments',
     'creationDate',
     'createdBy',
-    'createdByTeam',
+    'modificationDate',
+    'modifyiedBy',
+    'Action'
   ];
   @ViewChild(MatSort) sortComment?: MatSort;
   @ViewChild(MatPaginator) paginatorComment?: MatPaginator;
+  @ViewChild('paginatorFeedback') paginatorFeedback?: MatPaginator;
   displayedCommentColumns: string[] = [
     'comment',
     'creationDate',
@@ -124,12 +135,14 @@ export class FiberFormComponent implements OnInit {
     private route: ActivatedRoute,
     private speedSer: ServicespeedService,
     private fileser: FileuploadService,
+    private DeleteService: DeleteService,
     private router: Router,
     private registerSer: ServiceRegisterService,
     private NotificationService: ToastrService,
     private config: ConfigureService,
     private sectorServ: SectorService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private dialog:MatDialog
   ) {
     this.title.setTitle('Fiber request form');
 
@@ -145,6 +158,12 @@ export class FiberFormComponent implements OnInit {
       this.esptFlag = false;
       this.isReadonly = false;
     }
+    if (groupval == 'PresalesFiber_ESPT') {
+
+
+      this.isEspt=true;
+    }
+
     this.route.queryParams.subscribe((params: any) => {
       this.param1 = params['id'];
       this.renew = params['renew'];
@@ -162,17 +181,20 @@ export class FiberFormComponent implements OnInit {
               // console.log(this.registerDetail);
               if (
                 groupval == 'PresalesFiber_sales' &&
-                (this.registerDetail.statusId == 1 ||
-                  this.registerDetail.statusId == 2)
+                (this.registerDetail.statusId == 1 )
+              ) {
+                this.isReadonly = true;
+              }
+              else if (groupval == 'PresalesFiber_sales' && this.registerDetail.statusId == 2)
+              {
+                this.isReadonly = false;
+              }
+              else if (groupval == 'PresalesFiber_Presale' &&
+                (this.registerDetail.statusId == 3 || this.registerDetail.statusId == 7)
               ) {
                 this.isReadonly = false;
-              } else if (
-                groupval == 'PresalesFiber_Presale' &&
-                (this.registerDetail.statusId == 3 ||
-                  this.registerDetail.statusId == 7)
-              ) {
-                this.isReadonly = false;
-              } else if (
+              }
+              else if (
                 groupval == 'PresalesFiber_ESPT' &&
                 (this.registerDetail.statusId == 4 ||
                   this.registerDetail.statusId == 5 ||
@@ -368,6 +390,73 @@ export class FiberFormComponent implements OnInit {
     //      elemA.style.display = 'block';
     //     });
   }
+  // public convetToPDF() {
+
+  //   var elem = document.getElementById('hideStatusId') as HTMLElement;
+  //   var elemA = document.getElementById('hideStatusId0') as HTMLElement;
+  //   var elemB = document.getElementById('hideStatusId1') as HTMLElement;
+  //   var elemc = document.getElementById('hideStatusId2') as HTMLElement;
+  //   var elem0 = document.getElementById('SubmitId') as HTMLElement;
+  //   let div= this.div.nativeElement;
+  //   elem.style.display = 'none';
+  //   elem0.style.display = 'none';
+  //   elemA.style.display = 'none';
+  //   elemB.style.display = 'none';
+  //   elemc.style.display = 'none';
+
+  //   const options = {
+  //     background: 'white',
+  //     scale: 1,
+  //     allowTaint: false,
+  //     height: div.scrollHeight,
+  //         scrollX: -window.scrollX,
+  //         scrollY: -window.scrollY,
+  //         windowWidth: document.documentElement.offsetWidth,
+  //         windowHeight: div.scrollHeight,
+
+  //   };
+  //   html2canvas(div as HTMLElement, options).then((canvas) => {
+  //     var imgWidth = 210;
+  //     var pageHeight = 290;
+  //     var imgHeight = canvas.height * imgWidth / canvas.width;
+  //     var heightLeft = imgHeight;
+
+
+  //     var doc = new jsPDF('p', 'mm');
+  //     var position = 0;
+  //     var pageData = canvas.toDataURL('image/jpeg', 1.0);
+  //     var imgData = encodeURIComponent(pageData);
+
+  //     doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+  //     doc.setLineWidth(5);
+  //     doc.setDrawColor(255, 255, 255);
+  //     doc.rect(0, 0, 210, 295);
+  //     heightLeft -= pageHeight;
+
+  //     while (heightLeft >= 0) {
+  //       position = heightLeft - imgHeight;
+  //       doc.addPage();
+  //       doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+  //       doc.setLineWidth(5);
+  //       doc.setDrawColor(255, 255, 255);
+  //       doc.rect(0, 0, 210, 295);
+  //       heightLeft -= pageHeight;}
+  //       doc.save(`Fiber Request Form /   ${moment().format('ll')}.pdf`);
+  //   })
+
+
+
+
+
+  //       this.NotificationService.success('PDF Downloaded');
+  //       elem.style.display = 'block';
+  //       elem0.style.display = 'block';
+  //       elemA.style.display = 'block';
+  //       elemB.style.display = 'block';
+  //       elemc.style.display = 'block';
+
+
+  // }
   onDownLoad(data: any) {
     var mimeVal = '';
     var extArr = data.name.split('.');
@@ -391,15 +480,44 @@ export class FiberFormComponent implements OnInit {
       }
     );
   }
+
+  onDownLoadAttach(data: any) {
+    var mimeVal = '';
+    var extArr = data.name.split('.');
+    var extVal = extArr[1];
+    for (let i = 0; i < mimetype.length; i++) {
+      if (extVal.toLowerCase() == mimetype[i].ext.toLowerCase()) {
+        mimeVal = mimetype[i].fileType;
+        continue;
+      }
+    }
+    this.fileser.getById(data.id).subscribe(
+      (res) => {
+        const blob = new Blob([res], { type: mimeVal });
+        const file = new File([blob], data.name, { type: mimeVal });
+        saveAs(file);
+      },
+      (err) => {
+        if (err.status == 401)
+          this.router.navigate(['/loginuser'], { relativeTo: this.route });
+        else this.NotificationService.warning(' fail in download file !!');
+      }
+    );
+  }
+
+
+
+
+
+
   ngOnInit(): void {
     this.getSectors();
     this.fileser.getAll(this.param1).subscribe(
       (res) => {
-        //console.log('img');
-        //console.log(res);
+
         if (res.status == true) {
           this.datafiles = res.data;
-          //console.log(this.datafiles);
+        console.log('fileuploaded',this.datafiles);
 
           this.dataSource = new MatTableDataSource<any>(this.datafiles);
           //this.dataSource._updateChangeSubscription();
@@ -418,14 +536,17 @@ export class FiberFormComponent implements OnInit {
       //console.log(this.serviceSpeedList);
     });
     if (this.param1 != undefined) {
+      this.getFeedback();
       this.registerSer.getAllComments(this.param1).subscribe((res) => {
         this.commentsList = res.data;
+
         this.dataSourceComment = new MatTableDataSource<any>(this.commentsList);
         this.dataSourceComment.sort = this.sortComment as MatSort;
         this.dataSourceComment.paginator = this
           .paginatorComment as MatPaginator;
       });
     }
+
     this.form;
   }
 
@@ -437,12 +558,13 @@ export class FiberFormComponent implements OnInit {
     );
     this.dataSourceComment.sort = this.sortComment as MatSort;
     this.dataSourceComment.paginator = this.paginatorComment as MatPaginator;
+    this.dataSourceEsptFeedback.paginator = this.paginatorFeedback as MatPaginator;
   }
 
   registerDetail: registerDetail = new registerDetail();
 
   formComment: FormGroup = new FormGroup({
-    comment: new FormControl('', Validators.required),
+    comment: new FormControl('',[Validators.required,Validators.pattern(/^(\s+\S+\s*)*(?!\s).*$/)]),
     registerDetailId: new FormControl(null),
   });
   form: FormGroup = new FormGroup({
@@ -479,11 +601,16 @@ export class FiberFormComponent implements OnInit {
     PathProtection: new FormControl(false),
     PromisingArea: new FormControl(false),
     serviceSpeedID: new FormControl('', Validators.required),
-    numOfSpeed: new FormControl(0, Validators.required),
+    numberOfSpeed: new FormControl(0, Validators.required),
     statusId: new FormControl(null),
+    status: new FormControl(null),
     acceptstatusId: new FormControl(null),
     rejectionReason: new FormControl(''),
-    sector: new FormControl(null),
+    sectorID: new FormControl(0),
+    sector:new FormControl(null),
+    serviceType:new FormControl(null),
+    acceptableStatus: new FormControl(null),
+    serviceSpeed:new FormControl(null)
   });
 
   getSectors() {
@@ -495,9 +622,71 @@ export class FiberFormComponent implements OnInit {
       }
     });
   }
+getFeedback(){
+  this.registerSer.getAllFeedbacks(this.param1
+    ).subscribe((res) => {
+    this.feedbackList = res.data;
+    console.log('this.feedbackList', this.feedbackList)
+    this.dataSourceEsptFeedback = new MatTableDataSource<any>(this.feedbackList);
+    this.dataSourceEsptFeedback.paginator = this.paginatorFeedback as MatPaginator;
+
+
+  });
+}
+onCreate(){
+  const dialogGonfig = new MatDialogConfig();
+  dialogGonfig.data = { dialogTitle: 'Add', registerDetailID:this.param1};
+  dialogGonfig.disableClose = true;
+  dialogGonfig.autoFocus = true;
+  dialogGonfig.width = '50%';
+  dialogGonfig.panelClass = 'modals-dialog';
+  this.dialog
+      .open(FeedbackComponent, dialogGonfig)
+      .afterClosed()
+      .subscribe((result) => {
+        this.getFeedback();
+
+      });
+}
+onEditFeedback(row:any){
+  const dialogGonfig = new MatDialogConfig();
+  dialogGonfig.data = { dialogTitle: 'Edit', row: row, registerDetailID:this.param1};
+  dialogGonfig.disableClose = true;
+  dialogGonfig.autoFocus = true;
+  dialogGonfig.width = '50%';
+  dialogGonfig.panelClass = 'modals-dialog';
+  this.dialog
+      .open(FeedbackComponent, dialogGonfig)
+      .afterClosed()
+      .subscribe((result) => {
+        this.getFeedback();
+
+      });
+}
+
+
+
+onDelete(id:number){
+
+  this.DeleteService.openConfirmDialog()
+  .afterClosed().subscribe(res =>{
+    if(res){
+      this.registerSer.deleteFeedback(id).subscribe(
+        res=>{
+      this.toast.success('Successfully Deleted');
+      this.getFeedback();
+      });
+
+    }
+  });
+
+}
+
+
   onClear() {
     this.form.reset();
-    this.initializeFormGroup();
+    // this.initializeFormGroup();
+    this.form
     this.NotificationService.success(':: Submitted successfully');
   }
   onSubmit() {
@@ -505,6 +694,7 @@ export class FiberFormComponent implements OnInit {
     this.loading = true;
     const p = { ...this.registerDetail, ...this.form.value };
 
+console.log('p',p)
     if (this.form.valid) {
       this.submit = false;
       if (p.id === 0) {
@@ -550,6 +740,7 @@ export class FiberFormComponent implements OnInit {
             else this.NotificationService.warning('! Fail');
           }
         );
+
       }
     } else {
       this.loading = false;
@@ -612,12 +803,17 @@ export class FiberFormComponent implements OnInit {
       PathProtection: reqreact.pathProtection,
       PromisingArea: reqreact.promisingArea,
       serviceTypeID: 2,
+      serviceType:reqreact.serviceType,
       serviceSpeedID: reqreact.serviceSpeedID,
-      numOfSpeed: reqreact.numberOfSpeed,
+      numberOfSpeed: reqreact.numberOfSpeed,
       statusId: reqreact.statusId,
       acceptstatusId: reqreact.acceptstatusId,
       rejectionReason: reqreact.rejectionReason,
-      sector: reqreact.sectorID,
+      sectorID: reqreact.sectorID,
+      sector: reqreact.sector,
+      status:reqreact.status,
+      acceptableStatus: reqreact.acceptableStatus,
+      serviceSpeed:reqreact.serviceSpeed
     });
   }
 
@@ -632,7 +828,7 @@ export class FiberFormComponent implements OnInit {
       Email: '',
       Mobile: '',
       NumberofCircuits: 0,
-      numOfSpeed: 0,
+      numberOfSpeed: 0,
       FullAddress: '',
       ExchangeName: '',
       NearestFixedLineNumber: '',
@@ -668,6 +864,7 @@ export class FiberFormComponent implements OnInit {
     this.loading = true;
     let formData = new FormData();
     formData.append('formFile', this.fileVal);
+    console.log('FileUploadformData:',formData)
     this.fileser.addfile(formData, this.param1).subscribe(
       (res) => {
         this.loading = false;
@@ -694,21 +891,22 @@ export class FiberFormComponent implements OnInit {
     if (imgFile.target.files && imgFile.target.files[0]) {
       this.fileVal = imgFile.target.files[0];
       this.fileAttr = '';
-      Array.prototype.forEach.call(imgFile.target.files, (file) => {
-        this.fileAttr += file.name;
-      });
+      this.fileAttr=this.fileVal.name;
+      // Array.prototype.forEach.call(imgFile.target.files, (file) => {
+      //   this.fileAttr += file.name;
+      // });
 
       // HTML25 FileReader API
-      let reader = new FileReader();
-      reader.onload = (e: any) => {
-        let image = new Image();
-        image.src = e.target.result;
-        image.onload = (rs) => {
-          let imgBase64Path = e.target.result;
-        };
-      };
-      reader.readAsDataURL(imgFile.target.files[0]);
-      imgFile.target.files[0] = '';
+      // let reader = new FileReader();
+      // reader.onload = (e: any) => {
+      //   let image = new Image();
+      //   image.src = e.target.result;
+      //   image.onload = (rs) => {
+      //     let imgBase64Path = e.target.result;
+      //   };
+      // };
+      // reader.readAsDataURL(imgFile.target.files[0]);
+      // imgFile.target.files[0] = '';
     } else {
       this.fileAttr = 'Choose File ...';
     }
@@ -716,5 +914,19 @@ export class FiberFormComponent implements OnInit {
   resetfile() {
     this.fileAttr = 'Choose File ...';
     (this.fileInput as ElementRef).nativeElement.value = '';
+  }
+
+
+
+
+  expand(row:any,elem:string){
+    if(elem=='Attach'){
+      this.elementName='Attach'
+    row.isExpanded=!row.isExpanded
+    }
+    else{
+      this.elementName='Comment'
+      row.isExpanded=!row.isExpanded
+    }
   }
 }
