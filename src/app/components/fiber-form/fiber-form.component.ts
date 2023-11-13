@@ -158,6 +158,7 @@ export class FiberFormComponent implements OnInit {
       this.adminflag0 = true;
       this.esptFlag = false;
       this.isReadonly = false;
+      this.isEspt=true;
     }
     if (groupval == 'PresalesFiber_ESPT') {
 

@@ -841,8 +841,7 @@
 
               Feedbacks
 
-               <!-- <div class="" style="float: right;" *ngIf="isEspt"> -->
-                <div class="" style="float: right;" >
+               <div class="" style="float: right;" *ngIf="isEspt">
                 <button mat-button class="opt  " (click)="onCreate()" >
 
                   <mat-icon class="add-new ico" >add</mat-icon>
@@ -989,9 +988,9 @@
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="Action"  >
-            <mat-header-cell *matHeaderCellDef > {{'Action'}}</mat-header-cell>
-            <!-- <mat-cell *matCellDef="let row" data-label="Action" [hidden]="!isEspt"> -->
-              <mat-cell *matCellDef="let row" data-label="Action" >
+            <mat-header-cell *matHeaderCellDef  [hidden]="!isEspt"> {{'Action'}}</mat-header-cell>
+            <mat-cell *matCellDef="let row" data-label="Action" [hidden]="!isEspt">
+
                 <button mat-button class="text-success font-weight-bolder" matTooltip="Edit"   (click)="onEditFeedback(row)">
                     <mat-icon>edit</mat-icon>
                 </button>
