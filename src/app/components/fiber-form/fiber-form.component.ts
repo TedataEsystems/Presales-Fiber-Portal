@@ -87,6 +87,7 @@ export class FiberFormComponent implements OnInit {
   statusList: any[] = [];
   sectorList: SectorDto[] = [];
   actionstatusList: any[] = [];
+  actionstatusAdminList: any[] = [];
   datafiles: any[] = [];
   adminflag0: boolean = false;
   isReadonly: boolean = true;
@@ -178,7 +179,7 @@ export class FiberFormComponent implements OnInit {
               if (this.registerDetail.serviceTypeID != 2) {
                 this.router.navigate(['/']);
               }
-              // console.log(this.registerDetail);
+
               if (
                 groupval == 'PresalesFiber_sales' &&
                 (this.registerDetail.statusId == 1 )
@@ -206,7 +207,6 @@ export class FiberFormComponent implements OnInit {
               }
               this.setReactValue(res.data);
 
-              console.log('res:', res.data);
             } else this.NotificationService.error(res.error);
           },
           (err) => {
@@ -293,7 +293,36 @@ export class FiberFormComponent implements OnInit {
           else this.NotificationService.warning('! Fail');
         }
       );
-    } else {
+    } else if (groupval == 'admin_all'){
+      this.statusSer.getPreSalesActions().subscribe(
+        (res) => {
+          if (res.status == true) {
+            this.loading = false;
+
+            this.actionstatusList = res.data;
+          } else this.toast.error(res.error);
+        },
+        (err) => {
+          if (err.status == 401) this.router.navigate(['/loginuser']);
+          else this.NotificationService.warning('! Fail');
+        }
+      );
+      this.statusSer.getEsptActions().subscribe(
+        (res) => {
+          if (res.status == true) {
+            this.loading = false;
+
+            this.actionstatusList.push(...res.data);
+          } else this.toast.error(res.error);
+        },
+        (err) => {
+          if (err.status == 401) this.router.navigate(['/loginuser']);
+          else this.NotificationService.warning('! Fail');
+        }
+      );
+
+    }
+    else {
       this.isSales = true;
     }
   }
@@ -517,7 +546,7 @@ export class FiberFormComponent implements OnInit {
 
         if (res.status == true) {
           this.datafiles = res.data;
-        console.log('fileuploaded',this.datafiles);
+
 
           this.dataSource = new MatTableDataSource<any>(this.datafiles);
           //this.dataSource._updateChangeSubscription();
@@ -533,7 +562,7 @@ export class FiberFormComponent implements OnInit {
 
     this.speedSer.getAll(2).subscribe((res) => {
       this.serviceSpeedList = res.result?.data;
-      //console.log(this.serviceSpeedList);
+
     });
     if (this.param1 != undefined) {
       this.getFeedback();
@@ -626,7 +655,7 @@ getFeedback(){
   this.registerSer.getAllFeedbacks(this.param1
     ).subscribe((res) => {
     this.feedbackList = res.data;
-    console.log('this.feedbackList', this.feedbackList)
+
     this.dataSourceEsptFeedback = new MatTableDataSource<any>(this.feedbackList);
     this.dataSourceEsptFeedback.paginator = this.paginatorFeedback as MatPaginator;
 
@@ -690,15 +719,20 @@ onDelete(id:number){
     this.NotificationService.success(':: Submitted successfully');
   }
   onSubmit() {
-    debugger;
+
     this.loading = true;
+
+    this.form.controls.serviceType.setValue(null);
+    this.form.controls.sector.setValue(null);
+    this.form.controls.status.setValue(null);
+    this.form.controls.acceptableStatus.setValue(null);
+    this.form.controls.serviceSpeed.setValue(null);
     const p = { ...this.registerDetail, ...this.form.value };
 
-console.log('p',p)
     if (this.form.valid) {
       this.submit = false;
       if (p.id === 0) {
-        //console.log(p);
+
         this.registerSer.Add(p).subscribe(
           (res) => {
             this.loading = false;
@@ -719,17 +753,16 @@ console.log('p',p)
           }
         );
       } else {
-        debugger;
-        console.log('p:', p);
+
         this.registerSer.Update(p).subscribe(
           (res) => {
             this.loading = false;
-            debugger;
+
             if (res.status == true) {
               this.NotificationService.success(':: Successfully Updated');
+              this.router.navigate(['/fiber']);
               this.form.reset();
               this.initializeFormGroup();
-              this.router.navigate(['/fiber']);
             } else {
               this.NotificationService.error(res.error);
             }
@@ -841,9 +874,14 @@ console.log('p',p)
       serviceTypeID: 2,
       serviceSpeedID: 0,
       statusId: null,
+      status: null,
+      serviceType:null,
+      serviceSpeed:null,
       acceptstatusId: null,
+      acceptableStatus:null,
       rejectionReason: '',
       sector: null,
+      sectorID:0
     });
   }
   initializeformCommentGroup() {
@@ -864,11 +902,11 @@ console.log('p',p)
     this.loading = true;
     let formData = new FormData();
     formData.append('formFile', this.fileVal);
-    console.log('FileUploadformData:',formData)
+
     this.fileser.addfile(formData, this.param1).subscribe(
       (res) => {
         this.loading = false;
-        //console.log(res);
+
         this.resetfile();
         if (res.status) {
           this.NotificationService.success('Uploaded');

@@ -26,11 +26,11 @@ export class FeedbackComponent implements OnInit {
     Availability:[null],
     Distance:[null],
     // uploadAttach:[[]],
-    CreationDate:[null],
-    CreatedBy:[''],
-    modificationDate:[null],
-    modifyiedBy:[''],
-    registerDetailID:[0]
+    // CreationDate:[null],
+    // CreatedBy:[''],
+    // modificationDate:[null],
+    // modifyiedBy:[''],
+     registerDetailID:[0]
 
 
 
@@ -47,16 +47,17 @@ export class FeedbackComponent implements OnInit {
       this.dialogTitle = 'Update';
       if (this.data.row) {
         this.form.controls['id'].setValue(this.data.row.id);
-        this.form.controls['textData'].setValue(this.data.row.comment);
-        this.form.controls['Availability'].setValue(this.data.row.availability);
-        this.form.controls['Distance'].setValue(this.data.row.distance);
-
+        this.form.controls['textData'].setValue(this.data.row?.comment);
+        this.form.controls['Availability'].setValue(this.data.row?.availability);
+        this.form.controls['Distance'].setValue(this.data.row?.distance);
         this.form.controls['registerDetailID'].setValue(this.data.registerDetailID);
-
-        this.fileVal=this.data.row.attaches;
-      for(let i=0 ; i< this.fileVal.length;i++){
-          this.fileAttr += this.fileVal[i].name +' , ';
+        if(this.data.row?.attaches){
+          this.fileVal=this.data.row?.attaches;
+          for(let i=0 ; i< this.fileVal?.length;i++){
+              this.fileAttr += this.fileVal[i].name +' , ';
+            }
         }
+
 
       }
     }
@@ -68,7 +69,7 @@ export class FeedbackComponent implements OnInit {
 
   }
   onSubmit() {
-    debugger
+
     if (this.form.invalid) {
       return;
     }
@@ -80,15 +81,22 @@ export class FeedbackComponent implements OnInit {
         comment:this.form.controls['textData'].value,
         Availability: this.form.controls['Availability'].value,
         Distance:this.form.controls['Distance'].value,
-        CreationDate:this.form.controls['CreationDate'].value,
-        CreatedBy:localStorage.getItem("usernam"),
+        // CreationDate:this.form.controls['CreationDate'].value,
+        // CreatedBy:localStorage.getItem("usernam"),
         registerDetailID:Number(this.form.controls['registerDetailID'].value)
       }
 
-
+      if(this.form.controls['id'].value == 0 &&
+      this.form.controls['Availability'].value == null
+      && this.form.controls['textData'].value == '' &&
+      this.form.controls['Distance'].value == null){
+        if(!this.isTriggered){
+          return
+        }
+      }
       this._feedService.AddFeedback(feedobj).subscribe((res)=>{
         if (res.status == true) {
-          debugger
+
           console.log('res:',res)
           if(this.isTriggered){
             this.Upload(res.data.id);
@@ -110,16 +118,25 @@ export class FeedbackComponent implements OnInit {
 
     }
     else {
+      debugger
       let feedobj={
         id: this.form.controls['id'].value,
         comment:this.form.controls['textData'].value,
         Availability: this.form.controls['Availability'].value,
         Distance:this.form.controls['Distance'].value,
-        modificationDate:this.form.controls['modificationDate'].value,
-        modifyiedBy:localStorage.getItem("usernam"),
+
         registerDetailID:Number(this.form.controls['registerDetailID'].value)
       }
-      console.log('feedobj',feedobj)
+
+      if(this.form.controls['id'].value == this.data.row.id &&
+      this.form.controls['Availability'].value == this.data.row.availability
+      && this.form.controls['textData'].value == this.data.row.comment &&
+      this.form.controls['Distance'].value == this.data.row.distance){
+        if(!this.isTriggered){
+          return
+        }
+
+      }
       this._feedService.updateFeedback(feedobj).subscribe((res)=>{
         if (res.status == true) {
           if(this.isTriggered){
@@ -223,7 +240,7 @@ export class FeedbackComponent implements OnInit {
 
 
   removeImg(index:number){
-   
+
 var files:File[]=[]
    for(let i=0;i<this.fileVal.length;i++){
     if(this.fileVal[i]!=this.fileVal[index]){

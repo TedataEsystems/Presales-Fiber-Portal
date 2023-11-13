@@ -397,8 +397,10 @@
                       </section>
                     </div>
                     <label class="text-left note">
-                      برجاء تحديد إن كانت المنطقة واعدة توسعات أو عملاء جدد أو
-                      لا *
+
+
+            برجاء تحديد إن كانت المنطقة واعدة ( توسعات أو عملاء جدد ) أو لا*
+
                     </label>
                   </div>
                   <div class="d-inline-block divide">
@@ -469,8 +471,8 @@
                 <div class="controles-container">
                   <div id="hideStatusId2" class="mt-5" >
                     <mat-label class="">Sector :</mat-label>
-                    <mat-form-field class="">
-                      <mat-select formControlName="sectorID">
+                    <mat-form-field class=""  >
+                      <mat-select formControlName="sectorID" [disabled]="isReadonly">
                         <mat-option>None</mat-option>
                         <ng-container *ngFor="let item of sectorList">
                           <mat-option [value]="item.id">{{
@@ -520,7 +522,8 @@
               </mat-grid-tile>
               <mat-grid-tile colspan="1">
                 <div class="controles-container">
-                  <div id="hideStatusId" class="mt-5" *ngIf="isSales && showStatus">
+                  <!-- <div id="hideStatusId" class="mt-5" *ngIf="isSales && showStatus"> -->
+                    <div id="hideStatusId" class="mt-5" >
                     <mat-label class="" >Status :</mat-label>
                     <mat-form-field class="">
                       <!-- <mat-select
@@ -924,7 +927,7 @@
               >
                 <mat-list>
                   <ng-container *ngIf="elementName=='Attach'">
-                    <mat-list-item  *ngFor="let file of element.attaches">
+                    <mat-list-item  *ngFor="let file of element?.attaches">
 
                       <mat-list-item>
                          <button
@@ -937,7 +940,7 @@
                       </button>
 
 &nbsp;&nbsp;
-                      {{file.name}}
+                      {{file?.name}}
                     </mat-list-item>
 
                        </mat-list-item>
