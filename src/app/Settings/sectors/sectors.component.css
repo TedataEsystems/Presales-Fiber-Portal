@@ -55,3 +55,11 @@ mat-cell:last-child,mat-header-cell:last-child{
   ::-webkit-scrollbar-thumb:hover {
   background: var(--font-color);
   }
+
+
+  mat-label span
+{
+font-weight: 800;
+vertical-align: baseline;
+}
+

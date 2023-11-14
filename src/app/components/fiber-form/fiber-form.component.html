@@ -161,9 +161,12 @@
                     <mat-error *ngIf="form.controls.Mobile.errors?.required"
                       >This field is mandatory.</mat-error
                     >
-                    <mat-error *ngIf="form.controls.Mobile.errors?.minlength"
-                      >Minimum 11 charactors needed.</mat-error
-                    >
+                    <!-- <mat-error *ngIf="form.controls.Mobile.errors?.minlength"
+                      >Minimum 11 number needed.</mat-error
+                    > -->
+                    <mat-error *ngIf="form.controls.Mobile.errors?.maxlength || form.controls.Mobile.errors?.minlength"
+                    >Must be 11 numbers.</mat-error
+                  >
                     <mat-error *ngIf="form.controls.Mobile.errors?.pattern"
                       >Numbers only.</mat-error
                     >
@@ -503,7 +506,7 @@
               </mat-grid-tile>
               <mat-grid-tile colspan="1">
                 <div class="controles-container">
-                  <div id="hideStatusId1" class="mt-5"  [hidden]="isSales">
+                  <div id="hideStatusId1" class="mt-5"  *ngIf="isSales || isPreSales || isAdmin">
                     <mat-label class="w-100"
                       >Rejection Reason :</mat-label>
                     <mat-form-field class="w-100">
@@ -512,7 +515,7 @@
                       formControlName="rejectionReason"
                       row="10"
                       class="text-right"
-
+[readonly]="isSales"
                       matInput
                     >
                     </textarea>
@@ -560,7 +563,7 @@
                     Finish
                   </button>
 
-                  <button mat-button class="sub" type="submit">Submit</button>
+                  <button mat-button class="sub" [disabled]="isDisabled" type="submit">Submit</button>
                 </div>
               </div>
             </mat-grid-tile>
@@ -1045,7 +1048,7 @@
 </mat-tab-group>
 
 <!-- <app-loader ></app-loader> -->
-<ngx-spinner type="timer" *ngIf="loading">
+<ngx-spinner type="timer">
   <h5>Loading</h5>
 </ngx-spinner>
 <!--

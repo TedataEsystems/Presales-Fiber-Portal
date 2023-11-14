@@ -13,7 +13,7 @@ import { ServiceRegisterService } from 'src/app/shared/services/service-register
 })
 export class FeedbackComponent implements OnInit {
   dialogTitle=""
- fileAttr = 'Choose File ...'
+ fileAttr = ''
   fileVal :File[]=[];
   registerDetailID:number=0;
   isTriggered:boolean=false;
@@ -172,7 +172,7 @@ export class FeedbackComponent implements OnInit {
 
     if (imgFile.target.files && imgFile.target.files[0]) {
 
-      this.fileAttr =' ';
+      //this.fileAttr =' ';
       Object.values(imgFile.target.files).forEach((file:any)=> {
 
 
@@ -191,7 +191,7 @@ export class FeedbackComponent implements OnInit {
       this.isTriggered=true;
 
     } else {
-      this.fileAttr = 'Choose File ...';
+      this.fileAttr = '';
     }
   }
 

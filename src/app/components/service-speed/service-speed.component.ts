@@ -6,7 +6,7 @@ import {MatSort} from '@angular/material/sort';
 import { NotificationService} from 'src/app/shared/services/notification.service';
 import { Title } from '@angular/platform-browser';
 import { ServicespeedService } from 'src/app/shared/services/servicespeed.service';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl, FormGroupDirective, Validators} from '@angular/forms';
 import { ServiceSpeed } from 'src/app/Models/ServiceSpeed';
 import { DeleteService } from 'src/app/shared/services/delete.service';
 
@@ -29,6 +29,8 @@ serviceSpeedListTab?:ServiceSpeed[]=[];
 valdata="";valuid=0;
 dataSource = new MatTableDataSource<any>();
 delpic:any;
+isDisabled=true;
+@ViewChild(FormGroupDirective) formGroupDirective?: FormGroupDirective;
   searchKey:string ='';
   listName:string ='';
   loading: boolean = true;
@@ -180,9 +182,9 @@ delpic:any;
     this.valdata=r.value;
     this.valuid=r.id;
     if(r.orderInList !=null)
-    this.setReactValue(Number(r.id),r.value,r.orderInList);
+    this.setReactValue(Number(r.id),r.value.trim(),r.orderInList);
     else
-    this.setReactValue(Number(r.id),r.value,0);
+    this.setReactValue(Number(r.id),r.value.trim(),0);
 
 //this.router.navigate(['/Simdetail'],{ queryParams: {id: r.id}});
 
@@ -193,24 +195,22 @@ delpic:any;
 
   form: FormGroup = new FormGroup({
     id: new FormControl(0),
-    value: new FormControl('',[Validators.required]),
+    value: new FormControl('',[Validators.required, Validators.pattern(/^(\s+\S+\s*)*(?!\s).*$/)]),
     orderInList: new FormControl(0),
 
   });//18
-  isDisable=false;
+
 
 
 
 
 
   onSubmit() {
-    //
-   this.isDisable=true;
 
       if (this.form.invalid||this.form.value.value==' ') {
         if (this.form.value.value==' ')
-         this.setReactValue(Number(0),"",0);
-         this.isDisable=false;
+        this.formGroupDirective?.resetForm();
+
           return;
       }
 
@@ -220,26 +220,26 @@ delpic:any;
 
       listval.orderInList=this.form.value.orderInList;
 
-      
+
       if(this.form.value.id==0||this.form.value.id==null||this.form.value.id==undefined){
         var HWData= this.serviceSpeedListTab?.find(x=>x.value==this.form.value.value.trim());
         if(HWData)
         {
-         this.isDisable=false;
-         this.setReactValue(Number(0),"",0);
+
+         this.formGroupDirective?.resetForm();
           this.notser.warning("value already exist");
           return;
         }
         var orData= this.serviceSpeedListTab?.find(x=>x.orderInList==this.form.value.orderInList);
         if(orData)
         {
-         this.isDisable=false;
-         this.setReactValue(Number(0),"",0);
+
+         this.formGroupDirective?.resetForm();
           this.notser.warning("order already exist");
           return;
         }
       this.speedSer.Add(listval).subscribe((res)=>{
-         this.isDisable=false;
+
 
       if(res.status==true)    {
         var SS:ServiceSpeed=new ServiceSpeed();
@@ -261,8 +261,8 @@ delpic:any;
         this.dataSource =new MatTableDataSource<any>(this.serviceSpeedListTab);
 
     this.dataSource.paginator = this.paginator as MatPaginator;
-      this.notser.success("Added!") ;
-      this.setReactValue(Number(0)," ",0);
+      this.notser.success("Successfully Added") ;
+      this.formGroupDirective?.resetForm();
 
 
       }
@@ -271,7 +271,6 @@ delpic:any;
 
       }
       },err=>{
-        this.isDisable=false;
 
         if(err.status==401)
       this.router.navigate(['/loginuser'] );
@@ -285,18 +284,16 @@ delpic:any;
       var HWData= this.serviceSpeedListTab?.find(x=>x.value==this.form.value.value.trim());
       if(HWData &&HWData.id !=this.form.value.id)
       {
-        this.isDisable=false;
-
-       this.setReactValue(Number(0),"",0);
+      
+        this.formGroupDirective?.resetForm();
         this.notser.warning("value already exist");
         return;
       }
       var ordata= this.serviceSpeedListTab?.find(x=>x.orderInList==this.form.value.orderInList);
       if(ordata &&ordata.id !=this.form.value.id)
       {
-        this.isDisable=false;
 
-       this.setReactValue(Number(0),"",0);
+        this.formGroupDirective?.resetForm();
         this.notser.warning("order already exist");
         return;
       }
@@ -305,7 +302,6 @@ delpic:any;
   //   listval.serviceTypeID=this.param1;
 
       this.speedSer.Update(listval).subscribe((res)=>{
-         this.isDisable=false;
 
         if(res.status==true)    {
           // const index1 = this.dataSource.data.indexOf(this.l);
@@ -330,10 +326,9 @@ delpic:any;
         this.dataSource =new MatTableDataSource<any>(this.serviceSpeedListTab);
 
     this.dataSource.paginator = this.paginator as MatPaginator;
-   this.setReactValue(Number(0)," ",0);
+    this.formGroupDirective?.resetForm();
 
-
-          this.notser.success("saved!") ;
+          this.notser.success("Successfully Deleted") ;
 
           }
           else{
@@ -342,7 +337,7 @@ delpic:any;
           }
 
       },err=>{
-        this.isDisable=false;
+
         if(err.status==401)
         this.router.navigate(['/loginuser']);
         else
@@ -351,6 +346,73 @@ delpic:any;
 
 
       });
+    }
+
+
+
+  this.isDisabled=true;
+  }
+
+
+
+  onChecknameIsalreadysign()
+  {
+
+
+    if(this.form.valid)
+
+    {
+var id=this.serviceSpeedListTab?.find( x=>x.id==this.form.value.id)
+        var ordata= this.serviceSpeedListTab?.find(x=>x.orderInList==this.form.value.orderInList);
+        var value= this.serviceSpeedListTab?.find(x=>x.value==this.form.value.value.trim());
+        if(ordata)
+        {
+
+          if(value){
+
+             this.notser.warning("Value already exist");
+            this.isDisabled=true;
+
+           }
+           else{
+            this.notser.warning("order already exist");
+          this.isDisabled=true;
+           return;
+           }
+
+        }
+
+        else{
+          this.isDisabled=false;
+        }
+
+//         if(HWData)
+//         {
+// //edit
+//         if(ordata && id || ordata){
+//             this.notser.warning("order already exist");
+//             this.isDisabled=true;
+//           }
+//           else{
+
+//             this.isDisabled=false;
+//           }
+//         }
+//         else if(!HWData && ordata){
+//           this.notser.warning("order already exist");
+//           this.isDisabled=true;
+
+//         }
+
+//         else{
+
+//             this.isDisabled=false;
+
+//         }
+
+
+    }else{
+      this.isDisabled=true;
     }
   }
   setReactValue(id:number,val:any,num:any){

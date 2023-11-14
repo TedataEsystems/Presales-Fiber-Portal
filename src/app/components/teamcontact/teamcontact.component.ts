@@ -34,6 +34,7 @@ delconct:any;
   listName:string ='';
   loading: boolean = true;
   selected: boolean = false;
+  isDisabled=true;
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   @ViewChild(MatSort) sort?: MatSort;
   param1='';settingtype='';
@@ -158,26 +159,26 @@ else{
     this.valdata=r.mail;
     this.valuid=r.id;
     if(r.type !=null)
-    this.setReactValue(Number(r.id),r.mail,r.type);
+    this.setReactValue(Number(r.id),r.mail.trim(),r.type);
     else
-    this.setReactValue(Number(r.id),r.mail,'to');
+    this.setReactValue(Number(r.id),r.mail.trim(),'to');
 
 
   }
 
   form: FormGroup = new FormGroup({
     id: new FormControl(0),
-    mail: new FormControl('',[Validators.required,Validators.email]),
+    mail: new FormControl('',[Validators.required,Validators.email,Validators.pattern(/^(\s+\S+\s*)*(?!\s).*$/)]),
     type: new FormControl('to'),
 
   });//18
   isDisable=false;
   onSubmit() {
     //
-   this.isDisable=true;
+
       if (this.form.invalid||this.form.value.value==' ') {
         //   this.setReactValue(Number(0),"",'to');
-           this.isDisable=false;
+
 
           return;
 
@@ -209,7 +210,7 @@ else{
         this.dataSource =new MatTableDataSource<any>(this.contactListTab);
 
     this.dataSource.paginator = this.paginator as MatPaginator;
-      this.notser.success("Added!") ;
+      this.notser.success("Successfully Added") ;
       this.formGroupDirective?.resetForm();
       // this.form.markAsPristine();
       // this.form.markAsUntouched();
@@ -257,7 +258,7 @@ else{
     this.formGroupDirective?.resetForm();
 
 
-          this.notser.success("saved!") ;
+          this.notser.success("Successfully Updated") ;
 
           }
           else{
@@ -276,6 +277,8 @@ else{
 
       });
     }
+
+    this.isDisabled=true;
   }
   setReactValue(id:number,val:any,num:any){
     this.form.patchValue({
@@ -297,6 +300,38 @@ else{
 
       }
     });
+}
+
+onChecknameIsalreadysign()
+{
+
+  if(this.form.valid)
+  {
+      //add
+      var pickData= this.contactListTab?.find(x=>x.mail==this.form.value.mail.trim());
+      var type= this.contactListTab?.find(x=> (x.type==this.form.value.type.trim()) && (x.id==this.form.value.id));
+
+      if(pickData)
+      {
+      if(type){
+          this.notser.warning("mail already exist");
+          this.isDisabled=true;
+        }
+        else{
+
+          this.isDisabled=false;
+        }
+      }
+      else{
+
+          this.isDisabled=false;
+
+      }
+
+}
+  else{
+    this.isDisabled=true;
+  }
 }
 }
 

@@ -31,6 +31,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FeedbackComponent } from '../feedback/feedback.component';
 import { FeedbackDto } from 'src/app/Models/feedbackDTO';
 import html2canvas from 'html2canvas';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 var mimetype = [
   { ext: 'txt', fileType: 'text/plain' },
@@ -68,8 +69,9 @@ var mimetype = [
   ],
 })
 export class FiberFormComponent implements OnInit {
-  loading = false;
+
   submit = false;
+  isDisabled=false;
   @ViewChild('fileInput', { static: false }) fileInput?: any;
   @ViewChild('contentTopdf', { static: false }) pageEl?: ElementRef;
   fileAttr = 'Choose File ...';
@@ -95,6 +97,7 @@ export class FiberFormComponent implements OnInit {
   isSales: boolean = false;
   isPreSales: boolean = false;
   isEspt:boolean=false;
+  isAdmin:boolean=false;
   RegExpAr = '^[\u0621-\u064A\u0660-\u0669 ]+$';
   @ViewChild(MatSort) sort?: MatSort;
   @ViewChild(MatPaginator) paginator?: MatPaginator;
@@ -138,6 +141,7 @@ export class FiberFormComponent implements OnInit {
     private fileser: FileuploadService,
     private DeleteService: DeleteService,
     private router: Router,
+    private loading:LoadingService,
     private registerSer: ServiceRegisterService,
     private NotificationService: ToastrService,
     private config: ConfigureService,
@@ -158,12 +162,15 @@ export class FiberFormComponent implements OnInit {
       this.adminflag0 = true;
       this.esptFlag = false;
       this.isReadonly = false;
-      this.isEspt=true;
+      this.isAdmin=true;
     }
     if (groupval == 'PresalesFiber_ESPT') {
 
 
       this.isEspt=true;
+    }
+    else{
+      this.isPreSales=true
     }
 
     this.route.queryParams.subscribe((params: any) => {
@@ -234,7 +241,7 @@ export class FiberFormComponent implements OnInit {
     this.statusSer.getAll().subscribe(
       (res) => {
         if (res.status == true) {
-          this.loading = false;
+          this.loading.idle();
 
           this.statusList = res.result?.data;
         } else this.NotificationService.error(res.error);
@@ -248,7 +255,7 @@ export class FiberFormComponent implements OnInit {
     // this.statusSer.getAllAction().subscribe(res => {
     //   if (res.status == true) {
 
-    //     this.loading = false;
+    //     this.loading.idle();
 
     //     this.actionstatusList = res.data;
 
@@ -270,7 +277,7 @@ export class FiberFormComponent implements OnInit {
       this.statusSer.getPreSalesActions().subscribe(
         (res) => {
           if (res.status == true) {
-            this.loading = false;
+            this.loading.idle();
 
             this.actionstatusList = res.data;
           } else this.toast.error(res.error);
@@ -284,7 +291,7 @@ export class FiberFormComponent implements OnInit {
       this.statusSer.getEsptActions().subscribe(
         (res) => {
           if (res.status == true) {
-            this.loading = false;
+            this.loading.idle();
 
             this.actionstatusList = res.data;
           } else this.toast.error(res.error);
@@ -298,7 +305,7 @@ export class FiberFormComponent implements OnInit {
       this.statusSer.getPreSalesActions().subscribe(
         (res) => {
           if (res.status == true) {
-            this.loading = false;
+            this.loading.idle();
 
             this.actionstatusList = res.data;
           } else this.toast.error(res.error);
@@ -311,7 +318,7 @@ export class FiberFormComponent implements OnInit {
       this.statusSer.getEsptActions().subscribe(
         (res) => {
           if (res.status == true) {
-            this.loading = false;
+            this.loading.idle();
 
             this.actionstatusList.push(...res.data);
           } else this.toast.error(res.error);
@@ -615,6 +622,7 @@ export class FiberFormComponent implements OnInit {
     Mobile: new FormControl('', [
       Validators.required,
       Validators.minLength(11),
+      Validators.maxLength(11),
       Validators.pattern(/^-?(0|[0-9]\d*)?$/),
     ]),
     NumberofCircuits: new FormControl(0),
@@ -721,7 +729,7 @@ onDelete(id:number){
   }
   onSubmit() {
 
-    this.loading = true;
+    this.loading.busy();
 
     this.form.controls.serviceType.setValue(null);
     this.form.controls.sector.setValue(null);
@@ -736,19 +744,22 @@ onDelete(id:number){
 
         this.registerSer.Add(p).subscribe(
           (res) => {
-            this.loading = false;
+
             if (res.status == true) {
+              this.loading.idle();
               this.NotificationService.success(':: Successfully Submited');
 
               this.router.navigate(['/fiber']);
               this.form.reset();
               this.initializeFormGroup();
+              this.isDisabled=true;
             } else {
               this.NotificationService.error(res.error);
+              this.isDisabled=true;
             }
           },
           (err) => {
-            this.loading = false;
+            this.loading.idle();
             if (err.status == 401) this.router.navigate(['/login']);
             else this.NotificationService.warning('! Fail');
           }
@@ -757,19 +768,22 @@ onDelete(id:number){
 
         this.registerSer.Update(p).subscribe(
           (res) => {
-            this.loading = false;
+
 
             if (res.status == true) {
+              this.loading.idle();
               this.NotificationService.success(':: Successfully Updated');
               this.router.navigate(['/fiber']);
               this.form.reset();
               this.initializeFormGroup();
+              this.isDisabled=true;
             } else {
               this.NotificationService.error(res.error);
+              this.isDisabled=true;
             }
           },
           (err) => {
-            this.loading = false;
+            this.loading.idle();
             if (err.status == 401) this.router.navigate(['/login']);
             else this.NotificationService.warning('! Fail');
           }
@@ -777,17 +791,24 @@ onDelete(id:number){
 
       }
     } else {
-      this.loading = false;
+      this.loading.idle();
       this.submit = true;
       return;
     }
+
   }
+
+
+
+
+
+
   saveComment() {
-    this.loading = true;
+    this.loading.busy();
     if (this.formComment.valid) {
       this.registerSer.AddComment(this.formComment.value).subscribe(
         (res) => {
-          this.loading = false;
+          this.loading.idle();
           if (!this.commentsList) this.commentsList = [];
           if (res.status) {
             this.commentsList.push(res.data);
@@ -802,7 +823,7 @@ onDelete(id:number){
           } else this.NotificationService.error(res.error);
         },
         (err) => {
-          this.loading = false;
+          this.loading.idle();
           if (err.status == 401)
             this.router.navigate(['/loginuser'], { relativeTo: this.route });
           else this.NotificationService.warning('! Fail');
@@ -811,7 +832,7 @@ onDelete(id:number){
       this.formComment.reset();
       this.initializeformCommentGroup();
     } else {
-      this.loading = false;
+      this.loading.idle();
     }
   }
   setReactValue(reqreact: registerDetail) {
@@ -900,13 +921,13 @@ onDelete(id:number){
       return;
     }
 
-    this.loading = true;
+    this.loading.busy();
     let formData = new FormData();
     formData.append('formFile', this.fileVal);
 
     this.fileser.addfile(formData, this.param1).subscribe(
       (res) => {
-        this.loading = false;
+        this.loading.idle();
 
         this.resetfile();
         if (res.status) {

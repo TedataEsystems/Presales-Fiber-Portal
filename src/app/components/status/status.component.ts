@@ -6,7 +6,7 @@ import {MatSort} from '@angular/material/sort';
 import { NotificationService} from 'src/app/shared/services/notification.service';
 import { Title } from '@angular/platform-browser';
 import { statusService } from 'src/app/shared/services/status.service';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl, FormGroupDirective, Validators} from '@angular/forms';
 import { status } from 'src/app/Models/status';
 import { DeleteService } from 'src/app/shared/services/delete.service';
 
@@ -29,12 +29,14 @@ statusListTab?:status[]=[];
 valdata="";valuid=0;
 dataSource = new MatTableDataSource<any>();
 delpic:any;
+isDisabled=true;
   searchKey:string ='';
   listName:string ='';
   loading: boolean = true;
   selected: boolean = false;
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   @ViewChild(MatSort) sort?: MatSort;
+  @ViewChild(FormGroupDirective) formGroupDirective?: FormGroupDirective;
   param1:any;settingtype=''
   constructor(private titleService:Title,private statusSer:statusService
     ,private notser:ToastrService,private router: Router,private dialogService:DeleteService,
@@ -163,7 +165,7 @@ delpic:any;
     this.valdata=r.value;
     this.valuid=r.id;
     if(r.orderInList !=null)
-    this.setReactValue(Number(r.id),r.value,r.orderInList);
+    this.setReactValue(Number(r.id),r.value.trim(),r.orderInList);
     else
     this.setReactValue(Number(r.id),r.value,0);
 
@@ -172,19 +174,18 @@ delpic:any;
   }
   form: FormGroup = new FormGroup({
     id: new FormControl(0),
-    value: new FormControl('',[Validators.required]),
+    value: new FormControl('',[Validators.required, Validators.pattern(/^(\s+\S+\s*)*(?!\s).*$/)]),
     orderInList: new FormControl(0),
 
   });//18
   isDisable=false;
 
   onSubmit() {
-    //
-   this.isDisable=true;
 
       if (this.form.invalid||this.form.value.value==' ') {
         if (this.form.value.value==' ')
-         this.setReactValue(Number(0),"",0);
+        //  this.setReactValue(Number(0),"",0);
+        this.formGroupDirective?.resetForm();
          this.isDisable=false;
           return;
       }
@@ -198,21 +199,23 @@ delpic:any;
         var HWData= this.statusListTab?.find(x=>x.value==this.form.value.value.trim());
         if(HWData)
         {
-         this.isDisable=false;
-         this.setReactValue(Number(0),"",0);
+        //// this.isDisable=false;
+        //  this.setReactValue(Number(0),"",0);
+        this.formGroupDirective?.resetForm();
           this.notser.warning("value already exist");
           return;
         }
         var orData= this.statusListTab?.find(x=>x.orderInList==this.form.value.orderInList);
         if(orData)
         {
-         this.isDisable=false;
-         this.setReactValue(Number(0),"",0);
+        // this.isDisable=false;
+        // this.setReactValue(Number(0),"",0);
+        this.formGroupDirective?.resetForm();
           this.notser.warning("order already exist");
           return;
         }
       this.statusSer.Add(listval).subscribe((res)=>{
-         this.isDisable=false;
+        // this.isDisable=false;
 
       if(res.status==true)    {
         var SS:status=new status();
@@ -234,8 +237,9 @@ delpic:any;
         this.dataSource =new MatTableDataSource<any>(this.statusListTab);
 
     this.dataSource.paginator = this.paginator as MatPaginator;
-      this.notser.success("Added!") ;
-      this.setReactValue(Number(0)," ",0);
+      this.notser.success("Successfully Added") ;
+      //this.setReactValue(Number(0)," ",0);
+      this.formGroupDirective?.resetForm();
 
 
       }
@@ -244,7 +248,7 @@ delpic:any;
 
       }
       },err=>{
-        this.isDisable=false;
+       // this.isDisable=false;
 
         if(err.status==401)
       this.router.navigate(['/loginuser'] );
@@ -258,18 +262,18 @@ delpic:any;
       var HWData= this.statusListTab?.find(x=>x.value==this.form.value.value.trim());
       if(HWData &&HWData.id !=this.form.value.id)
       {
-        this.isDisable=false;
-
-       this.setReactValue(Number(0),"",0);
+        //this.isDisable=false;
+        this.formGroupDirective?.resetForm();
+       //this.setReactValue(Number(0),"",0);
         this.notser.warning("value already exist");
         return;
       }
       var ordata= this.statusListTab?.find(x=>x.orderInList==this.form.value.orderInList);
       if(ordata &&ordata.id !=this.form.value.id)
       {
-        this.isDisable=false;
-
-       this.setReactValue(Number(0),"",0);
+       // this.isDisable=false;
+       this.formGroupDirective?.resetForm();
+      // this.setReactValue(Number(0),"",0);
         this.notser.warning("order already exist");
         return;
       }
@@ -303,10 +307,10 @@ delpic:any;
         this.dataSource =new MatTableDataSource<any>(this.statusListTab);
 
     this.dataSource.paginator = this.paginator as MatPaginator;
-   this.setReactValue(Number(0)," ",0);
+   //this.setReactValue(Number(0)," ",0);
+   this.formGroupDirective?.resetForm()
 
-
-          this.notser.success("saved!") ;
+          this.notser.success("Successfully Updated") ;
 
           }
           else{
@@ -315,7 +319,7 @@ delpic:any;
           }
 
       },err=>{
-        this.isDisable=false;
+        //this.isDisable=false;
         if(err.status==401)
         this.router.navigate(['/loginuser']);
         else
@@ -325,7 +329,72 @@ delpic:any;
 
       });
     }
+    this.isDisabled=true;
+
   }
+
+
+
+
+  onChecknameIsalreadysign()
+  {
+
+
+    if(this.form.valid)
+    {
+var id=this.statusListTab?.find( x=>x.id==this.form.value.id)
+        var ordata= this.statusListTab?.find(x=>x.orderInList==this.form.value.orderInList);
+        var HWData= this.statusListTab?.find(x=>x.value==this.form.value.value.trim());
+        // if(ordata)
+        // {
+
+        //   if(HWData){
+
+        //      this.notser.warning("Value already exist");
+        //     this.isDisabled=true;
+
+        //    }
+        //    else{
+        //     this.notser.warning("order already exist");
+        //   this.isDisabled=true;
+        //    return;
+        //    }
+
+        // }
+
+        // else{
+        //   this.isDisabled=false;
+        // }
+        if(HWData)
+        {
+//edit
+        if(ordata && id || ordata){
+            this.notser.warning("order already exist");
+            this.isDisabled=true;
+          }
+          else{
+
+            this.isDisabled=false;
+          }
+        }
+        else if(!HWData && ordata){
+          this.notser.warning("order already exist");
+          this.isDisabled=true;
+
+        }
+        
+        else{
+
+            this.isDisabled=false;
+
+        }
+
+
+    }else{
+      this.isDisabled=true;
+    }
+  }
+
   setReactValue(id:number,val:any,num:any){
     this.form.patchValue({
       id: id,
@@ -341,6 +410,7 @@ delpic:any;
       this.statusSer.Remove($key).subscribe(
         res=>{
       this.notser.success('Deleted successfully!');
+
       this.getRequestdata();
       });
 

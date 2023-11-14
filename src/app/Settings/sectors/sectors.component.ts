@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -23,14 +23,14 @@ export class SectorsComponent implements OnInit ,AfterViewInit{
   SortDirDef: string = 'ASC';
   sectorList:SectorDto[]=[];
   loading: boolean = true;
-  isDisable=false;
-  isShowDiv = false;
+  isDisabled=true;
 
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   @ViewChild(MatSort) sort?: MatSort;
+  @ViewChild(FormGroupDirective) formGroupDirective?: FormGroupDirective;
   form: FormGroup = new FormGroup({
     id: new FormControl(0),
-    value: new FormControl('',[Validators.required])
+    value: new FormControl('',[Validators.required,Validators.pattern(/^(\s+\S+\s*)*(?!\s).*$/)])
   });
   constructor(private _SectorService: SectorService, private toast :ToastrService,private dialogService:DeleteService) { }
 
@@ -76,23 +76,18 @@ export class SectorsComponent implements OnInit ,AfterViewInit{
 
   onSubmit(){
 
-    if (this.form.invalid||this.form.value.value==' ') {
-      if (this.form.value.value==' ')
-       this.setReactValue(Number(0),"");
-        return;
-    }
+
+    // if (this.form.invalid || this.form.controls.value.value=='') {
+    //   if (this.form.controls.value.value=='')
+    //   // this.setReactValue(Number(0),"");
+    //   this.form['controls']['value'].setValue('');
+    //   this.form['controls']['id'].setValue(0);
+    //     return;
+    // }
 
     if(this.form.value.id==0||this.form.value.id==null||this.form.value.id==undefined){
 
-      //add
-      var sectorValue=  this.sectorList?.find(x=>x.value==this.form.value.value.trim());
-      if(sectorValue)
-      {
 
-        this.toast.warning("Sector is already exist");
-       // this.form.reset();
-        return;
-      }
       let list={
             id: Number(this.form.value.id),
             value:this.form.value.value
@@ -104,7 +99,7 @@ export class SectorsComponent implements OnInit ,AfterViewInit{
         if(res.status){
 
           this.toast.success('Successfully Added');
-           this.form.reset();
+          this.formGroupDirective?.resetForm();
           this.getAllSectors(100,1,0,'',this.sortColumnDef,0,this.SortDirDef,'');
 
         }
@@ -112,29 +107,37 @@ export class SectorsComponent implements OnInit ,AfterViewInit{
           this.toast.error(res.error)
         }
        })
-       this.isShowDiv = false;
+
+
   }
   else{
     //////update
 
-    var sectorValue=  this.sectorList?.find(x=>x.value==this.form.value.value.trim());
-    if(sectorValue &&sectorValue.id !=this.form.value.id)
-    {
-      this.isDisable=false;
+    // var sectorValue=  this.sectorList?.find(x=>x.value==this.form.controls.value.value.trim());
+    // if(sectorValue && (sectorValue.id !=this.form.controls.id.value))
+    // {
 
-     this.setReactValue(Number(0),"");
 
-      this.toast.warning("Sectore is already exist");
+    // //this.setReactValue(Number(0),"");
+    // this.form['controls']['value'].setValue('');
+    //   this.form['controls']['id'].setValue(0);
 
-      //this.form.reset();
-      return;
-    }
+    //   this.toast.warning("Sectore is already exist");
+
+    //   //this.form.reset();
+    //   return;
+    // }
+    // else if(sectorValue && (sectorValue.id ==this.form.controls.id.value)){
+    //   return
+
+    // }
+    // else{
     this._SectorService.updateSector(this.form.value).subscribe(res=>{
 
       if(res.status){
 
         this.toast.success('Successfully Updated');
-        this.form.reset();
+        this.formGroupDirective?.resetForm();
         this.getAllSectors(100,1,0,'',this.sortColumnDef,0,this.SortDirDef,'');
 
       }
@@ -142,20 +145,59 @@ export class SectorsComponent implements OnInit ,AfterViewInit{
         this.toast.error(res.error)
       }
      })
-     this.isShowDiv = false;
+    }
+
+  //}
+
+this.isDisabled=true;
   }
 
+  onChecknameIsalreadysign()
+  {
 
-  }
 
-  add(){
-    this.form.reset();
-    this.isShowDiv = !this.isShowDiv;
+    if(this.form.valid)
+    {
+        //add
+        var sectorValue=  this.sectorList?.find(x=>x.value==this.form.value.value.trim());
+
+        if(sectorValue)
+        {
+
+          this.toast.warning("Sector is already exist");
+         // this.form.reset();
+         this.isDisabled=true;
+          return;
+        }
+        else{
+          this.isDisabled=false;
+        }
+        // if(sectorValue && (sectorValue.id !=this.form.controls.id.value))
+        // {
+
+
+        // //this.setReactValue(Number(0),"");
+        // this.form['controls']['value'].setValue('');
+        //   this.form['controls']['id'].setValue(0);
+
+        //   this.toast.warning("Sectore is already exist");
+
+        //   //this.form.reset();
+        //   return;
+        // }
+        // else if(sectorValue && (sectorValue.id ==this.form.controls.id.value)){
+        //   return
+
+        // }
+
+    }else{
+      this.isDisabled=true;
+    }
   }
 
   onEdit(row:any){
-   this.add();
-    this.setReactValue(Number(row.id),row.value);
+
+    this.setReactValue(Number(row.id),row.value.trim());
 
   }
 

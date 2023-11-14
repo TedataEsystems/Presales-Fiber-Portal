@@ -91,7 +91,7 @@
   <mat-list  *ngIf="fileVal.length > 0">
     <mat-list-item *ngFor="let file of fileVal ;let i=index">
       {{file.name}}
-      <button mat-icon-button type="button" (click)="removeImg(i)">
+      <button mat-icon-button type="button" *ngIf="dialogTitle=='Create'" (click)="removeImg(i)">
         <mat-icon class="text-sm text-danger">close</mat-icon></button>
     </mat-list-item>
   </mat-list>

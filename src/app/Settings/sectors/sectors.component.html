@@ -3,26 +3,21 @@
     <mat-card-header>
       <mat-card-title>
         Sectors
-        <div class="" style="float: right;">
-          <button mat-button class="opt  "  (click)="add()">
-            <!-- <button mat-button class="opt  "  (click)="onCreate()"> -->
-            <mat-icon class="add-new ico" >add</mat-icon>
-         <span class="txt mr-1"> Add New </span>
-        </button>
-        </div>
+
       </mat-card-title>
   </mat-card-header>
   <mat-divider></mat-divider>
 
       <div class="search-div"  fxLayout="row" >
-        <div class="generate" *ngIf="isShowDiv">
+        <div class="generate" >
           <form [formGroup]="form" (ngSubmit)="onSubmit()" class="example-form">
+           
               <mat-form-field class="example-full-width">
-                <mat-label>Sector Name</mat-label>
-                <input type="text"  matInput formControlName="value">
+                <mat-label> Sector Name</mat-label>
+                <input type="text"  matInput formControlName="value" (keyup)="onChecknameIsalreadysign()">
                 <input type="hidden"  formControlName="id" >
               </mat-form-field>
-              <button type="submit" mat-raised-button    class="sub search example-full-widths">Save</button>
+              <button type="submit" mat-raised-button [disabled]="isDisabled"   class="sub search ">Save</button>
 
             </form>
             </div>
