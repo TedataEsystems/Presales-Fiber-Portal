@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FeedbackDto } from 'src/app/Models/feedbackDTO';
 import { FileuploadService } from 'src/app/shared/services/fileupload.service';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 import { ServiceRegisterService } from 'src/app/shared/services/service-register.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class FeedbackComponent implements OnInit {
   fileVal :File[]=[];
   registerDetailID:number=0;
   isTriggered:boolean=false;
-  constructor(private fb:FormBuilder, private toastr:ToastrService,private fileser: FileuploadService,
+  constructor(private fb:FormBuilder, private toastr:ToastrService,private fileser: FileuploadService,private loading :LoadingService,
     private _feedService :ServiceRegisterService,private dialogRef:MatDialogRef<FeedbackComponent>, @Inject(MAT_DIALOG_DATA) public data:any) { }
 
   form:FormGroup=this.fb.group({
@@ -25,15 +26,7 @@ export class FeedbackComponent implements OnInit {
     textData:[''],
     Availability:[null],
     Distance:[null],
-    // uploadAttach:[[]],
-    // CreationDate:[null],
-    // CreatedBy:[''],
-    // modificationDate:[null],
-    // modifyiedBy:[''],
      registerDetailID:[0]
-
-
-
 
   })
 
@@ -69,9 +62,11 @@ export class FeedbackComponent implements OnInit {
 
   }
   onSubmit() {
-
+this.loading.busy();
     if (this.form.invalid) {
+
       return;
+
     }
 
     if (this.data.dialogTitle == "Add") {
@@ -81,8 +76,6 @@ export class FeedbackComponent implements OnInit {
         comment:this.form.controls['textData'].value,
         Availability: this.form.controls['Availability'].value,
         Distance:this.form.controls['Distance'].value,
-        // CreationDate:this.form.controls['CreationDate'].value,
-        // CreatedBy:localStorage.getItem("usernam"),
         registerDetailID:Number(this.form.controls['registerDetailID'].value)
       }
 
@@ -97,7 +90,6 @@ export class FeedbackComponent implements OnInit {
       this._feedService.AddFeedback(feedobj).subscribe((res)=>{
         if (res.status == true) {
 
-          console.log('res:',res)
           if(this.isTriggered){
             this.Upload(res.data.id);
 
@@ -107,6 +99,7 @@ export class FeedbackComponent implements OnInit {
           }
 
           this.toastr.success("Successfully Added")
+          this.loading.idle();
 
         }
         else this.toastr.error(res.error);
@@ -147,6 +140,7 @@ export class FeedbackComponent implements OnInit {
           }
 
           this.toastr.success("Successfully Updated")
+          this.loading.idle();
 
         }
         else this.toastr.error(res.error);

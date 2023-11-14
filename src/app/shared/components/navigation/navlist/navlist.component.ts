@@ -10,6 +10,7 @@ import { statusService } from 'src/app/shared/services/status.service';
 export class NavlistComponent implements OnInit {
 
   statusList:any=[];
+  statusEsptList:any=[];
   isExpanded= true;
   isExpanded1= true;
   isExpanded2= true;
@@ -45,23 +46,34 @@ export class NavlistComponent implements OnInit {
 
   showSubSubMenu: boolean = false;
   isNotAdmin=false;
+  isAdmin=false;
 isPresales=false;
-
+isEspt=false;
+isSales=false;
 
   constructor(private statusSer:statusService,private conser:ConfigureService ) {
     var teamval=this.conser.UserTeam();
 
-    if(teamval?.toLocaleLowerCase() == "presalesfiber_presale" || teamval?.toLocaleLowerCase() =="admin_all")
-    this.isPresales=true;
+    if(teamval?.toLocaleLowerCase() == "presalesfiber_presale" || teamval?.toLocaleLowerCase() == "presalesfiber_sale" ){
+      this.isPresales=true;
+      this.isSales=true
+    }
 
+    else if(teamval?.toLocaleLowerCase() == "presalesfiber_espt" )
+    this.isEspt=true;
+  else
+    this.isAdmin=true
 
   }
 
   ngOnInit(): void {
     this.statusSer.getAll().subscribe(res=>{
       this.statusList = res.result?.data;
+      this.statusEsptList=this.statusList.filter((x:any)=>
+        (x.value=='Pending ESPT' ||  x.value=='Pending ESPT Validation' || x.value=='Pending TE'))
   }
     );
+    console.log('this.statusEsptList:',this.statusEsptList)
 }
 
 }

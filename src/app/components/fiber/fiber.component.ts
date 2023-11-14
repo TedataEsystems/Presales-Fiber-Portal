@@ -14,6 +14,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { HttpClient} from '@angular/common/http';
 import { MatBottomSheet} from '@angular/material/bottom-sheet';
 import { ToastrService } from 'ngx-toastr';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 @Component({
   selector: 'app-fiber',
   templateUrl: './fiber.component.html',
@@ -32,7 +33,7 @@ export class FiberComponent implements OnInit {
   renwed=false;
   public Requetss: any[] = [];
   public RequetFilter: any[] = [];
-  loading: boolean = true;
+
   @ViewChild(MatSort) sort?: MatSort;
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   displayedColumns2: string[] = ['id', 'action', 'managerName', 'companyName', 'contactName'
@@ -59,6 +60,7 @@ export class FiberComponent implements OnInit {
   constructor(private dialog: MatDialog,
     private DeleteService: DeleteService,/*private reqser: RequestSerService ,*/
     private route: ActivatedRoute,
+    private loading:LoadingService,
     private router: Router, private notser: ToastrService,
     private config: ConfigureService,
     private toastr :ToastrService,
@@ -104,7 +106,7 @@ export class FiberComponent implements OnInit {
 
 
   ngOnInit() {
-
+this.loading.busy();
     // var team=  this.config.UserTeam();
     // if(team?.toLocaleLowerCase()!='esp')
     // {
@@ -115,14 +117,14 @@ export class FiberComponent implements OnInit {
 
   }
   getRequestdata(pageSize: number, pageNum: number, search: string, sortColumn: string, sortDir: string, initflag: boolean = false,statusId: number = 0) {
-    this.loading = true;
+
 
     this.supportser.getByOption(2, pageSize, pageNum, search, sortColumn, sortDir, statusId).subscribe(res => {
-      this.loading = false;
+
 
       if (res.status == true) {
+        this.loading.idle();
 
-        this.loading = false;
         //   this.dataSource.paginator.length=10;
         this.Requetss = res.result.data;
 
@@ -145,21 +147,21 @@ export class FiberComponent implements OnInit {
         this.router.navigate(['/loginuser'], { relativeTo: this.route });
       else
         this.notser.warning("! Fail")
-      this.loading = false;
+        this.loading.idle();
 
 
 
     })
   }
   getRequestdataNext(cursize: number, pageSize: number, pageNum: number, search: string, sortColumn: string, sortDir: string) {
-    this.loading = true;
+    this.loading.busy();
 
     this.supportser.getByOption(this.requestid, pageSize, pageNum, search, sortColumn, sortDir).subscribe(res => {
-      this.loading = false;
+
 
       if (res.status == true) {
 
-        this.loading = false;
+        this.loading.idle();
         //   this.dataSource.paginator.length=10;
         this.Requetss.length = cursize;
         this.Requetss.push(...res.result.data);
@@ -176,15 +178,14 @@ export class FiberComponent implements OnInit {
         this.router.navigate(['/loginuser'], { relativeTo: this.route });
       else
         this.notser.warning("! Fail");
-      this.loading = false;
+        this.loading.idle();
 
     })
   }
 
 
   pageChanged(event: any) {
-debugger;
-    this.loading = true;
+
     this.config.pIn = event.pageIndex;
     this.pageIn = event.pageIndex;
     this.pagesizedef = event.pageSize;

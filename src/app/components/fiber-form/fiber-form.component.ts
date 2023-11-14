@@ -746,9 +746,9 @@ onDelete(id:number){
           (res) => {
 
             if (res.status == true) {
-              this.loading.idle();
-              this.NotificationService.success(':: Successfully Submited');
 
+              this.NotificationService.success(':: Successfully Submited');
+              this.loading.idle();
               this.router.navigate(['/fiber']);
               this.form.reset();
               this.initializeFormGroup();
@@ -771,8 +771,9 @@ onDelete(id:number){
 
 
             if (res.status == true) {
-              this.loading.idle();
+
               this.NotificationService.success(':: Successfully Updated');
+              this.loading.idle();
               this.router.navigate(['/fiber']);
               this.form.reset();
               this.initializeFormGroup();
@@ -908,7 +909,7 @@ onDelete(id:number){
   }
   initializeformCommentGroup() {
     this.formComment.setValue({
-      registerDetailId: 2,
+      registerDetailId: null,
       comment: '',
     });
   }

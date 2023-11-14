@@ -905,6 +905,11 @@ app-header{
   text-align: inherit;
   direction: ltr;
 }
+textarea.mat-input-element {
+
+  font-weight: 400 !important;
+
+}
 .mat-radio-button.mat-radio-disabled .mat-radio-label-content {
   color: #100f0f !important;
 }

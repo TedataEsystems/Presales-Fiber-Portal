@@ -244,6 +244,7 @@
                       type="number"
                       formControlName="NumberofCircuits"
                       matInput
+                      min="0"
                       [readonly]="isReadonly"
                     />
 
@@ -292,6 +293,7 @@
                         type="number"
                         formControlName="numberOfSpeed"
                         matInput
+                        min="0"
                         [readonly]="isReadonly"
                       />
                       <mat-error>*Required</mat-error>
@@ -836,7 +838,7 @@
     </ng-template>
   </mat-tab>
   <!-- <mat-tab label="ESPT Feedback" *ngIf="param1 && renew"> -->
-    <mat-tab label="ESPT Feedback" *ngIf="param1">
+    <mat-tab label="ESPT Feedback" *ngIf="param1 && !isSales">
     <div class="mb-4 example-container">
       <mat-card class="example-card">
 
@@ -907,7 +909,8 @@
             <mat-cell *matCellDef="let row" class="text-center">
               <button
                 mat-button
-                class="text-warning "
+                class="font-weight-bolder"
+                style="color:var(--fifth-color)"
                 matTooltip="View Attachments"
                 (click)="expand(row,'Attach')"
               >
@@ -1051,18 +1054,3 @@
 <ngx-spinner type="timer">
   <h5>Loading</h5>
 </ngx-spinner>
-<!--
-   <div class="add-bottom-padding">
-            <label class="radio-group-label" style="width:130px">Promising Area : </label>
-            <mat-radio-group formControlName="PromisingArea" >
-              <mat-radio-button [value]=true>Yes</mat-radio-button>
-              <mat-radio-button [value]=false>No</mat-radio-button>
-            </mat-radio-group>
-
-
-          </div>
-
-
-
-          <label class="mt-3 note">برجاء تحديد إن كانت المنطقة واعدة (توسعات أو عملاء جدد)  أو لا *</label>
- -->

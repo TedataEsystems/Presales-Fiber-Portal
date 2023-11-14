@@ -25,12 +25,23 @@
       <mat-icon class="dot">brightness_1</mat-icon>
       <span class="nav-caption">Summary</span>
   </a>
+  <ng-container *ngIf="isAdmin || isPresales || isSales">
   <ng-container *ngFor="let status of statusList">
   <a mat-list-item routerLink="./fiber" [queryParams]="{statusid:  status.id }"  routerLinkActive="active1">
       <mat-icon class="dot">brightness_1</mat-icon>
       <span class="nav-caption">{{status.value}}</span>
   </a>
   </ng-container>
+  </ng-container>
+  <ng-container *ngIf="isEspt">
+    <ng-container *ngFor="let status of statusEsptList">
+    <a mat-list-item routerLink="./fiber" [queryParams]="{statusid:  status.id }"  routerLinkActive="active1">
+        <mat-icon class="dot">brightness_1</mat-icon>
+        <span class="nav-caption">{{status.value}}</span>
+    </a>
+    </ng-container>
+    </ng-container>
+
   <!-- <a mat-list-item routerLink="./feedBack"  routerLinkActive="active" *ngIf="isPresales">
     <mat-icon class="dot">brightness_1</mat-icon>
     <span class="nav-caption">Feedback</span>
