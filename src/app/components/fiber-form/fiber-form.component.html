@@ -565,7 +565,7 @@
                     Finish
                   </button>
 
-                  <button mat-button class="sub" [disabled]="isDisabled" type="submit">Submit</button>
+                  <button mat-button class="sub" *ngIf="(isSales && !isReadonly)  || (isAdmin && !isReadonly) || (isPreSales && !isReadonly) || (isEspt&& !isReadonly)" [disabled]="isDisabled" type="submit">Submit</button>
                 </div>
               </div>
             </mat-grid-tile>
