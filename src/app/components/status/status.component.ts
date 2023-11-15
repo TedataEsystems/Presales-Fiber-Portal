@@ -29,6 +29,7 @@ statusListTab?:status[]=[];
 valdata="";valuid=0;
 dataSource = new MatTableDataSource<any>();
 delpic:any;
+value=true;
 isDisabled=true;
   searchKey:string ='';
   listName:string ='';
@@ -396,6 +397,145 @@ isDisabled=true;
 //       this.isDisabled=true;
 //     }
 //   }
+// onCheckValueIsalreadyExist(){
+
+//   let id:number;
+//   if(this.form.value.id==0||this.form.value.id==null||this.form.value.id==undefined){
+//     id=0
+//   }
+//   else{
+//     id=this.form.value.id
+//   }
+//   let value=this.form.value.value.trim();
+//   let orderInList=Number(this.form.value.orderInList);
+
+//   // if(this.form.valid){
+//   this.statusSer.checkValueExist(value,id).subscribe(
+//     res=>{
+
+//       if(res.status==true)
+//       {
+
+
+//         this.statusSer.checkOrderExist(orderInList,id).subscribe(
+
+//           res=>{
+//          debugger;
+
+//             if(res.status==true)
+//             {
+
+
+//                 this.isDisabled = false;
+
+
+
+//             }
+//             //already exsit
+//             else
+//             {
+//               if(this.form.value.orderInList==null||this.form.value.id==undefined){
+
+
+//                 this.isDisabled = true;
+//                 this.notser.warning("Order empty !!");
+//               }
+//               else{
+//                 this.isDisabled = true;
+//                 this.notser.warning("Order already exist");
+//               }
+
+
+//             }
+
+//         }
+//       )
+
+
+//       }
+//       // //already exsit
+//       else
+//       {
+//         this.isDisabled = true;
+//         this.notser.warning("Value already exist");
+
+//       }
+
+//     }
+//   )
+// //}
+
+// }
+
+
+// onCheckOrderIsalreadyExist(){
+
+// let id:number;
+// if(this.form.value.id==0||this.form.value.id==null||this.form.value.id==undefined){
+//   id=0
+// }
+// else{
+//   id=this.form.value.id
+// }
+// let orderInList= Number(this.form.value.orderInList);
+
+// var value= this.form.value.value.trim()
+
+
+// if(this.form.value.orderInList==null||this.form.value.id==undefined){
+
+
+//   // this.isDisabled = true;
+//   this.notser.warning("Order empty !!");
+// }
+// else{
+//   this.statusSer.checkOrderExist(orderInList,id).subscribe(
+
+//     res=>{
+
+//       if(res.status==true)
+//       {
+
+//         this.statusSer.checkValueExist(value,id).subscribe(
+//           res=>{
+//             debugger;
+//             if(res.status==true)
+//             {
+
+
+//                 this.isDisabled = false;
+
+
+
+//             }
+//             //already exsit
+//             else
+//             {
+//               this.isDisabled = true;
+//               this.notser.warning("Value already exist");
+
+//             }
+//           }
+//         )
+
+//       }
+//       //already exsit
+//       else
+//       {
+//         this.isDisabled = true;
+//         this.notser.warning("Order already exist");
+
+//       }
+
+//   }
+// )
+// }
+
+// // }
+// }
+
+
+
 onCheckValueIsalreadyExist(){
 
   let id:number;
@@ -408,14 +548,15 @@ onCheckValueIsalreadyExist(){
   let value=this.form.value.value.trim();
   let orderInList=Number(this.form.value.orderInList);
 
+  let serviceTypeId=this.param1;
   // if(this.form.valid){
-  this.statusSer.checkValueExist(value,id).subscribe(
+    this.statusSer.checkValueExist(value,id).subscribe(
     res=>{
 
       if(res.status==true)
       {
 
-
+        this.value=true;;
         this.statusSer.checkOrderExist(orderInList,id).subscribe(
 
           res=>{
@@ -437,11 +578,15 @@ onCheckValueIsalreadyExist(){
 
 
                 this.isDisabled = true;
-                this.notser.warning("Order empty !!");
+                this.notser.warning('order is required');
+                // this.empty=false;
+                // setTimeout(()=>this.empty=true, 2000)
               }
               else{
                 this.isDisabled = true;
-                this.notser.warning("Order already exist");
+                this.notser.warning('order is already Exist');
+              //  this.order=false;;
+              //  setTimeout(()=>this.order=true, 2000)
               }
 
 
@@ -456,8 +601,9 @@ onCheckValueIsalreadyExist(){
       else
       {
         this.isDisabled = true;
-        this.notser.warning("Value already exist");
 
+        this.value=false;;
+      //  setTimeout(()=>this.value=true, 2000)
       }
 
     }
@@ -477,15 +623,17 @@ else{
   id=this.form.value.id
 }
 let orderInList= Number(this.form.value.orderInList);
-
+let serviceTypeId=this.param1;
 var value= this.form.value.value.trim()
 
 
-if(this.form.value.orderInList==null||this.form.value.id==undefined){
+if(this.form.value.orderInList==null||this.form.value.orderInList==undefined){
 
 
-  // this.isDisabled = true;
-  this.notser.warning("Order empty !!");
+   this.isDisabled = true;
+  // this.empty=false;
+  this.notser.warning('order is required');
+ // setTimeout(()=>this.empty=true, 2000)
 }
 else{
   this.statusSer.checkOrderExist(orderInList,id).subscribe(
@@ -497,13 +645,13 @@ else{
 
         this.statusSer.checkValueExist(value,id).subscribe(
           res=>{
-            debugger;
+
             if(res.status==true)
             {
 
 
                 this.isDisabled = false;
-
+                this.value=true;;
 
 
             }
@@ -511,7 +659,8 @@ else{
             else
             {
               this.isDisabled = true;
-              this.notser.warning("Value already exist");
+             this.value=false;;
+            //  setTimeout(()=>this.value=true, 2000)
 
             }
           }
@@ -522,7 +671,10 @@ else{
       else
       {
         this.isDisabled = true;
-        this.notser.warning("Order already exist");
+      //  this.order=false;;
+      //  setTimeout(()=>this.order=true, 2000)
+       this.notser.warning('order is already Exist');
+
 
       }
 
@@ -532,6 +684,35 @@ else{
 
 // }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   setReactValue(id:number,val:any,num:any){

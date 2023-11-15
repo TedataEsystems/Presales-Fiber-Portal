@@ -12,14 +12,15 @@
   </mat-card-header>
   <mat-divider></mat-divider>
       <!-- <div *ngIf="selected"> -->
-      <div class="search-div"  fxLayout="row" >
+      <div class="search-div mb-4"  fxLayout="row" >
         <div class="generate">
           <form [formGroup]="form" (ngSubmit)="onSubmit()" class="example-form">
               <mat-form-field class="example-full-width">
                 <mat-label>{{'Value'  }}</mat-label>
                 <input type="text"  id="picvalid" matInput formControlName="value" [value]="valdata" (keyup)="onCheckValueIsalreadyExist()">
                 <input type="hidden" id="picid" formControlName="id"  [value]="valuid"  placeholder="">
-
+                <span class="mat-err" [hidden]="value" >
+                  is already exist&nbsp;!</span>
 
               </mat-form-field><span style="margin-left: 10px;"> </span>
 

@@ -14,7 +14,7 @@ import { ServiceRegisterService } from 'src/app/shared/services/service-register
 })
 export class FeedbackComponent implements OnInit {
   dialogTitle=""
- fileAttr = ''
+ fileAttr = 'Choose File ...'
   fileVal :File[]=[];
   registerDetailID:number=0;
   isTriggered:boolean=false;
@@ -46,9 +46,9 @@ export class FeedbackComponent implements OnInit {
         this.form.controls['registerDetailID'].setValue(this.data.registerDetailID);
         if(this.data.row?.attaches){
           this.fileVal=this.data.row?.attaches;
-          for(let i=0 ; i< this.fileVal?.length;i++){
-              this.fileAttr += this.fileVal[i].name +' , ';
-            }
+          // for(let i=0 ; i< this.fileVal?.length;i++){
+          //     this.fileAttr += this.fileVal[i].name +' , ';
+          //   }
         }
 
 
@@ -176,7 +176,7 @@ this.loading.busy();
           this.toastr.error(`${file.name} is empty`)
         }
         else{
-          this.fileAttr += file.name +' , ';
+          // this.fileAttr += file.name +' , ';
           this.fileVal.push(file);
         }
 
@@ -185,7 +185,7 @@ this.loading.busy();
       this.isTriggered=true;
 
     } else {
-      this.fileAttr = '';
+      this.fileAttr = 'Choose File ...';
     }
   }
 
@@ -239,7 +239,7 @@ var files:File[]=[]
    for(let i=0;i<this.fileVal.length;i++){
     if(this.fileVal[i]!=this.fileVal[index]){
       files.push(this.fileVal[i]);
-      this.fileAttr += this.fileVal[i].name +' , ';
+      // this.fileAttr += this.fileVal[i].name +' , ';
     }
    }
    this.fileVal=files;

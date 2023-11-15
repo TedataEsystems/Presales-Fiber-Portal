@@ -30,6 +30,9 @@ valdata="";valuid=0;
 dataSource = new MatTableDataSource<any>();
 delpic:any;
 isDisabled=true;
+value=true;
+order=true;
+empty=true;
 @ViewChild(FormGroupDirective) formGroupDirective?: FormGroupDirective;
   searchKey:string ='';
   listName:string ='';
@@ -226,7 +229,7 @@ isDisabled=true;
         // {
 
         //  this.formGroupDirective?.resetForm();
-        //   this.notser.warning("value already exist");
+        //  this.value=false;;
         //   return;
         // }
         // var orData= this.serviceSpeedListTab?.find(x=>x.orderInList==this.form.value.orderInList);
@@ -234,7 +237,7 @@ isDisabled=true;
         // {
 
         //  this.formGroupDirective?.resetForm();
-        //   this.notser.warning("order already exist");
+        //  this.order=false;;
         //   return;
         // }
       this.speedSer.Add(listval).subscribe((res)=>{
@@ -287,7 +290,7 @@ isDisabled=true;
       // {
 
       //   this.formGroupDirective?.resetForm();
-      //   this.notser.warning("value already exist");
+      //  this.value=false;;
       //   return;
       // }
       // var ordata= this.serviceSpeedListTab?.find(x=>x.orderInList==this.form.value.orderInList);
@@ -295,7 +298,7 @@ isDisabled=true;
       // {
 
       //   this.formGroupDirective?.resetForm();
-      //   this.notser.warning("order already exist");
+      //  this.order=false;;
       //   return;
       // }
 
@@ -374,7 +377,7 @@ isDisabled=true;
         if(res.status==true)
         {
 
-
+          this.value=true;;
           this.speedSer.checkOrderExist(orderInList,serviceTypeId,id).subscribe(
 
             res=>{
@@ -396,11 +399,15 @@ isDisabled=true;
 
 
                   this.isDisabled = true;
-                  this.notser.warning("Order empty !!");
+                  this.notser.warning('order is required');
+                  // this.empty=false;
+                  // setTimeout(()=>this.empty=true, 2000)
                 }
                 else{
                   this.isDisabled = true;
-                  this.notser.warning("Order already exist");
+                  this.notser.warning('order is already Exist');
+                //  this.order=false;;
+                //  setTimeout(()=>this.order=true, 2000)
                 }
 
 
@@ -415,8 +422,9 @@ isDisabled=true;
         else
         {
           this.isDisabled = true;
-          this.notser.warning("Value already exist");
 
+          this.value=false;;
+        //  setTimeout(()=>this.value=true, 2000)
         }
 
       }
@@ -440,11 +448,13 @@ onCheckOrderIsalreadyExist(){
   var value= this.form.value.value.trim()
 
 
-  if(this.form.value.orderInList==null||this.form.value.id==undefined){
+  if(this.form.value.orderInList==null||this.form.value.orderInList==undefined){
 
 
-    // this.isDisabled = true;
-    this.notser.warning("Order empty !!");
+     this.isDisabled = true;
+    // this.empty=false;
+    this.notser.warning('order is required');
+   // setTimeout(()=>this.empty=true, 2000)
   }
   else{
     this.speedSer.checkOrderExist(orderInList,serviceTypeId,id).subscribe(
@@ -456,13 +466,13 @@ onCheckOrderIsalreadyExist(){
 
           this.speedSer.checkValueExist(value,serviceTypeId,id).subscribe(
             res=>{
-              debugger;
+
               if(res.status==true)
               {
 
 
                   this.isDisabled = false;
-
+                  this.value=true;;
 
 
               }
@@ -470,7 +480,8 @@ onCheckOrderIsalreadyExist(){
               else
               {
                 this.isDisabled = true;
-                this.notser.warning("Value already exist");
+               this.value=false;;
+              //  setTimeout(()=>this.value=true, 2000)
 
               }
             }
@@ -481,7 +492,10 @@ onCheckOrderIsalreadyExist(){
         else
         {
           this.isDisabled = true;
-          this.notser.warning("Order already exist");
+        //  this.order=false;;
+        //  setTimeout(()=>this.order=true, 2000)
+         this.notser.warning('order is already Exist');
+
 
         }
 
