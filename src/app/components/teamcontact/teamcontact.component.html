@@ -7,14 +7,15 @@
     </mat-card-header>
     <mat-divider></mat-divider>
 
-      <div class="search-div" fxLayout="row">
+      <div class="search-div mb-4" fxLayout="row">
         <div class="generate">
           <form [formGroup]="form" (ngSubmit)="onSubmit()" class="example-form">
               <mat-form-field class="example-full-width">
                 <mat-label>mail</mat-label>
-                <input type="text"  id="picvalid" matInput placeholder="ex. xxx@te.eg" formControlName="mail" [value]="valdata"  (keyup)="onChecknameIsalreadysign()" >
+                <input type="text"  id="picvalid" matInput placeholder="ex. xxx@te.eg" formControlName="mail" [value]="valdata" (change)="onChecknameIsalreadysign()" (keyup)="onChecknameIsalreadysign()" >
                 <input type="hidden" id="picid" formControlName="id"  [value]="valuid"  placeholder="">
-
+                <span class="mat-err" [hidden]="value" >
+                 mail is already exist&nbsp;!</span>
 
               </mat-form-field><span style="margin-left: 3px;"> </span>
 

@@ -25,7 +25,7 @@ export class SectorsComponent implements OnInit ,AfterViewInit{
   sectorList:SectorDto[]=[];
   loading: boolean = true;
   isDisabled=true;
-
+  value=true;
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   @ViewChild(MatSort) sort?: MatSort;
   @ViewChild(FormGroupDirective) formGroupDirective?: FormGroupDirective;
@@ -102,6 +102,7 @@ export class SectorsComponent implements OnInit ,AfterViewInit{
 
           this.toast.success('Successfully Added');
           this.formGroupDirective?.resetForm();
+          this.form.controls.id.setValue(0)
           this.getAllSectors(100,1,0,'',this.sortColumnDef,0,this.SortDirDef,'');
 
         }
@@ -140,6 +141,7 @@ export class SectorsComponent implements OnInit ,AfterViewInit{
 
         this.toast.success('Successfully Updated');
         this.formGroupDirective?.resetForm();
+        this.form.controls.id.setValue(0)
         this.getAllSectors(100,1,0,'',this.sortColumnDef,0,this.SortDirDef,'');
 
       }
@@ -155,42 +157,46 @@ this.isDisabled=true;
   }
 
   onChecknameIsalreadysign()
-  {
-
-
+  { debugger
+    this.form.controls.value.setValue(this.form.value.value.trim());
+    var sectorValue=  this.sectorList?.find(x=>x.value==this.form.value.value.trim());
     if(this.form.valid)
     {
         //add
-        var sectorValue=  this.sectorList?.find(x=>x.value==this.form.value.value.trim());
 
-        if(sectorValue)
-        {
+if(this.form.value.id ==0 || this.form.value.id ==null || this.form.value.id ==undefined){
+  if(sectorValue)
+  {
+   this.value=false;
+   // this.toast.warning("Sector is already exist");
+   // this.form.reset();
+   this.isDisabled=true;
+    //return;
+  }
+  else{
+    this.value=true;
+    this.isDisabled=false;
+  }
+}
+else{
+  //edit
 
-          this.toast.warning("Sector is already exist");
-         // this.form.reset();
-         this.isDisabled=true;
-          return;
-        }
-        else{
-          this.isDisabled=false;
-        }
-        // if(sectorValue && (sectorValue.id !=this.form.controls.id.value))
-        // {
+  if(sectorValue&& (sectorValue.id !=this.form.value.id))
+  {
+    this.value=false;
+   // this.toast.warning("Sector is already exist");
+   // this.form.reset();
+   this.isDisabled=true;
+    //return;
+  }
+  else{
+    this.value=true;
+    this.isDisabled=false;
+  }
+
+}
 
 
-        // //this.setReactValue(Number(0),"");
-        // this.form['controls']['value'].setValue('');
-        //   this.form['controls']['id'].setValue(0);
-
-        //   this.toast.warning("Sectore is already exist");
-
-        //   //this.form.reset();
-        //   return;
-        // }
-        // else if(sectorValue && (sectorValue.id ==this.form.controls.id.value)){
-        //   return
-
-        // }
 
     }else{
       this.isDisabled=true;

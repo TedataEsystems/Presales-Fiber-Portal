@@ -8,14 +8,16 @@
   </mat-card-header>
   <mat-divider></mat-divider>
 
-      <div class="search-div"  fxLayout="row" >
+      <div class="search-div mb-4"  fxLayout="row" >
         <div class="generate" >
           <form [formGroup]="form" (ngSubmit)="onSubmit()" class="example-form">
-           
+
               <mat-form-field class="example-full-width">
                 <mat-label> Sector Name</mat-label>
-                <input type="text"  matInput formControlName="value" (keyup)="onChecknameIsalreadysign()">
+                <input type="text"  matInput formControlName="value" (change)="onChecknameIsalreadysign()">
                 <input type="hidden"  formControlName="id" >
+                <span class="mat-err" [hidden]="value" >
+                  sector is already exist&nbsp;!</span>
               </mat-form-field>
               <button type="submit" mat-raised-button [disabled]="isDisabled"   class="sub search ">Save</button>
 
