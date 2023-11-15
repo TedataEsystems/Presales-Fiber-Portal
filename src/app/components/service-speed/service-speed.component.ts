@@ -38,16 +38,18 @@ isDisabled=true;
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   @ViewChild(MatSort) sort?: MatSort;
   param1:any;settingtype=''
+
   constructor(private titleService:Title,private speedSer:ServicespeedService
     ,private notser:ToastrService,private router: Router,private dialogService:DeleteService,
      private route: ActivatedRoute , private Config:ConfigureService
     ) {
       var teamval=this.Config.UserTeam();
-      if(teamval?.toLocaleLowerCase() !="admin_all")
-       {
-        this.notser.warning("not permitted")
-        this.router.navigate(['/'] );
-       }
+      console.log('team:',teamval)
+      // if(teamval?.toLocaleLowerCase() !="admin_all" || teamval?.toLocaleLowerCase() != "Presales")
+      //  {
+      //   this.notser.warning("not permitted")
+      //   this.router.navigate(['/'] );
+      //  }
 
       this.titleService.setTitle("Service Speed")
       this.route.queryParams.subscribe((params:any) => {
@@ -140,10 +142,7 @@ isDisabled=true;
     this.dataSource.paginator.firstPage();
     }
   }
-  // applyFilter(){
-  //   this.dataSource.filter=this.searchKey.trim().toLowerCase();
 
-  // }
   apply(filterValue:string) {
 
     this.selected=true;
@@ -196,7 +195,7 @@ isDisabled=true;
   form: FormGroup = new FormGroup({
     id: new FormControl(0),
     value: new FormControl('',[Validators.required, Validators.pattern(/^(\s+\S+\s*)*(?!\s).*$/)]),
-    orderInList: new FormControl(0),
+    orderInList: new FormControl(0,[Validators.pattern(/^(\s+\S+\s*)*(?!\s).*$/)]),
 
   });//18
 
@@ -207,12 +206,12 @@ isDisabled=true;
 
   onSubmit() {
 
-      if (this.form.invalid||this.form.value.value==' ') {
-        if (this.form.value.value==' ')
-        this.formGroupDirective?.resetForm();
+      // if (this.form.invalid||this.form.value.value==' ') {
+      //   if (this.form.value.value==' ')
+      //   this.formGroupDirective?.resetForm();
 
-          return;
-      }
+      //     return;
+      // }
 
       var listval:ServiceSpeed=new ServiceSpeed();
       listval.serviceTypeID=Number(this.param1);
@@ -222,22 +221,22 @@ isDisabled=true;
 
 
       if(this.form.value.id==0||this.form.value.id==null||this.form.value.id==undefined){
-        var HWData= this.serviceSpeedListTab?.find(x=>x.value==this.form.value.value.trim());
-        if(HWData)
-        {
+        // var HWData= this.serviceSpeedListTab?.find(x=>x.value==this.form.value.value.trim());
+        // if(HWData)
+        // {
 
-         this.formGroupDirective?.resetForm();
-          this.notser.warning("value already exist");
-          return;
-        }
-        var orData= this.serviceSpeedListTab?.find(x=>x.orderInList==this.form.value.orderInList);
-        if(orData)
-        {
+        //  this.formGroupDirective?.resetForm();
+        //   this.notser.warning("value already exist");
+        //   return;
+        // }
+        // var orData= this.serviceSpeedListTab?.find(x=>x.orderInList==this.form.value.orderInList);
+        // if(orData)
+        // {
 
-         this.formGroupDirective?.resetForm();
-          this.notser.warning("order already exist");
-          return;
-        }
+        //  this.formGroupDirective?.resetForm();
+        //   this.notser.warning("order already exist");
+        //   return;
+        // }
       this.speedSer.Add(listval).subscribe((res)=>{
 
 
@@ -262,7 +261,9 @@ isDisabled=true;
 
     this.dataSource.paginator = this.paginator as MatPaginator;
       this.notser.success("Successfully Added") ;
-      this.formGroupDirective?.resetForm();
+
+       this.formGroupDirective?.resetForm();
+       this.form.controls.orderInList.setValue(0)
 
 
       }
@@ -281,22 +282,22 @@ isDisabled=true;
       });
     }
     else{
-      var HWData= this.serviceSpeedListTab?.find(x=>x.value==this.form.value.value.trim());
-      if(HWData &&HWData.id !=this.form.value.id)
-      {
-      
-        this.formGroupDirective?.resetForm();
-        this.notser.warning("value already exist");
-        return;
-      }
-      var ordata= this.serviceSpeedListTab?.find(x=>x.orderInList==this.form.value.orderInList);
-      if(ordata &&ordata.id !=this.form.value.id)
-      {
+      // var HWData= this.serviceSpeedListTab?.find(x=>x.value==this.form.value.value.trim());
+      // if(HWData &&HWData.id !=this.form.value.id)
+      // {
 
-        this.formGroupDirective?.resetForm();
-        this.notser.warning("order already exist");
-        return;
-      }
+      //   this.formGroupDirective?.resetForm();
+      //   this.notser.warning("value already exist");
+      //   return;
+      // }
+      // var ordata= this.serviceSpeedListTab?.find(x=>x.orderInList==this.form.value.orderInList);
+      // if(ordata &&ordata.id !=this.form.value.id)
+      // {
+
+      //   this.formGroupDirective?.resetForm();
+      //   this.notser.warning("order already exist");
+      //   return;
+      // }
 
      listval.id=Number(this.form.value.id);
   //   listval.serviceTypeID=this.param1;
@@ -304,9 +305,7 @@ isDisabled=true;
       this.speedSer.Update(listval).subscribe((res)=>{
 
         if(res.status==true)    {
-          // const index1 = this.dataSource.data.indexOf(this.l);
-          // this.dataSource.data.splice(index1, 1);
-          // this.dataSource._updateChangeSubscription()
+
        this.serviceSpeedListTab?.forEach(x=>
         {
           if(x.id==res.data?.id){
@@ -327,8 +326,8 @@ isDisabled=true;
 
     this.dataSource.paginator = this.paginator as MatPaginator;
     this.formGroupDirective?.resetForm();
-
-          this.notser.success("Successfully Deleted") ;
+    this.form.controls.orderInList.setValue(0)
+          this.notser.success("Successfully Updated") ;
 
           }
           else{
@@ -355,66 +354,162 @@ isDisabled=true;
 
 
 
-  onChecknameIsalreadysign()
-  {
+  onCheckValueIsalreadyExist(){
 
+    let id:number;
+    if(this.form.value.id==0||this.form.value.id==null||this.form.value.id==undefined){
+      id=0
+    }
+    else{
+      id=this.form.value.id
+    }
+    let value=this.form.value.value.trim();
+    let orderInList=Number(this.form.value.orderInList);
 
-    if(this.form.valid)
+    let serviceTypeId=this.param1;
+    // if(this.form.valid){
+    this.speedSer.checkValueExist(value,serviceTypeId,id).subscribe(
+      res=>{
 
-    {
-var id=this.serviceSpeedListTab?.find( x=>x.id==this.form.value.id)
-        var ordata= this.serviceSpeedListTab?.find(x=>x.orderInList==this.form.value.orderInList);
-        var value= this.serviceSpeedListTab?.find(x=>x.value==this.form.value.value.trim());
-        if(ordata)
+        if(res.status==true)
         {
 
-          if(value){
 
-             this.notser.warning("Value already exist");
-            this.isDisabled=true;
+          this.speedSer.checkOrderExist(orderInList,serviceTypeId,id).subscribe(
 
-           }
-           else{
-            this.notser.warning("order already exist");
-          this.isDisabled=true;
-           return;
-           }
+            res=>{
+           debugger;
+
+              if(res.status==true)
+              {
+
+
+                  this.isDisabled = false;
+
+
+
+              }
+              //already exsit
+              else
+              {
+                if(this.form.value.orderInList==null||this.form.value.id==undefined){
+
+
+                  this.isDisabled = true;
+                  this.notser.warning("Order empty !!");
+                }
+                else{
+                  this.isDisabled = true;
+                  this.notser.warning("Order already exist");
+                }
+
+
+              }
+
+          }
+        )
+
+
+        }
+        // //already exsit
+        else
+        {
+          this.isDisabled = true;
+          this.notser.warning("Value already exist");
 
         }
 
-        else{
-          this.isDisabled=false;
-        }
+      }
+    )
+  //}
 
-//         if(HWData)
-//         {
-// //edit
-//         if(ordata && id || ordata){
-//             this.notser.warning("order already exist");
-//             this.isDisabled=true;
-//           }
-//           else{
-
-//             this.isDisabled=false;
-//           }
-//         }
-//         else if(!HWData && ordata){
-//           this.notser.warning("order already exist");
-//           this.isDisabled=true;
-
-//         }
-
-//         else{
-
-//             this.isDisabled=false;
-
-//         }
-
-
-    }else{
-      this.isDisabled=true;
-    }
   }
+
+
+onCheckOrderIsalreadyExist(){
+
+  let id:number;
+  if(this.form.value.id==0||this.form.value.id==null||this.form.value.id==undefined){
+    id=0
+  }
+  else{
+    id=this.form.value.id
+  }
+  let orderInList= Number(this.form.value.orderInList);
+  let serviceTypeId=this.param1;
+  var value= this.form.value.value.trim()
+
+
+  if(this.form.value.orderInList==null||this.form.value.id==undefined){
+
+
+    // this.isDisabled = true;
+    this.notser.warning("Order empty !!");
+  }
+  else{
+    this.speedSer.checkOrderExist(orderInList,serviceTypeId,id).subscribe(
+
+      res=>{
+
+        if(res.status==true)
+        {
+
+          this.speedSer.checkValueExist(value,serviceTypeId,id).subscribe(
+            res=>{
+              debugger;
+              if(res.status==true)
+              {
+
+
+                  this.isDisabled = false;
+
+
+
+              }
+              //already exsit
+              else
+              {
+                this.isDisabled = true;
+                this.notser.warning("Value already exist");
+
+              }
+            }
+          )
+
+        }
+        //already exsit
+        else
+        {
+          this.isDisabled = true;
+          this.notser.warning("Order already exist");
+
+        }
+
+    }
+  )
+  }
+
+ // }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   setReactValue(id:number,val:any,num:any){
     this.form.patchValue({
       id: id,

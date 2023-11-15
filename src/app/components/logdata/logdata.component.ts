@@ -76,11 +76,11 @@ export class LogdataComponent implements OnInit {
     if(groupval=="ESPT") this.esptFlag=true;
 
 
-    if(groupval?.toLocaleLowerCase() !="admin_all")
-     {
-      this.notser.Warning("not permitted")
-      this.router.navigate(['/'] );
-     }
+    // if(groupval?.toLocaleLowerCase() =="admin_all" || groupval?.toLocaleLowerCase() == "presalesfiber_presale")
+    //  {
+    //   // this.notser.Warning("not permitted")
+    //   // this.router.navigate(['/'] );
+    //  }
     this.config.IsAuthentecated();
     this.titleService.setTitle('Presales logdata Request');
 
@@ -265,7 +265,7 @@ export class LogdataComponent implements OnInit {
 
   }
 
- 
+
   ////////////////Export excel/////////////////////////////////////////
   // ExportTOViewData()
   // {

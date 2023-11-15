@@ -46,11 +46,11 @@ delconct:any;
     ) {
     // Create 100 users
     var teamval=this.Config.UserTeam();
-    if(teamval?.toLocaleLowerCase() !="admin_all")
-     {
-      this.notser.warning("not permitted")
-      this.router.navigate(['/'] );
-     }
+    // if(teamval?.toLocaleLowerCase() !="admin_all")
+    //  {
+    //   this.notser.warning("not permitted")
+    //   this.router.navigate(['/'] );
+    //  }
     this.titleService.setTitle('Team Contact');
 
     this.route.queryParams.subscribe((params:any) => {

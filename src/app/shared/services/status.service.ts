@@ -78,4 +78,14 @@ public Remove(Val:number)
   }
 
 
+  public checkValueExist(value:any,id:any){
+
+    return this.http.get<any>(this.apiUrl + `/IsStatusRepeated/${value}/${id}`,{headers: this.headers});
+  }
+
+  public checkOrderExist(value:any,id:any){
+
+    return this.http.get<any>(this.apiUrl + `/IsStatusOrderRepeated/${value}/${id}`,{headers: this.headers});
+  }
+
 }

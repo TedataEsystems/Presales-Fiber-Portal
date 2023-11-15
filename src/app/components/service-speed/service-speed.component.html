@@ -32,7 +32,7 @@
           <form [formGroup]="form" (ngSubmit)="onSubmit()" class="example-form">
               <mat-form-field class="example-full-width">
                 <mat-label>{{'Value'  }}</mat-label>
-                <input type="text"  id="picvalid" matInput formControlName="value"  (keyup)="onChecknameIsalreadysign()" [value]="valdata" >
+                <input type="text"  id="picvalid" matInput formControlName="value"  (keyup)="onCheckValueIsalreadyExist()" [value]="valdata" >
                 <input type="hidden" id="picid" formControlName="id"  [value]="valuid"  placeholder="">
 
 
@@ -41,7 +41,7 @@
               <mat-form-field class="example-full-widtho">
                 <mat-label>{{'Order'  }}</mat-label>
 
-                <input type="number"  id="piclid" matInput formControlName="orderInList"   (change)="onChecknameIsalreadysign()">
+                <input  id="piclid"   type="number"   matInput formControlName="orderInList" min="0" (change)="onCheckOrderIsalreadyExist()"  (keyup)="onCheckOrderIsalreadyExist()">
 
 
               </mat-form-field>

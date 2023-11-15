@@ -1,4 +1,4 @@
- 
+
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -29,7 +29,7 @@ public getAll(attribute:any) : Observable<any>
 
 public getByOption(attribute:any,pageSize:number=0,pageNum:number=0 ,search:string="",sortColumn:string="id",sortDir:string='ASC')
  {
-   this.headers =this.headers.set('Authorization',"Bearer "+ this.config.UserToken()); 
+   this.headers =this.headers.set('Authorization',"Bearer "+ this.config.UserToken());
      var urlval=`${this.apiUrl}?pagesize=${pageSize}&pagenumber=${pageNum}&sortcolumn=${sortColumn}&sortcolumndir=${sortDir}&searchvalue=${search}&servicetype=${attribute}`;
      return this.http.get<any>(urlval,{headers: this.headers});
  }
@@ -47,16 +47,26 @@ public Add(model : any)
 }
 
 
-public Update(model : any) 
+public Update(model : any)
 {
-  return this.http.post<any>(this.apiUrl + '/updateserviceSpeed' , model , {headers : this.headers});  
+  return this.http.post<any>(this.apiUrl + '/updateserviceSpeed' , model , {headers : this.headers});
 }
 
 
 public Remove(Val:number)
-  { 
+  {
     return this.http.get<any>(this.apiUrl + "/removeservicespeed/" + Val,{headers: this.headers});
-    
+
+  }
+
+  public checkValueExist(value:any,serviceTypeId:any,id:any){
+
+    return this.http.get<any>(this.apiUrl + `/IsServiceSpeedRepeated/${value}/${serviceTypeId}/${id}`,{headers: this.headers});
+  }
+
+  public checkOrderExist(value:any,serviceTypeId:any,id:any){
+
+    return this.http.get<any>(this.apiUrl + `/IsServiceSpeedOrderRepeated/${value}/${serviceTypeId}/${id}`,{headers: this.headers});
   }
 
 

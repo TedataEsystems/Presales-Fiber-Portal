@@ -3,6 +3,7 @@ import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Title } from '@angular/platform-browser';
 import { error } from 'console';
 import { ToastrService } from 'ngx-toastr';
 import { SectorDto } from 'src/app/Models/sectorDTO';
@@ -32,10 +33,11 @@ export class SectorsComponent implements OnInit ,AfterViewInit{
     id: new FormControl(0),
     value: new FormControl('',[Validators.required,Validators.pattern(/^(\s+\S+\s*)*(?!\s).*$/)])
   });
-  constructor(private _SectorService: SectorService, private toast :ToastrService,private dialogService:DeleteService) { }
+  constructor(private _SectorService: SectorService,private titleService:Title, private toast :ToastrService,private dialogService:DeleteService) { }
 
   ngOnInit(): void {
     this.form;
+    this.titleService.setTitle("Sectors")
     this.getAllSectors(100,1,0,'',this.sortColumnDef,0,this.SortDirDef,'');
   }
   ngAfterViewInit() {

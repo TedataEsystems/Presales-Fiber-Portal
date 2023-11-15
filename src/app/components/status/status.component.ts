@@ -43,11 +43,11 @@ isDisabled=true;
      private route: ActivatedRoute , private Config:ConfigureService
     ) {
       var teamval=this.Config.UserTeam();
-      if(teamval?.toLocaleLowerCase() !="admin_all")
-       {
-        this.notser.warning("not permitted")
-        this.router.navigate(['/'] );
-       }
+      // if(teamval?.toLocaleLowerCase() !="admin_all")
+      //  {
+      //   this.notser.warning("not permitted")
+      //   this.router.navigate(['/'] );
+      //  }
       this.titleService.setTitle('Service Status');
   }
   ngAfterViewInit() {
@@ -175,20 +175,20 @@ isDisabled=true;
   form: FormGroup = new FormGroup({
     id: new FormControl(0),
     value: new FormControl('',[Validators.required, Validators.pattern(/^(\s+\S+\s*)*(?!\s).*$/)]),
-    orderInList: new FormControl(0),
+    orderInList: new FormControl(0,[Validators.pattern(/^(\s+\S+\s*)*(?!\s).*$/)]),
 
   });//18
   isDisable=false;
 
   onSubmit() {
 
-      if (this.form.invalid||this.form.value.value==' ') {
-        if (this.form.value.value==' ')
-        //  this.setReactValue(Number(0),"",0);
-        this.formGroupDirective?.resetForm();
-         this.isDisable=false;
-          return;
-      }
+      // if (this.form.invalid||this.form.value.value==' ') {
+      //   if (this.form.value.value==' ')
+      //   //  this.setReactValue(Number(0),"",0);
+      //   this.formGroupDirective?.resetForm();
+      //    this.isDisable=false;
+      //     return;
+      // }
 
       var listval:status=new status();
       listval.serviceTypeID=Number(this.param1);
@@ -196,24 +196,24 @@ isDisabled=true;
 
       listval.orderInList=this.form.value.orderInList;
       if(this.form.value.id==0||this.form.value.id==null||this.form.value.id==undefined){
-        var HWData= this.statusListTab?.find(x=>x.value==this.form.value.value.trim());
-        if(HWData)
-        {
-        //// this.isDisable=false;
-        //  this.setReactValue(Number(0),"",0);
-        this.formGroupDirective?.resetForm();
-          this.notser.warning("value already exist");
-          return;
-        }
-        var orData= this.statusListTab?.find(x=>x.orderInList==this.form.value.orderInList);
-        if(orData)
-        {
-        // this.isDisable=false;
-        // this.setReactValue(Number(0),"",0);
-        this.formGroupDirective?.resetForm();
-          this.notser.warning("order already exist");
-          return;
-        }
+        // var HWData= this.statusListTab?.find(x=>x.value==this.form.value.value.trim());
+        // if(HWData)
+        // {
+        // //// this.isDisable=false;
+        // //  this.setReactValue(Number(0),"",0);
+        // this.formGroupDirective?.resetForm();
+        //   this.notser.warning("value already exist");
+        //   return;
+        // }
+        // var orData= this.statusListTab?.find(x=>x.orderInList==this.form.value.orderInList);
+        // if(orData)
+        // {
+        // // this.isDisable=false;
+        // // this.setReactValue(Number(0),"",0);
+        // this.formGroupDirective?.resetForm();
+        //   this.notser.warning("order already exist");
+        //   return;
+        // }
       this.statusSer.Add(listval).subscribe((res)=>{
         // this.isDisable=false;
 
@@ -238,9 +238,9 @@ isDisabled=true;
 
     this.dataSource.paginator = this.paginator as MatPaginator;
       this.notser.success("Successfully Added") ;
-      //this.setReactValue(Number(0)," ",0);
-      this.formGroupDirective?.resetForm();
 
+      this.formGroupDirective?.resetForm();
+      this.form.controls.orderInList.setValue(0)
 
       }
       else{
@@ -259,24 +259,24 @@ isDisabled=true;
       });
     }
     else{
-      var HWData= this.statusListTab?.find(x=>x.value==this.form.value.value.trim());
-      if(HWData &&HWData.id !=this.form.value.id)
-      {
-        //this.isDisable=false;
-        this.formGroupDirective?.resetForm();
-       //this.setReactValue(Number(0),"",0);
-        this.notser.warning("value already exist");
-        return;
-      }
-      var ordata= this.statusListTab?.find(x=>x.orderInList==this.form.value.orderInList);
-      if(ordata &&ordata.id !=this.form.value.id)
-      {
-       // this.isDisable=false;
-       this.formGroupDirective?.resetForm();
-      // this.setReactValue(Number(0),"",0);
-        this.notser.warning("order already exist");
-        return;
-      }
+      // var HWData= this.statusListTab?.find(x=>x.value==this.form.value.value.trim());
+      // if(HWData &&HWData.id !=this.form.value.id)
+      // {
+      //   //this.isDisable=false;
+      //   this.formGroupDirective?.resetForm();
+      //  //this.setReactValue(Number(0),"",0);
+      //   this.notser.warning("value already exist");
+      //   return;
+      // }
+      // var ordata= this.statusListTab?.find(x=>x.orderInList==this.form.value.orderInList);
+      // if(ordata &&ordata.id !=this.form.value.id)
+      // {
+      //  // this.isDisable=false;
+      //  this.formGroupDirective?.resetForm();
+      // // this.setReactValue(Number(0),"",0);
+      //   this.notser.warning("order already exist");
+      //   return;
+      // }
 
      listval.id=Number(this.form.value.id);
   //   listval.serviceTypeID=this.param1;
@@ -311,6 +311,7 @@ isDisabled=true;
    this.formGroupDirective?.resetForm()
 
           this.notser.success("Successfully Updated") ;
+          this.form.controls.orderInList.setValue(0)
 
           }
           else{
@@ -336,64 +337,202 @@ isDisabled=true;
 
 
 
-  onChecknameIsalreadysign()
-  {
+//   onChecknameIsalreadysign()
+//   {
 
 
-    if(this.form.valid)
-    {
-var id=this.statusListTab?.find( x=>x.id==this.form.value.id)
-        var ordata= this.statusListTab?.find(x=>x.orderInList==this.form.value.orderInList);
-        var HWData= this.statusListTab?.find(x=>x.value==this.form.value.value.trim());
-        // if(ordata)
-        // {
+//     if(this.form.valid)
+//     {
 
-        //   if(HWData){
+//       var id=this.statusListTab?.find( x=>x.id==this.form.value.id)
+//         var ordata= this.statusListTab?.find(x=>x.orderInList==this.form.value.orderInList);
+//         var HWData= this.statusListTab?.find(x=>x.value==this.form.value.value.trim());
+//         // if(ordata)
+//         // {
 
-        //      this.notser.warning("Value already exist");
-        //     this.isDisabled=true;
+//         //   if(HWData){
 
-        //    }
-        //    else{
-        //     this.notser.warning("order already exist");
-        //   this.isDisabled=true;
-        //    return;
-        //    }
+//         //      this.notser.warning("Value already exist");
+//         //     this.isDisabled=true;
 
-        // }
+//         //    }
+//         //    else{
+//         //     this.notser.warning("order already exist");
+//         //   this.isDisabled=true;
+//         //    return;
+//         //    }
 
-        // else{
-        //   this.isDisabled=false;
-        // }
-        if(HWData)
-        {
-//edit
-        if(ordata && id || ordata){
-            this.notser.warning("order already exist");
-            this.isDisabled=true;
-          }
-          else{
+//         // }
 
-            this.isDisabled=false;
-          }
-        }
-        else if(!HWData && ordata){
-          this.notser.warning("order already exist");
-          this.isDisabled=true;
+//         // else{
+//         //   this.isDisabled=false;
+//         // }
+//         if(HWData)
+//         {
+// //edit
+//         if(ordata && id || ordata){
+//             this.notser.warning("order already exist");
+//             this.isDisabled=true;
+//           }
+//           else{
 
-        }
-        
-        else{
+//             this.isDisabled=false;
+//           }
+//         }
+//         else if(!HWData && ordata){
+//           this.notser.warning("order already exist");
+//           this.isDisabled=true;
 
-            this.isDisabled=false;
+//         }
 
-        }
+//         else{
+
+//             this.isDisabled=false;
+
+//         }
 
 
-    }else{
-      this.isDisabled=true;
-    }
+//     }else{
+//       this.isDisabled=true;
+//     }
+//   }
+onCheckValueIsalreadyExist(){
+
+  let id:number;
+  if(this.form.value.id==0||this.form.value.id==null||this.form.value.id==undefined){
+    id=0
   }
+  else{
+    id=this.form.value.id
+  }
+  let value=this.form.value.value.trim();
+  let orderInList=Number(this.form.value.orderInList);
+
+  // if(this.form.valid){
+  this.statusSer.checkValueExist(value,id).subscribe(
+    res=>{
+
+      if(res.status==true)
+      {
+
+
+        this.statusSer.checkOrderExist(orderInList,id).subscribe(
+
+          res=>{
+         debugger;
+
+            if(res.status==true)
+            {
+
+
+                this.isDisabled = false;
+
+
+
+            }
+            //already exsit
+            else
+            {
+              if(this.form.value.orderInList==null||this.form.value.id==undefined){
+
+
+                this.isDisabled = true;
+                this.notser.warning("Order empty !!");
+              }
+              else{
+                this.isDisabled = true;
+                this.notser.warning("Order already exist");
+              }
+
+
+            }
+
+        }
+      )
+
+
+      }
+      // //already exsit
+      else
+      {
+        this.isDisabled = true;
+        this.notser.warning("Value already exist");
+
+      }
+
+    }
+  )
+//}
+
+}
+
+
+onCheckOrderIsalreadyExist(){
+
+let id:number;
+if(this.form.value.id==0||this.form.value.id==null||this.form.value.id==undefined){
+  id=0
+}
+else{
+  id=this.form.value.id
+}
+let orderInList= Number(this.form.value.orderInList);
+
+var value= this.form.value.value.trim()
+
+
+if(this.form.value.orderInList==null||this.form.value.id==undefined){
+
+
+  // this.isDisabled = true;
+  this.notser.warning("Order empty !!");
+}
+else{
+  this.statusSer.checkOrderExist(orderInList,id).subscribe(
+
+    res=>{
+
+      if(res.status==true)
+      {
+
+        this.statusSer.checkValueExist(value,id).subscribe(
+          res=>{
+            debugger;
+            if(res.status==true)
+            {
+
+
+                this.isDisabled = false;
+
+
+
+            }
+            //already exsit
+            else
+            {
+              this.isDisabled = true;
+              this.notser.warning("Value already exist");
+
+            }
+          }
+        )
+
+      }
+      //already exsit
+      else
+      {
+        this.isDisabled = true;
+        this.notser.warning("Order already exist");
+
+      }
+
+  }
+)
+}
+
+// }
+}
+
 
   setReactValue(id:number,val:any,num:any){
     this.form.patchValue({

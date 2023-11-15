@@ -336,6 +336,7 @@ export class FiberFormComponent implements OnInit {
   }
 
   public convetToPDF() {
+    this.loading.busy();
     window.scrollTo(0, 0);
     var elem = document.getElementById('hideStatusId') as HTMLElement;
     var elemA = document.getElementById('hideStatusId0') as HTMLElement;
@@ -388,7 +389,7 @@ export class FiberFormComponent implements OnInit {
 
         pdf.addImage(result, 'PNG', 25, 115, width, height);
         pdf.save(`Fiber Request Form /   ${moment().format('ll')}.pdf`);
-
+this.loading.idle();
         this.NotificationService.success('PDF Downloaded');
         elem.style.display = 'block';
         elem0.style.display = 'block';

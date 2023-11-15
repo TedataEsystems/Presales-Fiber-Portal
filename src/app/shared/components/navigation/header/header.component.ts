@@ -16,13 +16,10 @@ isPresales=false;
 statusList:any=[];
 
   constructor(private conser:ConfigureService , private router :Router,private notificationService:NotificationService) {
-    var teamval=this.conser.UserTeam();
 
-    if(teamval?.toLocaleLowerCase() !="admin_all")
-    this.isNotAdmin=true;
-
-    if(teamval?.toLocaleLowerCase() == "presalesfiber_presale")
-    this.isPresales=true;
+    // if(teamval?.toLocaleLowerCase() == "Presales" || teamval?.toLocaleLowerCase() =="admin_all")
+    // // this.isPresales=true;
+    // this.isNotAdmin=false;
 
 
   }
@@ -30,6 +27,14 @@ statusList:any=[];
 UserName:any="";
 ngOnInit(): void {
 this.UserName=this.conser.UserName();
+var teamval=this.conser.UserTeam();
+
+if(teamval?.toLocaleLowerCase() !="admin_all")
+this.isNotAdmin=true;
+
+if(teamval?.toLocaleLowerCase()=="presalesfiber_presale" || teamval?.toLocaleLowerCase() =="admin_all"){
+  this.isNotAdmin=false;
+}
 }
 
 logOut(){

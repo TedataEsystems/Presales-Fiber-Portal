@@ -73,7 +73,7 @@ isSales=false;
         (x.value=='Pending ESPT' ||  x.value=='Pending ESPT Validation' || x.value=='Pending TE'))
   }
     );
-    console.log('this.statusEsptList:',this.statusEsptList)
+   
 }
 
 }
