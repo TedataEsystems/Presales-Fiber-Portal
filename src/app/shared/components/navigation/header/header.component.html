@@ -102,7 +102,7 @@
           <mat-icon>history</mat-icon>
         </button>
       </li>
-     
+
 
 <div class="separator" [hidden]="isNotAdmin"></div>
       <li [hidden]="isNotAdmin">
@@ -112,21 +112,21 @@
             </button>
 
             <mat-menu #menu="matMenu">
-              <button mat-menu-item routerLink="/servicespeed" routerLinkActive="active1" [queryParams]="{serid: 1}">
+              <!-- <button mat-menu-item routerLink="/servicespeed" routerLinkActive="active1" [queryParams]="{serid: 1}">
 
                 <span>Copper Service Speed</span>
-              </button>
+              </button> -->
                 <button mat-menu-item routerLink="/servicespeed" routerLinkActive="active1" [queryParams]="{serid: 2}" >
 
                 <span>Fiber Service Speed</span>
 
                 </button>
 
-                <button mat-menu-item routerLink="/servicespeed" routerLinkActive="active1" [queryParams]="{serid: 3}">
+                <!-- <button mat-menu-item routerLink="/servicespeed" routerLinkActive="active1" [queryParams]="{serid: 3}">
 
                 <span>Microwave Service Speed</span>
 
-                </button>
+                </button> -->
                 <button mat-menu-item routerLink="/contacts" routerLinkActive="active1" [queryParams]="{team: 1}">
 
                   <span>Presales Team</span>
