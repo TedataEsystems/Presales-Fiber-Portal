@@ -158,8 +158,9 @@ this.isDisabled=true;
 
   onChecknameIsalreadysign()
   { debugger
+    this.value=true;
     this.form.controls.value.setValue(this.form.value.value.trim());
-    var sectorValue=  this.sectorList?.find(x=>x.value==this.form.value.value.trim());
+    var sectorValue=  this.sectorList?.find(x=>x.value?.toLowerCase()==this.form.value.value.toLowerCase());
     if(this.form.valid)
     {
         //add

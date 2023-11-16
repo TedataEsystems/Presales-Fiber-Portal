@@ -14,7 +14,7 @@
 
               <mat-form-field class="example-full-width">
                 <mat-label> Sector Name</mat-label>
-                <input type="text"  matInput formControlName="value" (change)="onChecknameIsalreadysign()">
+                <input type="text"  matInput formControlName="value" (change)="onChecknameIsalreadysign()" (keyup)="onChecknameIsalreadysign()">
                 <input type="hidden"  formControlName="id" >
                 <span class="mat-err" [hidden]="value" >
                   sector is already exist&nbsp;!</span>
