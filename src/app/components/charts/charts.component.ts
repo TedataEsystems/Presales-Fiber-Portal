@@ -48,8 +48,13 @@ nullmc=0;
     if(!this.conser.UserToken())
     this.router.navigate(['/loginuser'] );
 
+setTimeout(()=> {
 
+  this.loader.idle();
+
+},2800)
 this.getChart();
+
 
 
   }

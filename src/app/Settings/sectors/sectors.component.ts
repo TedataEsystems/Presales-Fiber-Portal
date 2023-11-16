@@ -8,6 +8,7 @@ import { error } from 'console';
 import { ToastrService } from 'ngx-toastr';
 import { SectorDto } from 'src/app/Models/sectorDTO';
 import { DeleteService } from 'src/app/shared/services/delete.service';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 import { SectorService } from 'src/app/shared/services/sector.service';
 
 @Component({
@@ -33,9 +34,10 @@ export class SectorsComponent implements OnInit ,AfterViewInit{
     id: new FormControl(0),
     value: new FormControl('',[Validators.required,Validators.pattern(/^(\s+\S+\s*)*(?!\s).*$/)])
   });
-  constructor(private _SectorService: SectorService,private titleService:Title, private toast :ToastrService,private dialogService:DeleteService) { }
+  constructor(private _SectorService: SectorService,private loader:LoadingService,private titleService:Title, private toast :ToastrService,private dialogService:DeleteService) { }
 
   ngOnInit(): void {
+    this.loader.busy();
     this.form;
     this.titleService.setTitle("Sectors")
     this.getAllSectors(100,1,0,'',this.sortColumnDef,0,this.SortDirDef,'');
@@ -54,6 +56,7 @@ export class SectorsComponent implements OnInit ,AfterViewInit{
 
      if(res.status)
      {
+      this.loader.idle();
       this.sectorList= res.result.data;
       this.dataSource=new MatTableDataSource<SectorDto>(this.sectorList)
       this.dataSource.paginator = this.paginator as MatPaginator;
@@ -78,7 +81,7 @@ export class SectorsComponent implements OnInit ,AfterViewInit{
 
   onSubmit(){
 
-
+    this.loader.busy();
     // if (this.form.invalid || this.form.controls.value.value=='') {
     //   if (this.form.controls.value.value=='')
     //   // this.setReactValue(Number(0),"");
@@ -99,7 +102,7 @@ export class SectorsComponent implements OnInit ,AfterViewInit{
        this._SectorService.addSector(list).subscribe(res=>{
 
         if(res.status){
-
+          this.loader.idle();
           this.toast.success('Successfully Added');
           this.formGroupDirective?.resetForm();
           this.form.controls.id.setValue(0)
@@ -138,7 +141,7 @@ export class SectorsComponent implements OnInit ,AfterViewInit{
     this._SectorService.updateSector(this.form.value).subscribe(res=>{
 
       if(res.status){
-
+        this.loader.idle();
         this.toast.success('Successfully Updated');
         this.formGroupDirective?.resetForm();
         this.form.controls.id.setValue(0)

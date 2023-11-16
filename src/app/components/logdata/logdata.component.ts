@@ -22,6 +22,7 @@ import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-shee
 
 import Swal from 'sweetalert2'
 import { LogDataService } from 'src/app/shared/services/log-data.service';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 //const swal = require('sweetalert2')
 
@@ -69,7 +70,7 @@ export class LogdataComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router, private notser: NotificationService,
     private config: ConfigureService,
-    private supportser: LogDataService , private titleService: Title, private _http: HttpClient,
+    private supportser: LogDataService ,private loader:LoadingService, private titleService: Title, private _http: HttpClient,
     private _bottomSheet: MatBottomSheet
   ) {
     var groupval= this.config.UserTeam();
@@ -106,13 +107,14 @@ export class LogdataComponent implements OnInit {
 
 
   ngOnInit() {
-
+this.loader.busy()
     // var team=  this.config.UserTeam();
     // if(team?.toLocaleLowerCase()!='esp')
     // {
     //   this.notser.Warninging("not permission");
     //    this.router.navigate(['/'] );
     // }
+
     this.getRequestdata(50, 1, '', 'id', 'DESC', true);
 
   }
@@ -124,7 +126,7 @@ export class LogdataComponent implements OnInit {
 
       if (res.status == true) {
 
-        this.loading = false;
+        this.loader.idle();
         //   this.dataSource.paginator.length=10;
         this.Requetss = res.result.data;
         this.Requetss.length = res.result.totalrecords;

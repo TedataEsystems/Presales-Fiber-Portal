@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TeamcontactService } from 'src/app/shared/services/teamContact.service';
 import { DeleteService } from 'src/app/shared/services/delete.service';
 import { ToastrService } from 'ngx-toastr';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
   selector: 'app-teamcontact',
@@ -48,6 +49,7 @@ export class TeamcontactComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private dialogService: DeleteService,
+    private loader:LoadingService,
     private Config: ConfigureService
   ) {
     // Create 100 users
@@ -77,6 +79,7 @@ export class TeamcontactComponent implements OnInit {
   simflag = true;
   ngOnInit() {
     // this.getRequestdata("");
+    this.loader.busy();
     var teamval = localStorage.getItem('teamName');
 
     if (teamval?.toLocaleLowerCase() == 'esp') {
@@ -93,7 +96,7 @@ export class TeamcontactComponent implements OnInit {
   getRequestdata(attr: any) {
     this.contactser.contactattr(Number(attr)).subscribe(
       (res) => {
-        this.loading = false;
+        this.loader.idle();
 
         if (res.status == true) {
           this.loading = false;
@@ -160,10 +163,9 @@ export class TeamcontactComponent implements OnInit {
   isDisable = false;
   onSubmit() {
     //
-
+    this.loader.busy();
     if (this.form.invalid || this.form.value.value == ' ') {
       //   this.setReactValue(Number(0),"",'to');
-
       return;
     }
     var listval: contactTeam = new contactTeam();
@@ -190,6 +192,7 @@ export class TeamcontactComponent implements OnInit {
           this.isDisable = false;
 
           if (res.status == true) {
+            this.loader.idle();
             var pick: contactTeam = new contactTeam();
             pick.teamId = res.data?.teamId;
             pick.id = res.data?.id;
@@ -230,7 +233,7 @@ export class TeamcontactComponent implements OnInit {
       this.contactser.editcontact(listval).subscribe(
         (res) => {
           this.isDisable = false;
-
+          this.loader.idle();
           if (res.status == true) {
             this.contactListTab?.forEach((x) => {
               if (x.id == res.data?.id) {

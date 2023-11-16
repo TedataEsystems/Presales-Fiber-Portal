@@ -14,6 +14,7 @@ import {FormGroup} from '@angular/forms';
 import { ConfigureService} from 'src/app/shared/services/configure.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
   selector: 'app-service-speed',
@@ -42,7 +43,7 @@ empty=true;
   @ViewChild(MatSort) sort?: MatSort;
   param1:any;settingtype=''
 
-  constructor(private titleService:Title,private speedSer:ServicespeedService
+  constructor(private titleService:Title,private speedSer:ServicespeedService,private loader:LoadingService
     ,private notser:ToastrService,private router: Router,private dialogService:DeleteService,
      private route: ActivatedRoute , private Config:ConfigureService
     ) {
@@ -59,7 +60,7 @@ empty=true;
         this.param1 = params['serid'];
                   if(this.param1!=undefined){
 
-   this.getRequestdata(this.param1);
+
 
         }
         else
@@ -80,6 +81,8 @@ empty=true;
   }
   simflag=true;
   ngOnInit() {
+    this.loader.busy();
+    this.getRequestdata(this.param1);
     var team=  this.Config.UserTeam();
     // if(team?.toLocaleLowerCase()!='esp')
     // {
@@ -117,11 +120,11 @@ empty=true;
   getRequestdata(attr:any ){
 
     this.speedSer.getAll(attr).subscribe(res=>{
-      this.loading = false;
+      this.loader.idle();
 
       if(res.status==true){
 
-        this.loading = false;
+        this.loader.idle();
 
      this.serviceSpeedList = res.result?.data;
      this.apply(this.param1);
@@ -209,6 +212,7 @@ empty=true;
 
   onSubmit() {
 
+    this.loader.busy();
       // if (this.form.invalid||this.form.value.value==' ') {
       //   if (this.form.value.value==' ')
       //   this.formGroupDirective?.resetForm();
@@ -244,6 +248,7 @@ empty=true;
 
 
       if(res.status==true)    {
+        this.loader.idle();
         var SS:ServiceSpeed=new ServiceSpeed();
 
         SS.id=res.data?.id;
@@ -308,6 +313,7 @@ empty=true;
       this.speedSer.Update(listval).subscribe((res)=>{
 
         if(res.status==true)    {
+          this.loader.idle();
 
        this.serviceSpeedListTab?.forEach(x=>
         {

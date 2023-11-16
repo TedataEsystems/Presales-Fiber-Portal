@@ -14,6 +14,7 @@ import {FormGroup} from '@angular/forms';
 import { ConfigureService} from 'src/app/shared/services/configure.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
   selector: 'app-status',
@@ -39,7 +40,7 @@ isDisabled=true;
   @ViewChild(MatSort) sort?: MatSort;
   @ViewChild(FormGroupDirective) formGroupDirective?: FormGroupDirective;
   param1:any;settingtype=''
-  constructor(private titleService:Title,private statusSer:statusService
+  constructor(private titleService:Title,private statusSer:statusService,private loader:LoadingService
     ,private notser:ToastrService,private router: Router,private dialogService:DeleteService,
      private route: ActivatedRoute , private Config:ConfigureService
     ) {
@@ -58,6 +59,7 @@ isDisabled=true;
   }
   simflag=true;
   ngOnInit() {
+    this.loader.busy();
     var team=  this.Config.UserTeam();
     // if(team?.toLocaleLowerCase()!='esp')
     // {
@@ -96,7 +98,7 @@ isDisabled=true;
   getRequestdata(){
 
     this.statusSer.getAll().subscribe(res=>{
-      this.loading = false;
+      this.loader.idle();
 
       if(res.status==true){
 
@@ -182,7 +184,7 @@ isDisabled=true;
   isDisable=false;
 
   onSubmit() {
-
+this.loader.busy();
       // if (this.form.invalid||this.form.value.value==' ') {
       //   if (this.form.value.value==' ')
       //   //  this.setReactValue(Number(0),"",0);
@@ -219,6 +221,7 @@ isDisabled=true;
         // this.isDisable=false;
 
       if(res.status==true)    {
+        this.loader.idle();
         var SS:status=new status();
 
         SS.id=res.data?.id;
@@ -286,6 +289,7 @@ isDisabled=true;
          this.isDisable=false;
 
         if(res.status==true)    {
+          this.loader.idle();
           // const index1 = this.dataSource.data.indexOf(this.l);
           // this.dataSource.data.splice(index1, 1);
           // this.dataSource._updateChangeSubscription()
