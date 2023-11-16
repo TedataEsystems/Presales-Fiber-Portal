@@ -335,166 +335,166 @@ export class FiberFormComponent implements OnInit {
     }
   }
 
+//   public convetToPDF() {
+//     this.loading.busy();
+//     window.scrollTo(0, 0);
+//     var elem = document.getElementById('hideStatusId') as HTMLElement;
+//     var elemA = document.getElementById('hideStatusId0') as HTMLElement;
+//     var elemB = document.getElementById('hideStatusId1') as HTMLElement;
+//     var elemc = document.getElementById('hideStatusId2') as HTMLElement;
+//     var elem0 = document.getElementById('SubmitId') as HTMLElement;
+//     elem.style.display = 'none';
+//     elem0.style.display = 'none';
+//     elemA.style.display = 'none';
+//     elemB.style.display = 'none';
+//     elemc.style.display = 'none';
+
+//     const pdfTable = this.pageEl?.nativeElement;
+//     let pdf = new jsPDF();
+
+//     const options = {
+//       background: 'white',
+//       scale: 2,
+//     };
+//     // ----------------test-----------------------------------------------------------------//
+
+//     const width = this.div.nativeElement.clientWidth;
+//     const height = this.div.nativeElement.clientHeight;
+//     let orientation = '';
+//     let imageUnit = 'pt';
+//     if (width > height) {
+//       orientation = 'l';
+//     } else {
+//       orientation = 'p';
+//     }
+//     domToImage
+//       .toPng(this.div.nativeElement, {
+//         width: width,
+//         height: height,
+//       })
+//       .then((result) => {
+//         let jsPdfOptions = {
+//           orientation: orientation,
+//           unit: imageUnit,
+//           format: [width + 50, height + 220],
+//         };
+
+//         // const pdf = new jsPDF(jsPdfOptions);
+
+//         const pdf = new jsPDF({
+//           orientation: 'p',
+//           unit: 'pt',
+//           format: [width + 50, height + 115],
+//         });
+
+//         pdf.addImage(result, 'PNG', 25, 115, width, height);
+//         pdf.save(`Fiber Request Form /   ${moment().format('ll')}.pdf`);
+// this.loading.idle();
+//         this.NotificationService.success('PDF Downloaded');
+//         elem.style.display = 'block';
+//         elem0.style.display = 'block';
+//         elemA.style.display = 'block';
+//         elemB.style.display = 'block';
+//         elemc.style.display = 'block';
+//       })
+//       .catch((error) => {});
+
+//     //----------------------------/test----------------------------------------------------//
+//     //     html2canvas(div as HTMLElement, options).then((canvas) => {
+//     //   debugger;
+
+//     //       var img = canvas.toDataURL("image/PNG");
+//     //       var doc = new jsPDF('l', 'mm', 'a4');
+
+//     //      // // Add image Canvas to PDF
+//     //       const bufferX = 5;
+//     //       const bufferY = 5;
+//     //       const imgProps = (<any>doc).getImageProperties(img);
+//     //       const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+//     //       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+//     //       console.log(pdfHeight + " / "+pdfWidth)
+//     //        doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, 220, undefined, 'FAST');
+//     //      // doc.addImage(img, 'PNG', bufferX, bufferY, 268, 200, undefined, 'FAST');
+//     // debugger;
+//     //       return doc;
+//     //     }).then((doc) => {
+
+//     //   doc.save(`Fiber${Date.now()}.pdf`);
+//     //   this.loading=false;
+
+//     //      this.NotificationService.success("pdf downloaded");
+//     //      elem.style.display = 'block';
+//     //      elem0.style.display = 'block';
+//     //      elemA.style.display = 'block';
+//     //     });
+//   }
   public convetToPDF() {
-    this.loading.busy();
-    window.scrollTo(0, 0);
+
     var elem = document.getElementById('hideStatusId') as HTMLElement;
     var elemA = document.getElementById('hideStatusId0') as HTMLElement;
     var elemB = document.getElementById('hideStatusId1') as HTMLElement;
     var elemc = document.getElementById('hideStatusId2') as HTMLElement;
     var elem0 = document.getElementById('SubmitId') as HTMLElement;
+    let div= this.div.nativeElement;
     elem.style.display = 'none';
     elem0.style.display = 'none';
     elemA.style.display = 'none';
     elemB.style.display = 'none';
     elemc.style.display = 'none';
 
-    const pdfTable = this.pageEl?.nativeElement;
-    let pdf = new jsPDF();
-
     const options = {
       background: 'white',
-      scale: 2,
+      scale: 1,
+      allowTaint: false,
+      height: div.scrollHeight,
+          scrollX: -window.scrollX,
+          scrollY: -window.scrollY,
+          windowWidth: document.documentElement.offsetWidth,
+          windowHeight: div.scrollHeight,
+
     };
-    // ----------------test-----------------------------------------------------------------//
+    html2canvas(div as HTMLElement, options).then((canvas) => {
+      var imgWidth = 210;
+      var pageHeight = 290;
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var heightLeft = imgHeight;
 
-    const width = this.div.nativeElement.clientWidth;
-    const height = this.div.nativeElement.clientHeight;
-    let orientation = '';
-    let imageUnit = 'pt';
-    if (width > height) {
-      orientation = 'l';
-    } else {
-      orientation = 'p';
-    }
-    domToImage
-      .toPng(this.div.nativeElement, {
-        width: width,
-        height: height,
-      })
-      .then((result) => {
-        let jsPdfOptions = {
-          orientation: orientation,
-          unit: imageUnit,
-          format: [width + 50, height + 220],
-        };
 
-        // const pdf = new jsPDF(jsPdfOptions);
+      var doc = new jsPDF('p', 'mm');
+      var position = 0;
+      var pageData = canvas.toDataURL('image/jpeg', 1.0);
+      var imgData = encodeURIComponent(pageData);
 
-        const pdf = new jsPDF({
-          orientation: 'p',
-          unit: 'pt',
-          format: [width + 50, height + 115],
-        });
+      doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      doc.setLineWidth(5);
+      doc.setDrawColor(255, 255, 255);
+      doc.rect(0, 0, 210, 295);
+      heightLeft -= pageHeight;
 
-        pdf.addImage(result, 'PNG', 25, 115, width, height);
-        pdf.save(`Fiber Request Form /   ${moment().format('ll')}.pdf`);
-this.loading.idle();
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        doc.addPage();
+        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        doc.setLineWidth(5);
+        doc.setDrawColor(255, 255, 255);
+        doc.rect(0, 0, 210, 295);
+        heightLeft -= pageHeight;}
+        doc.save(`Fiber Request Form /   ${moment().format('ll')}.pdf`);
+    })
+
+
+
+
+
         this.NotificationService.success('PDF Downloaded');
         elem.style.display = 'block';
         elem0.style.display = 'block';
         elemA.style.display = 'block';
         elemB.style.display = 'block';
         elemc.style.display = 'block';
-      })
-      .catch((error) => {});
 
-    //----------------------------/test----------------------------------------------------//
-    //     html2canvas(div as HTMLElement, options).then((canvas) => {
-    //   debugger;
 
-    //       var img = canvas.toDataURL("image/PNG");
-    //       var doc = new jsPDF('l', 'mm', 'a4');
-
-    //      // // Add image Canvas to PDF
-    //       const bufferX = 5;
-    //       const bufferY = 5;
-    //       const imgProps = (<any>doc).getImageProperties(img);
-    //       const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
-    //       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-    //       console.log(pdfHeight + " / "+pdfWidth)
-    //        doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, 220, undefined, 'FAST');
-    //      // doc.addImage(img, 'PNG', bufferX, bufferY, 268, 200, undefined, 'FAST');
-    // debugger;
-    //       return doc;
-    //     }).then((doc) => {
-
-    //   doc.save(`Fiber${Date.now()}.pdf`);
-    //   this.loading=false;
-
-    //      this.NotificationService.success("pdf downloaded");
-    //      elem.style.display = 'block';
-    //      elem0.style.display = 'block';
-    //      elemA.style.display = 'block';
-    //     });
   }
-  // public convetToPDF() {
-
-  //   var elem = document.getElementById('hideStatusId') as HTMLElement;
-  //   var elemA = document.getElementById('hideStatusId0') as HTMLElement;
-  //   var elemB = document.getElementById('hideStatusId1') as HTMLElement;
-  //   var elemc = document.getElementById('hideStatusId2') as HTMLElement;
-  //   var elem0 = document.getElementById('SubmitId') as HTMLElement;
-  //   let div= this.div.nativeElement;
-  //   elem.style.display = 'none';
-  //   elem0.style.display = 'none';
-  //   elemA.style.display = 'none';
-  //   elemB.style.display = 'none';
-  //   elemc.style.display = 'none';
-
-  //   const options = {
-  //     background: 'white',
-  //     scale: 1,
-  //     allowTaint: false,
-  //     height: div.scrollHeight,
-  //         scrollX: -window.scrollX,
-  //         scrollY: -window.scrollY,
-  //         windowWidth: document.documentElement.offsetWidth,
-  //         windowHeight: div.scrollHeight,
-
-  //   };
-  //   html2canvas(div as HTMLElement, options).then((canvas) => {
-  //     var imgWidth = 210;
-  //     var pageHeight = 290;
-  //     var imgHeight = canvas.height * imgWidth / canvas.width;
-  //     var heightLeft = imgHeight;
-
-
-  //     var doc = new jsPDF('p', 'mm');
-  //     var position = 0;
-  //     var pageData = canvas.toDataURL('image/jpeg', 1.0);
-  //     var imgData = encodeURIComponent(pageData);
-
-  //     doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-  //     doc.setLineWidth(5);
-  //     doc.setDrawColor(255, 255, 255);
-  //     doc.rect(0, 0, 210, 295);
-  //     heightLeft -= pageHeight;
-
-  //     while (heightLeft >= 0) {
-  //       position = heightLeft - imgHeight;
-  //       doc.addPage();
-  //       doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-  //       doc.setLineWidth(5);
-  //       doc.setDrawColor(255, 255, 255);
-  //       doc.rect(0, 0, 210, 295);
-  //       heightLeft -= pageHeight;}
-  //       doc.save(`Fiber Request Form /   ${moment().format('ll')}.pdf`);
-  //   })
-
-
-
-
-
-  //       this.NotificationService.success('PDF Downloaded');
-  //       elem.style.display = 'block';
-  //       elem0.style.display = 'block';
-  //       elemA.style.display = 'block';
-  //       elemB.style.display = 'block';
-  //       elemc.style.display = 'block';
-
-
-  // }
   onDownLoad(data: any) {
     var mimeVal = '';
     var extArr = data.name.split('.');

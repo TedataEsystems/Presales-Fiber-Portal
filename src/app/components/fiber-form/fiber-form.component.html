@@ -43,7 +43,7 @@
                 src="../../../assets/image/mini_logo.png"
                 class="d-inline-block iso mt-2"
                 width="100"
-                height="130"
+                height="120"
               />
               <img
                 src="../../../assets/image/slogan.PNG"
@@ -52,13 +52,13 @@
                 height="50"
               />
               <div class="text-center d-inline-block" style="width: 100%">
-                <span class="ar">طلب شبكات الاتاحة على الفيبر</span>
-                <br />
-                <span class="eng"> Fiber Service Request Form</span>
+                <div class="head"><span class="ar">طلب شبكات الاتاحة على الفيبر</span></div>
+
+                <div  class="head"> <span class="eng"> Fiber Service Request Form</span></div>
               </div>
             </mat-card-title>
           </mat-card-header>
-          <mat-grid-list cols="5" rowHeight="150px" class="mx-3">
+          <mat-grid-list cols="5" rowHeight="80px" class="mx-3">
             <mat-grid-tile>
               <div class="controles-container">
                 <mat-label> Name of Sales Manager :</mat-label>
@@ -103,7 +103,7 @@
               </mat-card-title>
             </mat-card-header>
             <!-- <mat-divider></mat-divider> -->
-            <mat-grid-list cols="5" rowHeight="300px" class="mx-3">
+            <mat-grid-list cols="5" rowHeight="210px" class="mx-3">
               <mat-grid-tile>
                 <div class="controles-container">
                   <input type="hidden" formControlName="$key" />
@@ -205,7 +205,7 @@
               </mat-card-title>
             </mat-card-header>
 
-            <mat-grid-list cols="5" rowHeight="300px" class="mx-3">
+            <mat-grid-list cols="5" rowHeight="280px" class="mx-3">
               <mat-grid-tile>
                 <div class="controles-container">
                   <mat-label class="mb-4"
@@ -425,7 +425,7 @@
               </mat-grid-tile>
             </mat-grid-list>
 
-            <mat-grid-list cols="4" rowHeight="130px" class="mx-3" >
+            <mat-grid-list cols="4" rowHeight="100px" class="mx-3" >
               <mat-grid-tile colspan="1" rowspan="2"> </mat-grid-tile>
               <mat-grid-tile colspan="3">
                 <div class="controles-container text-right">
@@ -472,89 +472,93 @@
               <mat-grid-tile colspan="1">
                 <div class="controles-container"></div>
               </mat-grid-tile>
-              <mat-grid-tile colspan="1">
-                <div class="controles-container">
-                  <div id="hideStatusId2" class="mt-5" >
-                    <mat-label class="">Sector :</mat-label>
-                    <mat-form-field class=""  >
-                      <mat-select formControlName="sectorID" [disabled]="isReadonly">
-                        <mat-option>None</mat-option>
-                        <ng-container *ngFor="let item of sectorList">
-                          <mat-option [value]="item.id">{{
-                            item.value
-                          }}</mat-option>
-                        </ng-container>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                </div>
-              </mat-grid-tile>
-              <mat-grid-tile colspan="1">
-                <div class="controles-container">
-                  <div id="hideStatusId0" class="mt-5" [hidden]="isSales">
-                    <mat-label class="">Action :</mat-label>
-                    <mat-form-field class="">
-                      <mat-select formControlName="acceptstatusId">
-                        <mat-option>None</mat-option>
-                        <ng-container *ngFor="let item of actionstatusList">
-                          <mat-option [value]="item.id">{{
-                            item.value
-                          }}</mat-option>
-                        </ng-container>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                </div>
-              </mat-grid-tile>
-              <mat-grid-tile colspan="1">
-                <div class="controles-container">
-                  <div id="hideStatusId1" class="mt-5"  *ngIf="isSales || isPreSales || isAdmin">
-                    <mat-label class="w-100"
-                      >Rejection Reason :</mat-label>
-                    <mat-form-field class="w-100">
-
-                    <textarea
-                      formControlName="rejectionReason"
-                      row="10"
-                      class="text-right"
-[readonly]="isSales"
-                      matInput
-                    >
-                    </textarea>
-                    </mat-form-field>
-                  </div>
-                </div>
-              </mat-grid-tile>
-              <mat-grid-tile colspan="1">
-                <div class="controles-container">
-                  <!-- <div id="hideStatusId" class="mt-5" *ngIf="isSales && showStatus"> -->
-                    <div id="hideStatusId" class="mt-5" >
-                    <mat-label class="" >Status :</mat-label>
-                    <mat-form-field class="">
-                      <!-- <mat-select
-                          formControlName="statusId"
-                          [disabled]="!adminflag0"
-                        >
-                          <mat-option>None</mat-option>
-                          <ng-container *ngFor="let item of statusList">
-                            <mat-option [value]="item.id">{{
-                              item.value
-                            }}</mat-option>
-                          </ng-container>
-                        </mat-select> -->
-                        <input matInput  formControlName="status" [readonly]="true" />
 
 
-
-                    </mat-form-field>
-                  </div>
-                </div>
-              </mat-grid-tile>
             </mat-grid-list>
           </mat-card>
-          <mat-grid-list cols="1" rowHeight="50px">
+          <mat-grid-list cols="4" rowHeight="150px" id="hideStatusId2">
+            <mat-grid-tile colspan="1">
+              <div class="controles-container">
+                <div  class="mt-5" >
+                  <mat-label class="">Sector :</mat-label>
+                  <mat-form-field class=""  >
+                    <mat-select formControlName="sectorID" [disabled]="isReadonly">
+                      <mat-option>None</mat-option>
+                      <ng-container *ngFor="let item of sectorList">
+                        <mat-option [value]="item.id">{{
+                          item.value
+                        }}</mat-option>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1">
+              <div class="controles-container">
+                <div id="hideStatusId0" class="mt-5" [hidden]="isSales">
+                  <mat-label class="">Action :</mat-label>
+                  <mat-form-field class="">
+                    <mat-select formControlName="acceptstatusId">
+                      <mat-option>None</mat-option>
+                      <ng-container *ngFor="let item of actionstatusList">
+                        <mat-option [value]="item.id">{{
+                          item.value
+                        }}</mat-option>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1">
+              <div class="controles-container">
+                <div id="hideStatusId1" class="mt-5"  *ngIf="isSales || isPreSales || isAdmin">
+                  <mat-label class="w-100"
+                    >Rejection Reason :</mat-label>
+                  <mat-form-field class="w-100">
+
+                  <textarea
+                    formControlName="rejectionReason"
+                    row="10"
+                    class="text-right"
+[readonly]="isSales"
+                    matInput
+                  >
+                  </textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </mat-grid-tile>
+                <mat-grid-tile colspan="1">
+                  <div class="controles-container">
+                    <!-- <div id="hideStatusId" class="mt-5" *ngIf="isSales && showStatus"> -->
+                      <div id="hideStatusId" class="mt-5" >
+                      <mat-label class="" >Status :</mat-label>
+                      <mat-form-field class="">
+                        <!-- <mat-select
+                            formControlName="statusId"
+                            [disabled]="!adminflag0"
+                          >
+                            <mat-option>None</mat-option>
+                            <ng-container *ngFor="let item of statusList">
+                              <mat-option [value]="item.id">{{
+                                item.value
+                              }}</mat-option>
+                            </ng-container>
+                          </mat-select> -->
+                          <input matInput  formControlName="status" [readonly]="true" />
+
+
+
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </mat-grid-tile>
+                </mat-grid-list>
+          <mat-grid-list cols="1" rowHeight="50px" id="SubmitId">
             <mat-grid-tile>
-              <div class="controles-container" id="SubmitId">
+              <div class="controles-container" >
                 <div class="text-right">
                   <button
                     mat-button
@@ -571,7 +575,7 @@
             </mat-grid-tile>
           </mat-grid-list>
 
-          <mat-grid-list cols="1" rowHeight="50px">
+          <mat-grid-list cols="1" rowHeight="15px">
             <mat-grid-tile>
               <div class="controles-container text-center">
                 <span class="address">
