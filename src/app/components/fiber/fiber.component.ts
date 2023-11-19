@@ -127,6 +127,7 @@ this.loading.busy();
 
         //   this.dataSource.paginator.length=10;
         this.Requetss = res.result.data;
+        console.log('Requetss:',this.Requetss)
 
         if(this.Requetss.length != 0){
           this.Requetss.length = res.result.totalrecords;

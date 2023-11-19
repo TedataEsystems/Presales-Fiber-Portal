@@ -51,18 +51,22 @@ isPresales=false;
 isEspt=false;
 isSales=false;
 
-  constructor(private statusSer:statusService,private conser:ConfigureService ) {
+  constructor(private statusSer:statusService,private conser:ConfigureService  ) {
     var teamval=this.conser.UserTeam();
 
-    if(teamval?.toLocaleLowerCase() == "presalesfiber_presale" || teamval?.toLocaleLowerCase() == "presalesfiber_sale" ){
+    if(teamval?.toLocaleLowerCase() == "presalesfiber_presale"){
       this.isPresales=true;
-      this.isSales=true
-    }
 
-    else if(teamval?.toLocaleLowerCase() == "presalesfiber_espt" )
-    this.isEspt=true;
-  else
-    this.isAdmin=true
+    }
+    else if(teamval?.toLocaleLowerCase() == "presalesfiber_sales")
+      {this.isSales=true}
+
+    else if(teamval?.toLocaleLowerCase() == "presalesfiber_espt")
+   {this.isEspt=true;}
+     else{
+      this.isAdmin=true
+     }
+
 
   }
 
@@ -73,7 +77,7 @@ isSales=false;
         (x.value=='Pending ESPT' ||  x.value=='Pending ESPT Validation' || x.value=='Pending TE'))
   }
     );
-   
+
 }
 
 }

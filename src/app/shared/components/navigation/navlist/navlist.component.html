@@ -6,7 +6,7 @@
 </div>
 <mat-divider></mat-divider> -->
 <mat-list>
-  <a mat-list-item routerLink="./"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+  <a mat-list-item routerLink="./"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" *ngIf="isAdmin || isPresales">
 
     <span class="nav-caption">Home</span>
 </a>

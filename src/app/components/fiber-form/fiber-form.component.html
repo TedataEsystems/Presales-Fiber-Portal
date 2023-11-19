@@ -589,12 +589,14 @@
       </mat-card>
     </div>
   </mat-tab>
-  <mat-tab label="Comments" *ngIf="param1">
+  <!-- <mat-tab label="Comments" *ngIf="param1"> -->
+    <mat-tab label="Comments">
     <form
       [formGroup]="formComment"
       class="normal-form"
       (submit)="saveComment()"
-    >
+      *ngIf="isPreSales || (isSales && !isReadonly) || (isSales && !param1 )"
+        >
       <div class="Comment w-50">
         <mat-form-field floatLabel="always" class="w-100 text-left">
           <mat-label>Comment</mat-label>
@@ -729,8 +731,9 @@
     </div>
     <!-- </ng-template> -->
   </mat-tab>
-  <mat-tab label="File Upload" *ngIf="param1">
-    <div class="mb-4">
+  <!-- <mat-tab label="File Upload" *ngIf="param1"> -->
+    <mat-tab label="File Upload">
+    <div class="mb-4" *ngIf="isPreSales || (isSales && !isReadonly) || (isSales && !param1)">
       <div class="import-excel d-inline-block">
         <div class="input-group">
           <label class="btn browse">
@@ -764,8 +767,8 @@
       </span>
     </div>
 
-    <app-loader *ngIf="dataSource == null; else table"></app-loader>
-    <ng-template #table>
+    <!-- <app-loader *ngIf="dataSource == null;else table"></app-loader>
+    <ng-template #table> -->
       <div class="example-container mat-elevation-z8" #TABLE>
         <!-- <div class="mat-elevation-z8"> -->
         <mat-table [dataSource]="dataSource" matSort class="shadow" #table>
@@ -839,10 +842,10 @@
           [pageSize]="30"
         ></mat-paginator>
       </div>
-    </ng-template>
+    <!-- </ng-template> -->
   </mat-tab>
   <!-- <mat-tab label="ESPT Feedback" *ngIf="param1 && renew"> -->
-    <mat-tab label="ESPT Feedback" *ngIf="param1 && !isSales">
+    <mat-tab label="ESPT Feedback" *ngIf="isPreSales || (isSales && isReadonly && viewEsptTab) || isEspt">
     <div class="mb-4 example-container">
       <mat-card class="example-card">
 

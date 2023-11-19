@@ -16,6 +16,7 @@ import { ChartsComponent } from './components/charts/charts.component';
 import { LogdataComponent } from './components/logdata/logdata.component';
 import { FeedbackComponent } from './components/feedback/feedback.component';
 import { SectorsComponent } from './Settings/sectors/sectors.component';
+import { AuthGuardGuard } from './auth-guard.guard';
 
 const routes: Routes = [
   {
@@ -31,6 +32,7 @@ const routes: Routes = [
       {
         path: '',
         component: ChartsComponent,
+        canActivate:[AuthGuardGuard]
       },
 
       {

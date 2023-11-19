@@ -93,6 +93,7 @@ export class FiberFormComponent implements OnInit {
   datafiles: any[] = [];
   adminflag0: boolean = false;
   isReadonly: boolean = true;
+  viewEsptTab:boolean=false;
   showStatus: boolean = false;
   isSales: boolean = false;
   isPreSales: boolean = false;
@@ -157,14 +158,14 @@ export class FiberFormComponent implements OnInit {
       this.adminflag = true;
       this.isSales = true;
     }
-    if (groupval == 'admin_all') {
+    else if (groupval == 'admin_all') {
       this.adminflag = true;
       this.adminflag0 = true;
       this.esptFlag = false;
       this.isReadonly = false;
       this.isAdmin=true;
     }
-    if (groupval == 'PresalesFiber_ESPT') {
+    else if (groupval == 'PresalesFiber_ESPT') {
 
 
       this.isEspt=true;
@@ -187,16 +188,17 @@ export class FiberFormComponent implements OnInit {
               if (this.registerDetail.serviceTypeID != 2) {
                 this.router.navigate(['/']);
               }
-
-              if (
-                groupval == 'PresalesFiber_sales' &&
-                (this.registerDetail.statusId == 1 )
-              ) {
+                //pending sales
+              if (groupval == 'PresalesFiber_sales' && this.registerDetail.statusId == 1 ) {
+                this.isSales=true;
                 this.isReadonly = true;
+                this.viewEsptTab=true;
               }
+              //request info can edit
               else if (groupval == 'PresalesFiber_sales' && this.registerDetail.statusId == 2)
               {
                 this.isReadonly = false;
+                this.viewEsptTab=false;
               }
               else if (groupval == 'PresalesFiber_Presale' &&
                 (this.registerDetail.statusId == 3 || this.registerDetail.statusId == 7)
@@ -209,7 +211,7 @@ export class FiberFormComponent implements OnInit {
                   this.registerDetail.statusId == 5 ||
                   this.registerDetail.statusId == 6)
               ) {
-                this.isReadonly = false;
+                 this.isReadonly = false;
               } else if (groupval == 'admin_all') {
                 this.isReadonly = false;
               }
