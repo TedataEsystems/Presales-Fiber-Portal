@@ -1,7 +1,8 @@
 <mat-tab-group mat-align-tabs="center">
   <mat-tab label="Fiber Service Request Form">
+    <!-- *ngIf="param1" -->
     <img
-      *ngIf="param1"
+
       src="../../../assets/image/pdf.png"
       width="58"
       height="58"
@@ -327,7 +328,8 @@
                     </textarea>
                   </mat-form-field>
                   <mat-label class="text-right n2">
-                    (ملاحظات ( رجاء كتابة أي ملاحظات أو أستفسارات</mat-label
+                    (&#x200E; رجاء كتابة أي ملاحظات أو أستفسارات &#x200E;) &nbsp;ملاحظات
+                    </mat-label
                   >
                 </div>
                 <div class="feed w-100 p-2">
@@ -402,9 +404,7 @@
                       </section>
                     </div>
                     <label class="text-left note">
-
-
-            برجاء تحديد إن كانت المنطقة واعدة ( توسعات أو عملاء جدد ) أو لا*
+                     أو لا  &nbsp; (&#x200E; توسعات أو عملاء جدد &#x200E;) &nbsp;  برجاء تحديد ان كانت منطقة واعدة &nbsp; &#x200E;* &nbsp;
 
                     </label>
                   </div>
