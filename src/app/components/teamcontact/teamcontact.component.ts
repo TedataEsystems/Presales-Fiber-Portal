@@ -286,7 +286,7 @@ export class TeamcontactComponent implements OnInit {
 
   onChecknameIsalreadysign(){
     this.form.controls.mail.setValue(this.form.value.mail.trim())
-    debugger
+
     if (this.form.valid) {
       var pickData = this.contactListTab?.find(
         (x) => x.mail == this.form.value.mail.trim()
@@ -331,6 +331,11 @@ export class TeamcontactComponent implements OnInit {
             // this.isDisabled = false;
             this.isDisabled = false;
           }
+        }
+        else{
+          this.value = true;
+
+          this.isDisabled = false;
         }
 
 

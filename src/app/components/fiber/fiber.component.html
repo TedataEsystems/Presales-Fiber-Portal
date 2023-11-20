@@ -203,6 +203,11 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Modified date'  }} </mat-header-cell>
             <mat-cell *matCellDef="let element" data-label="Modified date"> {{element.modificationDate| date:'medium'}} </mat-cell>
                 </ng-container>
+                <ng-container matColumnDef="renewedDate">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> {{'renewed Date'  }} </mat-header-cell>
+                  <mat-cell *matCellDef="let element" data-label="Modified date"> {{element.renewedDate| date:'medium'}} </mat-cell>
+                      </ng-container>
+
             <ng-container matColumnDef="createdBy">
              <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Created by'  }} </mat-header-cell>
              <mat-cell *matCellDef="let element" data-label="Created by"> {{element.createdBy}} </mat-cell>
@@ -211,6 +216,10 @@
              <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Modified by'   }}</mat-header-cell>
               <mat-cell *matCellDef="let element" data-label="Modifyied by"> {{element.modifyiedBy}} </mat-cell>
                  </ng-container>
+                 <ng-container matColumnDef="renewedBy">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Renewed by'   }}</mat-header-cell>
+                   <mat-cell *matCellDef="let element" data-label="Modifyied by"> {{element.renewedBy}} </mat-cell>
+                      </ng-container>
              <ng-container matColumnDef="createdByTeam">
               <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Created by team'  }}</mat-header-cell>
              <mat-cell *matCellDef="let element" data-label="Created by team"> {{element.createdByTeam}} </mat-cell>

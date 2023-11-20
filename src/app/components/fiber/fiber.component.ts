@@ -38,7 +38,7 @@ export class FiberComponent implements OnInit {
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   displayedColumns2: string[] = ['id', 'action','renew', 'managerName', 'companyName', 'contactName'
     , 'email', "mobile", 'numberOfCircuits', 'fullAddress', 'exchangeName', 'nearestFixedLineNumber', 'expectedUpgrades', 'contractPeriod','sector','serviceSpeed'
-    ,'status','rejectionReason', 'notes', 'creationDate', 'modificationDate', 'createdBy', 'modifyiedBy', 'createdByTeam', 'modifyiedByTeam'
+    ,'status','rejectionReason', 'notes', 'creationDate', 'modificationDate','renewedDate' ,'createdBy', 'modifyiedBy','renewedBy','createdByTeam', 'modifyiedByTeam'
   ];
   columnsToDisplay: string[] = this.displayedColumns2.slice();
   public reqs: registerDetail[] = [];
@@ -247,6 +247,7 @@ debugger;
     res=>{
    if(res.status){
     this.toastr.info('Your request is renewed')
+    this.getRequestdata(30, 1, '', 'id', 'asc', true);
     // if(r.renew > 0){
      // this.router.navigate(['/fiberRequestForm'], { queryParams: { id: r.id ,renew:true} });
     // }

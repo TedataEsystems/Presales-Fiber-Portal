@@ -213,7 +213,7 @@ export class FiberFormComponent implements OnInit {
                   this.registerDetail.statusId == 5 ||
                   this.registerDetail.statusId == 6)
               ) {
-                 this.isReadonly = false;
+                 this.isReadonly = true;
               } else if (groupval == 'admin_all') {
                 this.isReadonly = false;
               }
