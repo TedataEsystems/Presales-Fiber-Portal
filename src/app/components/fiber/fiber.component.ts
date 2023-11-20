@@ -36,7 +36,7 @@ export class FiberComponent implements OnInit {
 
   @ViewChild(MatSort) sort?: MatSort;
   @ViewChild(MatPaginator) paginator?: MatPaginator;
-  displayedColumns2: string[] = ['id', 'action', 'managerName', 'companyName', 'contactName'
+  displayedColumns2: string[] = ['id', 'action','renew', 'managerName', 'companyName', 'contactName'
     , 'email', "mobile", 'numberOfCircuits', 'fullAddress', 'exchangeName', 'nearestFixedLineNumber', 'expectedUpgrades', 'contractPeriod','sector','serviceSpeed'
     ,'status','rejectionReason', 'notes', 'creationDate', 'modificationDate', 'createdBy', 'modifyiedBy', 'createdByTeam', 'modifyiedByTeam'
   ];

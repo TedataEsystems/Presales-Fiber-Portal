@@ -99,6 +99,8 @@ export class FiberFormComponent implements OnInit {
   isPreSales: boolean = false;
   isEspt:boolean=false;
   isAdmin:boolean=false;
+  signature='';
+  signatureName='';
   RegExpAr = '^[\u0621-\u064A\u0660-\u0669 ]+$';
   @ViewChild(MatSort) sort?: MatSort;
   @ViewChild(MatPaginator) paginator?: MatPaginator;
@@ -216,7 +218,8 @@ export class FiberFormComponent implements OnInit {
                 this.isReadonly = false;
               }
               this.setReactValue(res.data);
-
+              this.signature=res.data.signature;
+            this.signatureName=res.data.signatureName;
             } else this.NotificationService.error(res.error);
           },
           (err) => {
@@ -651,7 +654,12 @@ export class FiberFormComponent implements OnInit {
     sector:new FormControl(null),
     serviceType:new FormControl(null),
     acceptableStatus: new FormControl(null),
-    serviceSpeed:new FormControl(null)
+    serviceSpeed:new FormControl(null),
+    signature:new FormControl(''),
+    signatureName:new FormControl(''),
+    // renewedBy:new FormControl(''),
+    // renewedDate:new FormControl(''),
+    // canRenew:new FormControl(null),
   });
 
   getSectors() {
@@ -872,7 +880,9 @@ onDelete(id:number){
       sector: reqreact.sector,
       status:reqreact.status,
       acceptableStatus: reqreact.acceptableStatus,
-      serviceSpeed:reqreact.serviceSpeed
+      serviceSpeed:reqreact.serviceSpeed,
+      signature:reqreact.signature,
+      signatureName:reqreact.signatureName,
     });
   }
 

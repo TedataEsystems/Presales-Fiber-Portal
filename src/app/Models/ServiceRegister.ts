@@ -73,6 +73,11 @@ export class registerDetail{
   serviceType=null
   serviceTypeID?: any
   statusId?: number
+  signature?:string
+signatureName?:string
+renewedBy?:string
+renewedDate?:Date
+canRenew?:boolean
   sector=null
   status=null
   acceptableStatus=null

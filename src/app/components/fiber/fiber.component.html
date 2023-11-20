@@ -89,7 +89,7 @@
                     <button mat-button color="warn" [hidden]="esptFlag" (click)="onDelete(row.id)" matTooltip="Delete">
                         <mat-icon>delete_forever</mat-icon>
                     </button>
-                    <button mat-button class="text-warning" *ngIf="isSales" [disabled]="!(row.renew > 0)" (click)="renew(row)" matTooltip="Renew request">
+                    <button mat-button class="text-warning" *ngIf="isSales" [disabled]="!row.canRenew" (click)="renew(row)" matTooltip="Renew request">
                       <mat-icon>autorenew</mat-icon>
                   </button>
                 </mat-cell>
@@ -99,6 +99,10 @@
                 <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Id'  }}</mat-header-cell>
                 <mat-cell *matCellDef="let element" data-label="Id"> {{element.id}} </mat-cell>
             </ng-container>
+            <ng-container matColumnDef="renew">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Num of Renewal'  }}</mat-header-cell>
+              <mat-cell *matCellDef="let element" data-label="Id"> {{element.renew}} </mat-cell>
+          </ng-container>
             <!-- <ng-container matColumnDef="all">
                     <mat-header-cell *matHeaderCellDef>
 

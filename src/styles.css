@@ -674,7 +674,7 @@ a,span,input,h2,.mat-raised-button,.mat-menu-panel,.mat-list-item,.mat-menu-item
 }
 app-fiber-form .mat-form-field-appearance-legacy .mat-form-field-infix {
   /* padding: .9em 0 !important; */
-  padding: .5em 0 !important;
+  padding: .5em 0 .2em 0 !important;
 }
 /* .mat-form-field-appearance-legacy .mat-form-field-label {
   color: #000000 ;

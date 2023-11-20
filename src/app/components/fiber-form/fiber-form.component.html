@@ -430,21 +430,21 @@
               <mat-grid-tile colspan="3">
                 <div class="controles-container text-right">
                   <mat-form-field class="w-50">
-                    <input matInput [readonly]="true" />
-                    <mat-error
+                    <input matInput formControlName="signatureName" [(ngModel)]="signatureName" />
+                    <!-- <mat-error
                       >This field is mandatory in
                       <strong>Arabic</strong>.</mat-error
-                    >
+                    > -->
                   </mat-form-field>
                   <mat-label class="w-25 text-right"> :الاسم </mat-label>
                   <br />
                   <mat-label class="w-25">Name : </mat-label>
-                  <mat-form-field class="w-50">
-                    <input matInput [readonly]="true" />
-                    <mat-error
+                  <mat-form-field class="w-50" >
+                    <input matInput [(ngModel)]="signatureName" [ngModelOptions]="{standalone: true}" />
+                    <!-- <mat-error
                       >This field is mandatory in
                       <strong>Arabic</strong>.</mat-error
-                    >
+                    > -->
                   </mat-form-field>
                 </div>
               </mat-grid-tile>
@@ -452,20 +452,20 @@
               <mat-grid-tile colspan="2">
                 <div class="controles-container">
                   <mat-form-field class="w-75">
-                    <input matInput [readonly]="true" />
-                    <mat-error
+                    <input matInput formControlName="signature" [(ngModel)]="signature" />
+                    <!-- <mat-error
                       >This field is mandatory in
                       <strong>Arabic</strong>.</mat-error
-                    >
+                    > -->
                   </mat-form-field>
                   <mat-label class="w-25 text-right"> : التوقيع </mat-label>
                   <mat-label class="w-25">Signature : </mat-label>
                   <mat-form-field class="w-75">
-                    <input matInput [readonly]="true" />
-                    <mat-error
+                    <input matInput [(ngModel)]="signature" [ngModelOptions]="{standalone: true}"/>
+                    <!-- <mat-error
                       >This field is mandatory in
                       <strong>Arabic</strong>.</mat-error
-                    >
+                    > -->
                   </mat-form-field>
                 </div>
               </mat-grid-tile>
