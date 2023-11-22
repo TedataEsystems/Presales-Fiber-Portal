@@ -3,7 +3,7 @@ import { Component, ViewChild, ElementRef, OnInit, TemplateRef, Input} from '@an
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatDialog} from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { DeleteService } from 'src/app/shared/services/delete.service';
 import { registerDetail } from 'src/app/Models/ServiceRegister';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,6 +15,7 @@ import { HttpClient} from '@angular/common/http';
 import { MatBottomSheet} from '@angular/material/bottom-sheet';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingService } from 'src/app/shared/services/loading.service';
+import { ForwardedToComponent } from '../forwarded-to/forwarded-to.component';
 @Component({
   selector: 'app-fiber',
   templateUrl: './fiber.component.html',
@@ -462,7 +463,19 @@ debugger;
   //     })
   //   }
 
+  ForwardRequest(id:any){
+    const dialogConfig= new MatDialogConfig();
+    dialogConfig.data={id:id},
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '30%';
+    dialogConfig.height = '280px';
+    dialogConfig.panelClass = 'modals-dialog';
+    // dialogConfig.position={top:"10px"},
+    this.dialog.open(ForwardedToComponent,dialogConfig).afterClosed().subscribe((result) => {})
 
+
+  }
 
   resetfile() {
     this.fileAttr = 'Choose File';

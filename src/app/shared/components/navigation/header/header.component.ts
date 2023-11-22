@@ -38,15 +38,9 @@ if(teamval?.toLocaleLowerCase()=="presalesfiber_presale" || teamval?.toLocaleLow
 }
 
 logOut(){
-  // localStorage.clear();
-  // this.accountService.logout().subscribe(res=>{
+
     this.conser.Logout();
     this.router.navigateByUrl('/loginuser');
-
-  // }
-
-  // ,error=>{this.notificationService.warn('occured an error ')}
-  // );
 
 }
 public onToggleSidenav=()=> {

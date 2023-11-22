@@ -40,6 +40,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ChartsModule } from 'ng2-charts';
 import { FeedbackComponent } from 'src/app/components/feedback/feedback.component';
 import { SectorsComponent } from 'src/app/Settings/sectors/sectors.component';
+import { ForwardedToComponent } from 'src/app/components/forwarded-to/forwarded-to.component';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import { SectorsComponent } from 'src/app/Settings/sectors/sectors.component';
     TeamcontactComponent,
     LogdataComponent,
     FeedbackComponent,
-    SectorsComponent
+    SectorsComponent,
+    ForwardedToComponent
 
   ],
   imports: [

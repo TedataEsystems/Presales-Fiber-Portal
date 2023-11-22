@@ -16,7 +16,8 @@ import { ChartsComponent } from './components/charts/charts.component';
 import { LogdataComponent } from './components/logdata/logdata.component';
 import { FeedbackComponent } from './components/feedback/feedback.component';
 import { SectorsComponent } from './Settings/sectors/sectors.component';
-import { AuthGuardGuard } from './auth-guard.guard';
+import { AuthGuardGuard } from './shared/Guard/auth-guard.guard';
+import { HomeAuthGuard } from './shared/Guard/home-auth.guard';
 
 const routes: Routes = [
   {
@@ -32,56 +33,68 @@ const routes: Routes = [
       {
         path: '',
         component: ChartsComponent,
-        canActivate:[AuthGuardGuard]
+        canActivate:[HomeAuthGuard,AuthGuardGuard]
       },
 
       {
         path: 'servicespeed',
         component: ServiceSpeedComponent,
+        canActivate:[AuthGuardGuard]
       },
       {
         path: 'microwave',
         component: MicrowaveComponent,
+        canActivate:[AuthGuardGuard]
       },
       {
         path: 'microwaveRequestForm',
         component: MicrowaveFormComponent,
+        canActivate:[AuthGuardGuard]
       },
       {
         path: 'copper',
         component: CopperComponent,
+        canActivate:[AuthGuardGuard]
       },
       {
         path: 'copperRequestForm',
         component: CopperFormComponent,
+        canActivate:[AuthGuardGuard]
       },
       {
         path: 'fiber',
         component: FiberComponent,
+        canActivate:[AuthGuardGuard]
       },
       {
         path: 'fiberRequestForm',
         component: FiberFormComponent,
+        canActivate:[AuthGuardGuard]
       },
       {
         path: 'feedBack',
         component: FeedbackComponent,
+        canActivate:[AuthGuardGuard]
       },
       {
         path: 'status',
         component: statusComponent,
+        canActivate:[AuthGuardGuard]
       },
       {
         path: 'contacts',
         component: TeamcontactComponent,
+        canActivate:[AuthGuardGuard]
       },
       {
         path: 'logs',
         component: LogdataComponent,
+        canActivate:[AuthGuardGuard]
       },
       {
         path: 'sectors',
         component: SectorsComponent,
+        canActivate:[AuthGuardGuard]
       },
     ],
   },

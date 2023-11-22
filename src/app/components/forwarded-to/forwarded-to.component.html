@@ -1,0 +1,37 @@
+<mat-toolbar class="top" >
+  <span class="fill-remaining-space"> Forward Request</span>
+  <div class="w-100 text-right">
+    <button
+      class="btn-dialog-close"
+      mat-button
+      tabIndex="-1"
+      (click)="onClose()"
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+  <div class="content-container px-5 pt-5">
+
+      <mat-form-field class="w-100 mt-2">
+        <mat-label>Staff Name</mat-label>
+        <mat-select  placeholder="choose" >
+          <mat-option>-- Please select --</mat-option>
+          <mat-option value="">Tedate Staff</mat-option>
+
+        </mat-select>
+        <!-- <mat-error> * مطلوب </mat-error> -->
+      </mat-form-field>
+  </div>
+  <mat-toolbar class="bottom">
+    <div class="button-row w-100 text-center">
+      <button mat-raised-button class="clr w-50" type="submit">
+        Farward
+      </button>
+    </div>
+  </mat-toolbar>
+
+<ngx-spinner type="timer">
+  <h5>Loading</h5>
+</ngx-spinner>
