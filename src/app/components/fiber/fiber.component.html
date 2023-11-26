@@ -198,11 +198,11 @@
                           </ng-container>
                           <ng-container matColumnDef="ForwardedTo">
                             <mat-header-cell *matHeaderCellDef mat-sort-header>ForwardedTo</mat-header-cell>
-                            <mat-cell *matCellDef="let element" data-label="ForwardedTo"> {{element.ForwardedTo}} </mat-cell>
+                            <mat-cell *matCellDef="let element" data-label="ForwardedTo"> {{element.forwardedTo}} </mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="ForwardedDate">
                                   <mat-header-cell *matHeaderCellDef mat-sort-header>ForwardedDate</mat-header-cell>
-                                  <mat-cell *matCellDef="let element" data-label="ForwardedDate"> {{element.ForwardedDate}} </mat-cell>
+                                  <mat-cell *matCellDef="let element" data-label="ForwardedDate"> {{element.forwardedDate | date:'medium'}} </mat-cell>
                                       </ng-container>
            <ng-container matColumnDef="creationDate">
             <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Creation date'   }}</mat-header-cell>
