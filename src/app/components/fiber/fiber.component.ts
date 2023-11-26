@@ -39,7 +39,7 @@ export class FiberComponent implements OnInit {
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   displayedColumns2: string[] = ['id', 'action','renew', 'managerName', 'companyName', 'contactName'
     , 'email', "mobile", 'numberOfCircuits', 'fullAddress', 'exchangeName', 'nearestFixedLineNumber', 'expectedUpgrades', 'contractPeriod','sector','serviceSpeed'
-    ,'status','rejectionReason', 'notes', 'creationDate', 'modificationDate','renewedDate' ,'createdBy', 'modifyiedBy','renewedBy','createdByTeam', 'modifyiedByTeam'
+    ,'status','rejectionReason', 'notes','ForwardedTo','ForwardedDate','creationDate', 'modificationDate','renewedDate' ,'createdBy', 'modifyiedBy','renewedBy','createdByTeam', 'modifyiedByTeam'
   ];
   columnsToDisplay: string[] = this.displayedColumns2.slice();
   public reqs: registerDetail[] = [];
@@ -472,10 +472,17 @@ debugger;
     dialogConfig.height = '280px';
     dialogConfig.panelClass = 'modals-dialog';
     // dialogConfig.position={top:"10px"},
-    this.dialog.open(ForwardedToComponent,dialogConfig).afterClosed().subscribe((result) => {})
+    this.dialog.open(ForwardedToComponent,dialogConfig).afterClosed().subscribe(res => {
 
+        if(this.param1 != undefined){
+          this.getRequestdata(30, 1, '', 'id', 'asc', true,this.param1);
 
-  }
+        }else{
+          this.getRequestdata(30, 1, '', 'id', 'asc', true);
+
+        }
+
+  })}
 
   resetfile() {
     this.fileAttr = 'Choose File';

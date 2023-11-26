@@ -77,6 +77,8 @@ export class registerDetail{
 signatureName?:string
 renewedBy?:string
 renewedDate?:Date
+ForwardedDate?:Date
+ForwardedTo?:string
 canRenew?:boolean
   sector=null
   status=null

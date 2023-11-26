@@ -11,22 +11,22 @@
     </button>
   </div>
 </mat-toolbar>
-
   <div class="content-container px-5 pt-5">
 
       <mat-form-field class="w-100 mt-2">
-        <mat-label>Staff Name</mat-label>
-        <mat-select  placeholder="choose" >
-          <mat-option>-- Please select --</mat-option>
-          <mat-option value="">Tedate Staff</mat-option>
-
+        <mat-label> To</mat-label>
+        <mat-select  [(ngModel)]="user" placeholder="choose Salesperson Name " >
+          <ng-container *ngFor="let sale of salesList">
+          <mat-option [value]="sale.userName"> {{sale.userName}}</mat-option>
+          </ng-container>
         </mat-select>
-        <!-- <mat-error> * مطلوب </mat-error> -->
+
       </mat-form-field>
   </div>
   <mat-toolbar class="bottom">
     <div class="button-row w-100 text-center">
-      <button mat-raised-button class="clr w-50" type="submit">
+      <button mat-raised-button class="clr w-50" type="submit" [disabled]="user==''"
+      (click)="Forward()">
         Farward
       </button>
     </div>

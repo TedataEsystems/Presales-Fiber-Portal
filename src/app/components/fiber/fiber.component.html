@@ -176,8 +176,6 @@
 
 
              </ng-container>
-
-
             <ng-container matColumnDef="contractPeriod">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Contract Period'  }} </mat-header-cell>
                 <mat-cell *matCellDef="let element" data-label="contractPeriod"> {{element.contractPeriod}} </mat-cell>
@@ -198,6 +196,14 @@
                       <mat-header-cell *matHeaderCellDef mat-sort-header> Rejection Reason</mat-header-cell>
                       <mat-cell *matCellDef="let element" data-label="rejectionReason"> {{element.rejectionReason}} </mat-cell>
                           </ng-container>
+                          <ng-container matColumnDef="ForwardedTo">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>ForwardedTo</mat-header-cell>
+                            <mat-cell *matCellDef="let element" data-label="ForwardedTo"> {{element.ForwardedTo}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="ForwardedDate">
+                                  <mat-header-cell *matHeaderCellDef mat-sort-header>ForwardedDate</mat-header-cell>
+                                  <mat-cell *matCellDef="let element" data-label="ForwardedDate"> {{element.ForwardedDate}} </mat-cell>
+                                      </ng-container>
            <ng-container matColumnDef="creationDate">
             <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Creation date'   }}</mat-header-cell>
             <mat-cell *matCellDef="let element" data-label="Creation date"> {{element.creationDate| date:'medium'}} </mat-cell>

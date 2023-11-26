@@ -11,12 +11,14 @@ export class ServiceRegisterService {
 private apiUrl:string ;
 private commentUrl:string ;
 private feedbackUrl:string ;
+
 private headers = new HttpHeaders();
 private subject = new Subject<any>();
   constructor(private config:ConfigureService , private http : HttpClient)
   {
     this.commentUrl = config.ApiUrl() + 'RequestComments';
     this.feedbackUrl=config.ApiUrl();
+
     this.apiUrl = config.ApiUrl() + 'RegisterDetail';
     this.headers = this.headers.set('Authorization',"Bearer "+ this.config.UserToken());
   }
@@ -90,6 +92,10 @@ public AddComment(model : any)
 public Update(model : any)
 {
   return this.http.post<any>(this.apiUrl + '/updateregisterDetail' , model , {headers : this.headers});
+}
+public ForwardRequest(model : any)
+{
+  return this.http.post<any>(this.apiUrl + '/ForwardRequest' , model , {headers : this.headers});
 }
 
 public Remove(Val:number)
