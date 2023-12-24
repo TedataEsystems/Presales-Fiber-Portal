@@ -148,10 +148,11 @@
                       matInput
                       [readonly]="isReadonly"
                     />
-                    <mat-error
+                    <mat-error *ngIf="form.controls.Email.errors?.email"
                     >email should include "example &#64; gmail.com"</mat-error
                   >
-
+                  <mat-error *ngIf="form.controls.Email.errors?.required"
+                  >This field is mandatory  .</mat-error>
                   </mat-form-field>
                   <mat-form-field>
                     <input
@@ -489,6 +490,7 @@
                           item.value
                         }}</mat-option>
                       </ng-container>
+                      <mat-error>* This field is mandatory.</mat-error>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -512,8 +514,8 @@
               </div>
             </mat-grid-tile>
             <mat-grid-tile colspan="1">
-              <div class="controles-container">
-                <div id="hideStatusId1" class="mt-5"  *ngIf="isSales || isPreSales || isAdmin">
+              <div class="controles-container" id="hideStatusId1">
+                <div  class="mt-5"  *ngIf="isSales || isPreSales || isAdmin">
                   <mat-label class="w-100"
                     >Rejection Reason :</mat-label>
                   <mat-form-field class="w-100">
@@ -566,7 +568,7 @@
                     type="button"
                     routerLink="../fiber"
                   >
-                    Finish
+                    back
                   </button>
 
                   <button mat-button class="sub" *ngIf="(isSales && !isReadonly)  || (isAdmin && !isReadonly) || (isPreSales && !isReadonly) || (isEspt&& isReadonly)" [disabled]="isDisabled" type="submit">Submit</button>
@@ -595,7 +597,7 @@
       [formGroup]="formComment"
       class="normal-form"
       (submit)="saveComment()"
-      *ngIf="isPreSales || (isSales && !isReadonly) || (isSales && !param1 )"
+      *ngIf="isPreSales || (isSales && !isReadonly) || (isSales && !param1 ) || isEspt"
         >
       <div class="Comment w-50">
         <mat-form-field floatLabel="always" class="w-100 text-left">

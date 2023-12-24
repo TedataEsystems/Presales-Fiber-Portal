@@ -16,23 +16,28 @@
   <mat-divider class="my-1"></mat-divider> -->
   <div class="mt-2">
     <form  [formGroup]="form" class="normal-form mx-0" (submit)="onSubmit()" >
-      <mat-grid-list cols="2" rowHeight="350px">
-        <mat-grid-tile>
-          <div class="controles-container commentbox">
+      <mat-grid-list cols="5" rowHeight="350px">
+        <mat-grid-tile colspan="3">
+          <!-- <div class="controles-container commentbox">
              <input type="hidden" formControlName="id">
-            <!-- <input type="hidden" formControlName="CreationDate">
-            <input type="hidden" formControlName="CreatedBy">
-            <input type="hidden" formControlName="modificationDate">
-            <input type="hidden" formControlName="modifyiedBy"> -->
+
             <mat-label>Notes</mat-label>
             <mat-form-field appearance="outline">
               <textarea rows="9" formControlName="textData" matInput placeholder="write your notes here...."></textarea>
             </mat-form-field>
 
 
+          </div> -->
+
+          <div class="controles-container">
+            <ejs-richtexteditor id='defaultRTE' [toolbarSettings]='tools'[iframeSettings]='iframe' [height]='height'>
+              <!-- <ng-template #valueTemplate>
+
+              </ng-template> -->
+              </ejs-richtexteditor>
           </div>
         </mat-grid-tile>
-        <mat-grid-tile>
+        <mat-grid-tile colspan="2">
           <div class="controles-container">
             <div class="w-100 mb-2 mt-5">
               <mat-radio-group  formControlName="Availability">

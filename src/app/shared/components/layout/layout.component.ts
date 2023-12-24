@@ -10,8 +10,7 @@ import { statusService } from '../../services/status.service';
 })
 export class LayoutComponent implements OnInit,AfterViewInit,OnDestroy {
 
- //Presales
-  isMenuOpen = true;
+ isMenuOpen = true;
   contentMargin = 240;
 isNotAdmin=false;
 statusList:any=[];
@@ -20,7 +19,7 @@ mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
 
 
-  constructor(private conser:ConfigureService , private statusSer:statusService,changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,private observer: BreakpointObserver) {
+  constructor(private conser:ConfigureService, private statusSer:statusService,private changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,private observer: BreakpointObserver) {
 
     var teamval=this.conser.UserTeam();
     if(teamval?.toLocaleLowerCase() !="admin_all")
@@ -34,10 +33,11 @@ mobileQuery: MediaQueryList;
   ngOnInit(): void {
 
 
-      this.statusSer.getAll().subscribe(res=>{
-       this.statusList = res.result?.data;
-       console.log(this.statusList);
-      });
+      // this.statusSer.getAll().subscribe(res=>{
+      //  this.statusList = res.result?.data;
+      //  console.log(this.statusList);
+      // });
+
 
    }
 
@@ -46,6 +46,8 @@ mobileQuery: MediaQueryList;
 
 
   ngAfterViewInit() {
+
+
     this.observer.observe(['(max-width: 800px)']).subscribe((res) => {
       if (res.matches) {
         this.sidenav.mode = 'over';
@@ -55,6 +57,8 @@ mobileQuery: MediaQueryList;
         this.sidenav.open();
       }
     });
+        // Manually trigger change detection after modifying the sidenav properties
+        this.changeDetectorRef.detectChanges();
   }
   onToolbarMenuToggle() {
 

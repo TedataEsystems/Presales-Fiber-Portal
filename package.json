@@ -26,6 +26,8 @@
     "@angular/router": "~11.0.9",
     "@fontsource/amiri": "^4.4.5",
     "@ng-bootstrap/ng-bootstrap": "^9.0.0",
+    "@syncfusion/ej2-angular-richtexteditor": "19.3",
+    "@syncfusion/ej2-icons": "^24.1.41",
     "bootstrap": "^4.6.0",
     "chart.js": "^2.9.3",
     "dom-to-image": "^2.6.0",

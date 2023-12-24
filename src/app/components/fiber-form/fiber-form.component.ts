@@ -101,7 +101,8 @@ export class FiberFormComponent implements OnInit {
   isAdmin:boolean=false;
   signature='';
   signatureName='';
-  RegExpAr = '^[\u0621-\u064A\u0660-\u0669 ]+$';
+  // RegExpAr = '^[\u0621-\u064A\u0660-\u0669 ]+$';
+  RegExpAr = '^[\u0621-\u064A0-9 ]+$';
   @ViewChild(MatSort) sort?: MatSort;
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   displayedColumns: string[] = [
@@ -340,99 +341,7 @@ export class FiberFormComponent implements OnInit {
     }
   }
 
-//   public convetToPDF() {
-//     this.loading.busy();
-//     window.scrollTo(0, 0);
-//     var elem = document.getElementById('hideStatusId') as HTMLElement;
-//     var elemA = document.getElementById('hideStatusId0') as HTMLElement;
-//     var elemB = document.getElementById('hideStatusId1') as HTMLElement;
-//     var elemc = document.getElementById('hideStatusId2') as HTMLElement;
-//     var elem0 = document.getElementById('SubmitId') as HTMLElement;
-//     elem.style.display = 'none';
-//     elem0.style.display = 'none';
-//     elemA.style.display = 'none';
-//     elemB.style.display = 'none';
-//     elemc.style.display = 'none';
 
-//     const pdfTable = this.pageEl?.nativeElement;
-//     let pdf = new jsPDF();
-
-//     const options = {
-//       background: 'white',
-//       scale: 2,
-//     };
-//     // ----------------test-----------------------------------------------------------------//
-
-//     const width = this.div.nativeElement.clientWidth;
-//     const height = this.div.nativeElement.clientHeight;
-//     let orientation = '';
-//     let imageUnit = 'pt';
-//     if (width > height) {
-//       orientation = 'l';
-//     } else {
-//       orientation = 'p';
-//     }
-//     domToImage
-//       .toPng(this.div.nativeElement, {
-//         width: width,
-//         height: height,
-//       })
-//       .then((result) => {
-//         let jsPdfOptions = {
-//           orientation: orientation,
-//           unit: imageUnit,
-//           format: [width + 50, height + 220],
-//         };
-
-//         // const pdf = new jsPDF(jsPdfOptions);
-
-//         const pdf = new jsPDF({
-//           orientation: 'p',
-//           unit: 'pt',
-//           format: [width + 50, height + 115],
-//         });
-
-//         pdf.addImage(result, 'PNG', 25, 115, width, height);
-//         pdf.save(`Fiber Request Form /   ${moment().format('ll')}.pdf`);
-// this.loading.idle();
-//         this.NotificationService.success('PDF Downloaded');
-//         elem.style.display = 'block';
-//         elem0.style.display = 'block';
-//         elemA.style.display = 'block';
-//         elemB.style.display = 'block';
-//         elemc.style.display = 'block';
-//       })
-//       .catch((error) => {});
-
-//     //----------------------------/test----------------------------------------------------//
-//     //     html2canvas(div as HTMLElement, options).then((canvas) => {
-//     //   debugger;
-
-//     //       var img = canvas.toDataURL("image/PNG");
-//     //       var doc = new jsPDF('l', 'mm', 'a4');
-
-//     //      // // Add image Canvas to PDF
-//     //       const bufferX = 5;
-//     //       const bufferY = 5;
-//     //       const imgProps = (<any>doc).getImageProperties(img);
-//     //       const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
-//     //       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-//     //       console.log(pdfHeight + " / "+pdfWidth)
-//     //        doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, 220, undefined, 'FAST');
-//     //      // doc.addImage(img, 'PNG', bufferX, bufferY, 268, 200, undefined, 'FAST');
-//     // debugger;
-//     //       return doc;
-//     //     }).then((doc) => {
-
-//     //   doc.save(`Fiber${Date.now()}.pdf`);
-//     //   this.loading=false;
-
-//     //      this.NotificationService.success("pdf downloaded");
-//     //      elem.style.display = 'block';
-//     //      elem0.style.display = 'block';
-//     //      elemA.style.display = 'block';
-//     //     });
-//   }
   public convetToPDF() {
 
     var elem = document.getElementById('hideStatusId') as HTMLElement;
@@ -486,11 +395,6 @@ export class FiberFormComponent implements OnInit {
         heightLeft -= pageHeight;}
         doc.save(`Fiber Request Form /   ${moment().format('ll')}.pdf`);
     })
-
-
-
-
-
         this.NotificationService.success('PDF Downloaded');
         elem.style.display = 'block';
         elem0.style.display = 'block';
@@ -624,7 +528,7 @@ export class FiberFormComponent implements OnInit {
       Validators.pattern(this.RegExpAr),
     ]),
     OtherInformation: new FormControl(''),
-    Email: new FormControl('', Validators.email),
+    Email: new FormControl('', [Validators.email,Validators.required]),
     Mobile: new FormControl('', [
       Validators.required,
       Validators.minLength(11),
@@ -650,8 +554,8 @@ export class FiberFormComponent implements OnInit {
     status: new FormControl(null),
     acceptstatusId: new FormControl(null),
     rejectionReason: new FormControl(''),
-    sectorID: new FormControl(0),
-    sector:new FormControl(null),
+    sectorID: new FormControl(0, Validators.required),
+    sector:new FormControl(null,Validators.required),
     serviceType:new FormControl(null),
     acceptableStatus: new FormControl(null),
     serviceSpeed:new FormControl(null),
@@ -687,7 +591,7 @@ onCreate(){
   dialogGonfig.data = { dialogTitle: 'Add', registerDetailID:this.param1};
   dialogGonfig.disableClose = true;
   dialogGonfig.autoFocus = true;
-  dialogGonfig.width = '50%';
+  dialogGonfig.width = '80%';
   dialogGonfig.panelClass = 'modals-dialog';
   this.dialog
       .open(FeedbackComponent, dialogGonfig)
@@ -702,7 +606,7 @@ onEditFeedback(row:any){
   dialogGonfig.data = { dialogTitle: 'Edit', row: row, registerDetailID:this.param1};
   dialogGonfig.disableClose = true;
   dialogGonfig.autoFocus = true;
-  dialogGonfig.width = '50%';
+  dialogGonfig.width = '80%';
   dialogGonfig.panelClass = 'modals-dialog';
   this.dialog
       .open(FeedbackComponent, dialogGonfig)
@@ -712,9 +616,6 @@ onEditFeedback(row:any){
 
       });
 }
-
-
-
 onDelete(id:number){
 
   this.DeleteService.openConfirmDialog()
@@ -730,8 +631,6 @@ onDelete(id:number){
   });
 
 }
-
-
   onClear() {
     this.form.reset();
     // this.initializeFormGroup();

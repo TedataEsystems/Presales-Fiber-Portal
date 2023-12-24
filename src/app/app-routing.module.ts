@@ -18,6 +18,7 @@ import { FeedbackComponent } from './components/feedback/feedback.component';
 import { SectorsComponent } from './Settings/sectors/sectors.component';
 import { AuthGuardGuard } from './shared/Guard/auth-guard.guard';
 import { HomeAuthGuard } from './shared/Guard/home-auth.guard';
+import { QueueValidationComponent } from './components/queue-validation/queue-validation.component';
 
 const routes: Routes = [
   {
@@ -64,6 +65,11 @@ const routes: Routes = [
       {
         path: 'fiber',
         component: FiberComponent,
+        canActivate:[AuthGuardGuard]
+      },
+      {
+        path: 'queValidation',
+        component: QueueValidationComponent,
         canActivate:[AuthGuardGuard]
       },
       {

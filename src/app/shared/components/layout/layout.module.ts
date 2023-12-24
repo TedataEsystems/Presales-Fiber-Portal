@@ -41,7 +41,8 @@ import { ChartsModule } from 'ng2-charts';
 import { FeedbackComponent } from 'src/app/components/feedback/feedback.component';
 import { SectorsComponent } from 'src/app/Settings/sectors/sectors.component';
 import { ForwardedToComponent } from 'src/app/components/forwarded-to/forwarded-to.component';
-
+import { RichTextEditorModule } from '@syncfusion/ej2-angular-richtexteditor';
+import { QueueValidationComponent } from '../../../components/queue-validation/queue-validation.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { ForwardedToComponent } from 'src/app/components/forwarded-to/forwarded-
     LogdataComponent,
     FeedbackComponent,
     SectorsComponent,
-    ForwardedToComponent
+    ForwardedToComponent,
+    QueueValidationComponent
 
   ],
   imports: [
@@ -83,6 +85,7 @@ import { ForwardedToComponent } from 'src/app/components/forwarded-to/forwarded-
     HttpClientModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
+    RichTextEditorModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-top-right',

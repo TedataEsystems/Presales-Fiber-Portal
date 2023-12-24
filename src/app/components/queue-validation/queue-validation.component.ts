@@ -10,7 +10,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceRegisterService } from 'src/app/shared/services/service-register.service';
 import { ConfigureService } from 'src/app/shared/services/configure.service';
 import { Title } from '@angular/platform-browser';
-import { trigger, state, style, animate, transition } from '@angular/animations';
 import { HttpClient} from '@angular/common/http';
 import { MatBottomSheet} from '@angular/material/bottom-sheet';
 import { ToastrService } from 'ngx-toastr';
@@ -20,19 +19,12 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { SectorService } from 'src/app/shared/services/sector.service';
 import { statusService } from 'src/app/shared/services/status.service';
 @Component({
-  selector: 'app-fiber',
-  templateUrl: './fiber.component.html',
-  styleUrls: ['./fiber.component.css'],
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ]
-
+  selector: 'app-queue-validation',
+  templateUrl: './queue-validation.component.html',
+  styleUrls: ['./queue-validation.component.css']
 })
-export class FiberComponent implements OnInit {
+export class QueueValidationComponent implements OnInit {
+
   searchKey: string = '';
   renwed=false;
   public Requetss: any[] = [];
@@ -41,18 +33,23 @@ export class FiberComponent implements OnInit {
   advSearchRequest:AdvancedSearchDto={}
   @ViewChild(MatSort) sort?: MatSort;
   @ViewChild(MatPaginator) paginator?: MatPaginator;
-  displayedColumns2: string[] = ['id', 'action','renew', 'managerName', 'companyName', 'contactName'
+  displayedColumns: string[] = ['id', 'action','renew', 'managerName', 'companyName', 'contactName'
     , 'email', "mobile", 'numberOfCircuits', 'fullAddress', 'exchangeName', 'nearestFixedLineNumber', 'expectedUpgrades', 'contractPeriod','sector','serviceSpeed'
     ,'status','rejectionReason', 'notes','ForwardedTo','ForwardedDate','creationDate', 'modificationDate','renewedDate' ,'createdBy', 'modifyiedBy','renewedBy','createdByTeam', 'modifyiedByTeam'
   ];
-  columnsToDisplay: string[] = this.displayedColumns2.slice();
+  displayedColumns1: string[] = ['id', 'action','renew', 'managerName', 'companyName', 'contactName'
+    , 'email', "mobile", 'numberOfCircuits', 'fullAddress', 'exchangeName', 'nearestFixedLineNumber', 'expectedUpgrades', 'contractPeriod','sector','serviceSpeed'
+    ,'status','rejectionReason', 'notes','ForwardedTo','ForwardedDate','creationDate', 'modificationDate','renewedDate' ,'createdBy', 'modifyiedBy','renewedBy','createdByTeam', 'modifyiedByTeam'
+  ];
+  columnsToDisplay: string[] = this.displayedColumns.slice();
+  columnsToDisplay1: string[] = this.displayedColumns1.slice();
   public reqs: registerDetail[] = [];
   public delreq: registerDetail = new registerDetail();
   registerDetailList?: registerDetail[] = [];
   registerDetailListTab?: registerDetail[] = [];
   valdata = ""; valuid = 0;
-  exportIds = [];
   dataSource = new MatTableDataSource<any>();
+  dataSource1 = new MatTableDataSource<any>();
   delpic: any;
   listName: string = '';
   selected: boolean = false;
@@ -286,168 +283,7 @@ this.route.queryParams.subscribe((params:any) => {
 
   }
 
-  form: FormGroup = new FormGroup({
-    id: new FormControl(''),
-    creationDateFrom: new FormControl(''),
-    creationDateTo: new FormControl(''),
-    modificationDateFrom: new FormControl(''),
-    modificationDateTo: new FormControl(''),
-    createdBy: new FormControl(''),
-    modifyiedBy: new FormControl(''),
-    createdByTeam: new FormControl(''),
-    modifyiedByTeam: new FormControl(''),
-    managerName: new FormControl(''),
-    contact: new FormControl(''),
-    companyName: new FormControl(''),
-    contactName: new FormControl(''),
-    email: new FormControl(''),
-    mobile: new FormControl(''),
-    numberOfCircuits: new FormControl(null),
-    fullAddress: new FormControl(''),
-    exchangeName: new FormControl(''),
-    nearestFixedLineNumber: new FormControl(''),
-    renewedBy: new FormControl(''),
-    renewedDateFrom: new FormControl(''),
-    renewedDateTo: new FormControl(''),
-    forwardedDateFrom: new FormControl(''),
-    forwardedDateTo: new FormControl(''),
-    forwardedTo: new FormControl(''),
-    rejectionReason: new FormControl(''),
-    serviceTypeID: new FormControl(2),
-    serviceSpeedID: new FormControl(''),
-    statusId:new FormControl(null),
-    sectorID:new FormControl(null)
 
-  });
-  openAdvancedSearchPanel() {
-    // this.panelOpenState = false;
-    // this.missionService.getLists().subscribe((res) => {
-    //   if (res.status == true) {
-    //     this.missionTypeList = res.missionTypesList;
-    //     this.statusList = res.statusesList;
-    //   }
-    // });
-    // this.userService.getUserlists().subscribe((res) => {
-    //   if (res.status) {
-    //     this.jobDegreeList = res.data.jobDegrees;
-    //     this.teamList=res.data.teams;
-    //   }
-    // });
-  }
-
-  AdvancedSearchSubmit() {
-    // this.isFilterationData = true;
-    // this.panelOpenState = true;
-
-     this.loading.busy();
-
-
-    this.advSearchRequest.creationDateFrom =
-      this.form.value.creationDateFrom == ''
-        ? null
-        : this.form.value.creationDateFrom;
-    this.advSearchRequest.creationDateTo =
-      this.form.value.creationDateTo == ''
-        ? null
-        : this.form.value.creationDateTo;
-    //
-    this.advSearchRequest.modificationDateFrom =
-      this.form.value.modificationDateFrom == ''
-        ? null
-        : this.form.value.modificationDateFrom;
-    this.advSearchRequest.modificationDateTo =
-      this.form.value.modificationDateTo == ''
-        ? null
-        : this.form.value.modificationDateTo;
-    //
-    this.advSearchRequest.renewedDateFrom =
-      this.form.value.renewedDateFrom == ''
-        ? null
-        : this.form.value.renewedDateFrom;
-    this.advSearchRequest.renewedDateTo =
-      this.form.value.renewedDateTo == ''
-        ? null
-        : this.form.value.renewedDateTo;
-    //
-    this.advSearchRequest.forwardedDateFrom =
-      this.form.value.forwardedDateFrom == ''
-        ? null
-        : this.form.value.forwardedDateFrom;
-
-    this.advSearchRequest.forwardedDateTo =
-      this.form.value.forwardedDateTo == '' ? null : this.form.value.forwardedDateTo;
-    this.advSearchRequest.createdBy = this.form.value.createdBy;
-    this.advSearchRequest.modifyiedBy = this.form.value.modifyiedBy;
-    this.advSearchRequest.createdByTeam = this.form.value.createdByTeam;
-    this.advSearchRequest.contact = this.form.value.contact;
-    this.advSearchRequest.companyName = this.form.value.companyName;
-    this.advSearchRequest.contactName = this.form.value.contactName;
-    this.advSearchRequest.modifyiedByTeam = this.form.value.modifyiedByTeam;
-    this.advSearchRequest.id = Number(this.form.value.id);
-    this.advSearchRequest.managerName = this.form.value.managerName;
-    this.advSearchRequest.email = this.form.value.email;
-    this.advSearchRequest.mobile = this.form.value.mobile;
-    this.advSearchRequest.numberOfCircuits = Number( this.form.value.numberOfCircuits);
-    this.advSearchRequest.fullAddress = this.form.value.fullAddress;
-    this.advSearchRequest.exchangeName = this.form.value.exchangeName;
-    this.advSearchRequest.statusId = Number(this.form.value.statusId);
-    this.advSearchRequest.sectorID = Number(this.form.value.sectorID);
-
-    this.advSearchRequest.serviceSpeedID = Number(this.form.value.serviceSpeedID);
-
-    this.advSearchRequest.serviceTypeID = 2;
-    this.advSearchRequest.rejectionReason = this.form.value.rejectionReason;
-    this.advSearchRequest.nearestFixedLineNumber = this.form.value.nearestFixedLineNumber;
-    this.advSearchRequest.renewedBy = this.form.value.renewedBy;
-    this.advSearchRequest.forwardedTo = this.form.value.forwardedTo;
-    this.supportser
-      .AdvancedSearch(this.advSearchRequest)
-      .subscribe((res) => {
-
-      this.Requetss=res
-
-        this.dataSource = new MatTableDataSource<any>(this.Requetss);
-      //this.dataSource._updateChangeSubscription();
-
-        this.dataSource.paginator = this.paginator as MatPaginator;
-        this.dataSource.sort = this.sort as MatSort;
-
-        this.loading.idle();
-
-      });
-  }
-
-  clearAdvancedSearch() {
-    this.form.reset();
-    this.getRequestdata(30, 1, '', 'id', 'asc', true);
-  }
-  isall: boolean = false;
-  selectallviewflag = false;
-  onselectcheckall(event: any) {
-    if (event.checked) {
-      this.isall = true; this.selectallviewflag = true;
-
-    }
-    else {
-      this.isall = false; this.selectallviewflag = false;
-    }
-
-  }
-
-  onselectcheck(event: any, r: any) {
-    if (event.checked) {
-      this.Ids.push(r.id.toString());
-      // this.contentEditable = true;
-    }
-    else {
-      const index: number = this.Ids.indexOf(r.id.toString());
-      if (index !== -1) {
-        this.Ids.splice(index, 1);
-      }
-    }
-    console.log(this.Ids)
-
-  }
   onDelete($key:any){
     this.DeleteService.openConfirmDialog()
     .afterClosed().subscribe(res =>{
@@ -462,36 +298,34 @@ this.route.queryParams.subscribe((params:any) => {
     });
   }
   //excel
-  ExportExcel() {
-    debugger
-    this.exportIds = [];
-    //select all when click in all checkbox or
-    // not choose any row or all but click export //button or
-    // search but not choose all or any row
-     if (this.dataSource.data.length > 0) {
-      this.dataSource.data.forEach((element:any) => {
-        this.exportIds.push(element.id)
-      })
-     }
-    //if
-    //choose specific rows
-    //search and choose specific rows
-    // else {
-    //   this.selection.selected.forEach((element: any) => {
-    //     this.exportIds.push(element.id)
-    //   })
-    // }
-    this.supportser.ExportExcel(this.exportIds,2).subscribe(res => {
-      const blob = new Blob([res], { type: 'application/vnd.ms.excel' });
-      const file = new File([blob], 'Supportrequestedit' + '.xlsx', { type: 'application/vnd.ms.excel' });
-      saveAs(file,'Fiber Requests' + Date.now() + '.xlsx')
-    }, err => {
-      this.toastr.warning("::failed");
-    }
-    )
+  // ExportExcel() {
+  //   this.exportIds = [];
+  //   //select all when click in all checkbox or
+  //   // not choose any row or all but click export //button or
+  //   // search but not choose all or any row
+  //   if (this.isAllSelected() || this.selection.selected.length == 0) {
+  //     this.dataSource.data.forEach((element: any) => {
+  //       this.exportIds.push(element.id)
+  //     })
+  //   }//if
+  //   //choose specific rows
+  //   //search and choose specific rows
+  //   else {
+  //     this.selection.selected.forEach((element: any) => {
+  //       this.exportIds.push(element.id)
+  //     })
+  //   }
+  //   this.missionService.ExportExcel(this.exportIds).subscribe(res => {
+  //     const blob = new Blob([res], { type: 'application/vnd.ms.excel' });
+  //     const file = new File([blob], 'Supportrequestedit' + '.xlsx', { type: 'application/vnd.ms.excel' });
+  //     saveAs(file, 'Fiber Requests' + Date.now() + '.xlsx')
+  //   }, err => {
+  //     this.toastr.warning("::failed");
+  //   }
+  //   )
 
 
-  }
+  // }
   @ViewChild('TABLE') table?: ElementRef;
   Ids: string[] = [];
 
@@ -627,7 +461,5 @@ this.route.queryParams.subscribe((params:any) => {
 
     })
    }
+
 }
-
-
-

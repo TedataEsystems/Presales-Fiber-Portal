@@ -45,6 +45,10 @@ public getById(id : any)
 }
 
 
+public AdvancedSearch(model : any)
+{
+  return this.http.post<any>(this.apiUrl + '/AdvancedSearch' , model , {headers : this.headers});
+}
 public Add(model : any)
 {
   return this.http.post<any>(this.apiUrl , model , {headers : this.headers});
@@ -116,5 +120,8 @@ public Remove(Val:number)
       return this.subject.asObservable();
   }
 
-
+  ExportExcel(ids:number[],servicetype:number): Observable<Blob> {
+    console.log("ids",ids);
+    return this.http.post(this.apiUrl+`/ExportExcel/${servicetype}`, ids, { responseType: 'blob',headers: this.headers});
+  }
 }

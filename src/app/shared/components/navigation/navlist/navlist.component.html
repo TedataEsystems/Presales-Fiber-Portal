@@ -32,6 +32,11 @@
       <span class="nav-caption">{{status.value}}</span>
   </a>
   </ng-container>
+  <a mat-list-item routerLink="./queValidation"   routerLinkActive="active">
+    <mat-icon class="dot">brightness_1</mat-icon>
+    <span class="nav-caption">Presales Queue</span>
+</a>
+
   </ng-container>
   <ng-container *ngIf="isEspt">
     <ng-container *ngFor="let status of statusEsptList">

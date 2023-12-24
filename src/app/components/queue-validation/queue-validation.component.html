@@ -1,235 +1,9 @@
-<div class="mb-3" *ngIf="showAdvanced">
-  <mat-accordion>
-    <mat-expansion-panel (opened)="openAdvancedSearchPanel()">
-      <mat-expansion-panel-header>
-        <mat-panel-title> Advanced Search</mat-panel-title>
-      </mat-expansion-panel-header>
-
-      <mat-divider></mat-divider>
-      <form [formGroup]="form" (submit)="AdvancedSearchSubmit()">
-
-        <mat-grid-list cols="3" rowHeight="280px">
-          <mat-grid-tile>
-            <div class="controles-container">
-
-                  <mat-form-field appearance="fill" class="serch  w-100">
-                    <mat-label>ID</mat-label>
-                    <input matInput type="text" formControlName="id" />
-                  </mat-form-field>
-
-                  <!-- <mat-form-field appearance="fill" class="serch  w-100">
-                    <mat-label> Manager Name</mat-label>
-                    <input matInput formControlName="managerName"/>
-                  </mat-form-field> -->
-                  <!-- <mat-form-field appearance="fill" class="serch  w-100">
-                    <mat-label>contact</mat-label>
-                    <input matInput formControlName="contact"/>
-                  </mat-form-field> -->
-
-                  <!---->
-                  <!-- <mat-form-field appearance="fill" class="serch  w-100">
-                    <mat-label>Contact Name </mat-label>
-                    <input matInput type="text" formControlName="contactName" />
-                  </mat-form-field> -->
 
 
-
-                    <mat-form-field appearance="fill" class="w-100 serch">
-                        <input formControlName="creationDateFrom" matInput [matDatepicker]="creationDateFrom" placeholder="Creation Date From ">
-                        <mat-datepicker-toggle matSuffix [for]="creationDateFrom"></mat-datepicker-toggle>
-                        <mat-datepicker #creationDateFrom></mat-datepicker>
-                      </mat-form-field>
-
-
-
-
-                      <mat-form-field appearance="fill" class="w-100 serch">
-                        <input formControlName="modificationDateFrom" matInput [matDatepicker]="modificationDateFrom" placeholder=" Modification Date From ">
-                        <mat-datepicker-toggle matSuffix [for]="modificationDateFrom"></mat-datepicker-toggle>
-                        <mat-datepicker #modificationDateFrom></mat-datepicker>
-                      </mat-form-field>
-                      <mat-form-field appearance="fill" class="w-100 serch">
-                        <input formControlName="renewedDateFrom" matInput [matDatepicker]="renewedDateFrom" placeholder="Renewed Date From">
-                        <mat-datepicker-toggle matSuffix [for]="renewedDateFrom"></mat-datepicker-toggle>
-                        <mat-datepicker #renewedDateFrom></mat-datepicker>
-                      </mat-form-field>
-
-
-            </div>
-          </mat-grid-tile>
-          <mat-grid-tile>
-            <div class="controles-container">
-              <mat-form-field appearance="fill" class="serch  w-100">
-                <mat-select formControlName="statusId" placeholder="statusId">
-                 <mat-option>-- Please select --</mat-option>
-                 <mat-option  *ngFor="let status of statusList"   [value]="status.id">
-                   {{status.value}}
-                 </mat-option>
-               </mat-select>
-             </mat-form-field>
-
-                  <!-- <mat-form-field appearance="fill" class="serch w-100">
-                    <mat-label> Email</mat-label>
-                    <input matInput  formControlName="email" />
-                  </mat-form-field>
-              <mat-form-field appearance="fill" class="serch w-100">
-                <mat-label> Mobile</mat-label>
-                <input matInput formControlName="mobile" />
-              </mat-form-field>
-              <mat-form-field appearance="fill" class="serch w-100">
-                <mat-label> companyName</mat-label>
-                <input matInput formControlName="companyName" />
-              </mat-form-field> -->
-              <mat-form-field appearance="fill" class="w-100  serch" >
-                <input formControlName="creationDateTo" matInput [matDatepicker]="creationDateTo" placeholder="Creation Date To" [min]="form.controls.creationDateFrom?.value">
-                <mat-datepicker-toggle matSuffix [for]="creationDateTo"></mat-datepicker-toggle>
-                <mat-datepicker #creationDateTo></mat-datepicker>
-              </mat-form-field>
-
-
-                <mat-form-field appearance="fill" class="w-100  serch">
-                    <input formControlName="modificationDateTo" matInput [matDatepicker]="modificationDateTo" placeholder="Modification Date To" [min]="form.controls.modificationDateFrom?.value">
-                    <mat-datepicker-toggle matSuffix [for]="modificationDateTo"></mat-datepicker-toggle>
-                    <mat-datepicker #modificationDateTo></mat-datepicker>
-                  </mat-form-field>
-
-
-
-
-                <mat-form-field appearance="fill" class="w-100 serch" style="border-left:5px solid #fff">
-                  <input formControlName="renewedDateTo" matInput [matDatepicker]="renewedDateTo" placeholder="Renewed Date To" [min]="form.controls.renewedDateFrom?.value">
-                  <mat-datepicker-toggle matSuffix [for]="renewedDateTo"></mat-datepicker-toggle>
-                  <mat-datepicker #renewedDateTo></mat-datepicker>
-                </mat-form-field>
-              <!-- <mat-form-field appearance="fill" class=" w-100 serch">
-                <mat-label>Number Of Circuits</mat-label>
-                <input matInput formControlName="numberOfCircuits"/>
-              </mat-form-field> -->
-            </div>
-
-
-
-          </mat-grid-tile>
-          <mat-grid-tile>
-            <div class="controles-container">
-              <mat-form-field appearance="fill" class="serch  w-100" >
-                <mat-select formControlName="sectorID" placeholder="Sector">
-                  <mat-option>-- Please select --</mat-option>
-                  <mat-option  *ngFor="let sector of sectorList"   [value]="sector.id">
-                    {{sector.value}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-
-              <div class="w-100 d-flex" >
-
-                <mat-form-field appearance="fill" class="w-50 serch">
-
-                <mat-label>Created By</mat-label>
-                <input matInput formControlName="createdBy"  />
-              </mat-form-field>
-              <mat-form-field appearance="fill" class="w-50  serch" style="border-left:5px solid #fff">
-                <mat-label>Created By Team </mat-label>
-                <input matInput formControlName="createdByTeam" />
-              </mat-form-field>
-              </div>
-              <div class="w-100 d-flex" >
-
-                <mat-form-field appearance="fill" class="w-50 serch">
-
-                <mat-label>Modifyied By </mat-label>
-                <input matInput formControlName="modifyiedBy" />
-              </mat-form-field>
-              <mat-form-field appearance="fill" class="w-50  serch" style="border-left:5px solid #fff">
-                <mat-label>Modified By Team</mat-label>
-                <input matInput formControlName="modifyiedByTeam" />
-              </mat-form-field>
-
-
-</div>
-<mat-form-field appearance="fill" class="serch w-100">
-  <mat-label> Renewed By</mat-label>
-  <input matInput formControlName="renewedBy" type="text"/>
-</mat-form-field>
-            <!-- <div class="w-100 d-flex" >
-
-              <mat-form-field appearance="fill" class="w-50 serch">
-                <mat-label> Forwarded Date From</mat-label>
-                  <input formControlName="forwardedDateFrom" matInput [matDatepicker]="forwardedDateFrom" placeholder="Forwarded Date From ">
-                  <mat-datepicker-toggle matSuffix [for]="forwardedDateFrom"></mat-datepicker-toggle>
-                  <mat-datepicker #forwardedDateFrom></mat-datepicker>
-                </mat-form-field>
-
-              <mat-form-field appearance="fill" class="w-50  serch" style="border-right:5px solid #fff">
-                  <input formControlName="forwardedDateTo" matInput [matDatepicker]="forwardedDateTo" placeholder="Forwarded Date To" [min]="form.controls.forwardedDateFrom?.value">
-                  <mat-datepicker-toggle matSuffix [for]="forwardedDateTo"></mat-datepicker-toggle>
-                  <mat-datepicker #forwardedDateTo></mat-datepicker>
-                </mat-form-field>
-
-              </div> -->
-
-
-              <!-- <mat-form-field appearance="fill" class="w-100  serch" >
-                <mat-label>Forwarded To </mat-label>
-                <input matInput formControlName="forwardedTo" />
-              </mat-form-field> -->
-
-              <!-- <mat-form-field appearance="fill" class="w-100  serch" >
-                <mat-label> Contract Period </mat-label>
-                <input matInput formControlName="contractPeriod" />
-              </mat-form-field> -->
-
-
-
-
-              <!-- <mat-form-field appearance="fill" class="serch w-100">
-                <mat-label> Exchange Name</mat-label>
-                <input matInput formControlName="exchangeName" type="number"/>
-              </mat-form-field> -->
-
-              <!-- <mat-form-field appearance="fill" class="serch w-100">
-                <mat-label> Nearest Fixed Line Number</mat-label>
-                <input matInput formControlName="nearestFixedLineNumber"/>
-              </mat-form-field> -->
-
-              <!-- <mat-form-field appearance="fill" class="serch w-100">
-                <mat-label> Rejection Reason</mat-label>
-                <input matInput formControlName="rejectionReason"/>
-              </mat-form-field> -->
-
-
-
-
-
-            </div>
-          </mat-grid-tile>
-
-        </mat-grid-list>
-        <div class="w-100 d-flex justify-content-end btn-group">
-          <button  mat-button class="sub mx-1"  >Search</button>
-          <button
-          mat-button
-          class=" bac"
-          type="button"
-          (click)="clearAdvancedSearch()"
-        >
-        Reset
-        </button>
-
-
-
-
-        </div>
-      </form>
-    </mat-expansion-panel>
-  </mat-accordion>
-</div>
-
-
-<mat-card class="example-card">
+<mat-card class="example-card mb-2">
   <mat-card-header>
     <mat-card-title>
-      Fiber Service Requests
+     Pending Presales
 
       <div class="" style="float: right">
         <button
@@ -243,7 +17,7 @@
           <span class="txt mr-1"> Add New </span>
         </button>
         <!-- (click)="ExportExcel()" -->
-        <button *ngIf="isEspt" (click)="ExportExcel()"  mat-button class="opt" class="opt mr-1"  >
+        <button *ngIf="isEspt"   mat-button class="opt" class="opt mr-1"  >
           <mat-icon class="">download</mat-icon>
           <span class="txt mr-1"> Export Excel </span>
         </button>
@@ -252,30 +26,374 @@
   </mat-card-header>
   <mat-divider class="my-1"></mat-divider>
   <div class="search-div" fxLayout="row">
-    <!-- <div class="generate" *ngIf="show">
-    <div  class="import-excel d-inline-block">
-        <div class="input-group">
-            <label  class="btn browse">
-                <input class="file-upload-input" name="file" type="file" for="browse">
-           Browse
-               </label>
-            <input class="form-control rounded-0" placeholder="Choose file..." type="text" id="browse">
+
+    <mat-form-field class="search-form-field sr" floatLabel="never">
+      <input
+        matInput
+        [(ngModel)]="searchKey"
+        placeholder="Search"
+        autocomplete="off"
+        (keyup)="applyFilter()"
+      />
+      <button
+        mat-button
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        *ngIf="searchKey"
+        (click)="onSearchClear()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <div class="example-container mat-elevation-z8">
+    <mat-table
+      [dataSource]="dataSource"
+      #table
+      matSort
+      (matSortChange)="sortData($event)"
+      matSortActive="name"
+      matSortDirection="asc"
+      matSortDisableClear
+    >
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef> {{ "Action" }}</mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Action">
+          <button
+            mat-button
+            class="text-success font-weight-bolder"
+            matTooltip="Edit"
+            [disabled]="row.presentStatusID == 5"
+            (click)="onEdit(row)"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button
+            mat-button
+            color="warn"
+            [hidden]="esptFlag"
+            (click)="onDelete(row.id)"
+            matTooltip="Delete"
+          >
+            <mat-icon>delete_forever</mat-icon>
+          </button>
+          <button
+            mat-button
+            class="text-info"
+            *ngIf="isSales"
+            (click)="ForwardRequest(row.id)"
+            matTooltip="Forward Request"
+          >
+            <mat-icon class="rotate">reply_all</mat-icon>
+          </button>
+          <button
+            mat-button
+            class="text-warning"
+            *ngIf="isSales"
+            [disabled]="!row.canRenew"
+            (click)="renew(row)"
+            matTooltip="ReOpen request"
+          >
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "Id" }}</mat-header-cell
+        >
+        <mat-cell *matCellDef="let element" data-label="Id">
+          {{ element.id }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="renew">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "Num of Renewal" }}</mat-header-cell
+        >
+        <mat-cell *matCellDef="let element" data-label="Id">
+          {{ element.renew }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="managerName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "Manager Name" }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="Manager Name">
+          {{ element.managerName }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="companyName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "Company Name" }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="Company Name">
+          {{ element.companyName }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="contactName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>{{
+          "Contact Name"
+        }}</mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="Contact Name">
+          {{ element.contactName }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>{{
+          "Email"
+        }}</mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="Email">
+          {{ element.email }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="mobile">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "Mobile" }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="Mobile">
+          {{ element.mobile }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="numberOfCircuits">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "Number Of Circuits" }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="Number Of Circuits">
+          {{ element.numberOfCircuits }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="fullAddress">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "Full Address" }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="Full Address">
+          {{ element.fullAddress }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="exchangeName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "Exchange Name" }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="Exchange Name">
+          {{ element.exchangeName }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="nearestFixedLineNumber">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "Nearest FixedLine Number" }}
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let element"
+          data-label="Nearest FixedLine Number"
+        >
+          {{ element.nearestFixedLineNumber }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="expectedUpgrades">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "Expected Upgradess" }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="Expected Upgradess">
+          {{ element.expectedUpgrades }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="notes">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "Notes" }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="Notes"
+          >{{ element.notes }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="contractPeriod">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "Contract Period" }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="contractPeriod">
+          {{ element.contractPeriod }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="sector">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "Sector" }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label=" Sector">
+          {{ element.sector }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="serviceSpeed">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "Service Speed" }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="Service Speed">
+          {{ element.serviceSpeed }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "Status" }}</mat-header-cell
+        >
+        <mat-cell *matCellDef="let element" data-label="Status">
+          {{ element.status }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="rejectionReason">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Rejection Reason</mat-header-cell
+        >
+        <mat-cell *matCellDef="let element" data-label="rejectionReason">
+          {{ element.rejectionReason }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ForwardedTo">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >ForwardedTo</mat-header-cell
+        >
+        <mat-cell *matCellDef="let element" data-label="ForwardedTo">
+          {{ element.forwardedTo }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ForwardedDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >ForwardedDate</mat-header-cell
+        >
+        <mat-cell *matCellDef="let element" data-label="ForwardedDate">
+          {{ element.forwardedDate | date : "medium" }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="creationDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "Creation date" }}</mat-header-cell
+        >
+        <mat-cell *matCellDef="let element" data-label="Creation date">
+          {{ element.creationDate | date : "medium" }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="modificationDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "Modified date" }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="Modified date">
+          {{ element.modificationDate | date : "medium" }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="renewedDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "Renewed Date" }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="renewedDate">
+          {{ element.renewedDate | date : "medium" }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="createdBy">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "Created by" }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="Created by">
+          {{ element.createdBy }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="modifyiedBy">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "Modified by" }}</mat-header-cell
+        >
+        <mat-cell *matCellDef="let element" data-label="Modifyied by">
+          {{ element.modifyiedBy }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="renewedBy">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "Renewed by" }}</mat-header-cell
+        >
+        <mat-cell *matCellDef="let element" data-label="Modifyied by">
+          {{ element.renewedBy }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="createdByTeam">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "Created by team" }}</mat-header-cell
+        >
+        <mat-cell *matCellDef="let element" data-label="Created by team">
+          {{ element.createdByTeam }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="modifyiedByTeam">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >{{ "Modified by team" }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="Modifyied by team">
+          {{ element.modifyiedByTeam }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="noData">
+        <mat-footer-cell *matFooterCellDef colspan="22">
+          No Data ...
+        </mat-footer-cell>
+      </ng-container>
+
+      <mat-footer-row
+        *matFooterRowDef="['noData']"
+        [ngClass]="{
+          hide: !(dataSource.data.length == 0 && dataSource != null)
+        }"
+      ></mat-footer-row>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      <!-- <mat-row *matRowDef="let row; columns: displayedColumns2;" ></mat-row> -->
+      <!-- Extra row to show detail content column -->
+    </mat-table>
+  </div>
+  <!-- </ng-template> -->
+
+  <mat-paginator
+    [pageSizeOptions]="[30, 50, 100]"
+    [pageSize]="30"
+    (page)="pageChanged($event)"
+    showFirstLastButtons
+  ></mat-paginator>
+</mat-card>
 
 
 
-        </div>
 
-        <p class="help-block" style="display: none;">
-        <small>error msg.</small></p>
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>
+      Pending Presales Validation
 
-    </div>
-    <span  class="input-group-btn d-inline-block">
-        <label  class="btn  file-upload-btn" matTooltip="Upload">
-            <input class="file-upload-input" type="button" (click)="Upload()" >
-        <mat-icon>upload</mat-icon>
-           </label>
-       </span>
-       </div> -->
+      <div class="" style="float: right">
+        <button
+          mat-button
+          class="opt"
+          [hidden]="createFlag"
+          (click)="onCreate()"
+        >
+
+          <mat-icon class="add-new ico">add</mat-icon>
+          <span class="txt mr-1"> Add New </span>
+        </button>
+        <!-- (click)="ExportExcel()" -->
+        <button *ngIf="isEspt"   mat-button class="opt" class="opt mr-1"  >
+          <mat-icon class="">download</mat-icon>
+          <span class="txt mr-1"> Export Excel </span>
+        </button>
+      </div>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-divider class="my-1"></mat-divider>
+  <div class="search-div" fxLayout="row">
+
 
     <mat-form-field class="search-form-field sr" floatLabel="never">
       <input
@@ -302,7 +420,7 @@
 <ng-template #table> -->
   <div class="example-container mat-elevation-z8">
     <mat-table
-      [dataSource]="dataSource"
+      [dataSource]="dataSource1"
       #table
       matSort
       (matSortChange)="sortData($event)"
@@ -614,8 +732,8 @@
           hide: !(dataSource.data.length == 0 && dataSource != null)
         }"
       ></mat-footer-row>
-      <mat-header-row *matHeaderRowDef="displayedColumns2"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns2"></mat-row>
+      <mat-header-row *matHeaderRowDef="displayedColumns1"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns1"></mat-row>
       <!-- <mat-row *matRowDef="let row; columns: displayedColumns2;" ></mat-row> -->
       <!-- Extra row to show detail content column -->
     </mat-table>
@@ -629,6 +747,8 @@
     showFirstLastButtons
   ></mat-paginator>
 </mat-card>
+
+
 
 
 <ngx-spinner type="timer">

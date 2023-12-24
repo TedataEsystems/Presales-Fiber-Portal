@@ -6,11 +6,13 @@ import { FeedbackDto } from 'src/app/Models/feedbackDTO';
 import { FileuploadService } from 'src/app/shared/services/fileupload.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 import { ServiceRegisterService } from 'src/app/shared/services/service-register.service';
+import { ToolbarService, LinkService, ImageService, HtmlEditorService, TableService, PasteCleanupService} from '@syncfusion/ej2-angular-richtexteditor';
 
 @Component({
   selector: 'app-feedback',
   templateUrl: './feedback.component.html',
-  styleUrls: ['./feedback.component.css']
+  styleUrls: ['./feedback.component.css'],
+  providers: [ToolbarService, LinkService, ImageService, HtmlEditorService,TableService,PasteCleanupService]
 })
 export class FeedbackComponent implements OnInit {
   dialogTitle=""
@@ -18,6 +20,19 @@ export class FeedbackComponent implements OnInit {
   fileVal :File[]=[];
   registerDetailID:number=0;
   isTriggered:boolean=false;
+  public iframe: object = { enable: true };
+  public height: number = 300;
+  public tools: object = {
+    type:'MultiRow',
+    items: ['Undo', 'Redo', '|',
+        'Bold', 'Italic', 'Underline', 'StrikeThrough', '|',
+        'FontName', 'FontSize', 'FontColor', 'BackgroundColor', '|',
+        'SubScript', 'SuperScript', '|',
+        'LowerCase', 'UpperCase', '|',
+        'Formats', 'Alignments', '|', 'OrderedList', 'UnorderedList', '|',
+        'Indent', 'Outdent', '|', 'CreateLink','CreateTable',
+        'Image', '|', 'ClearFormat', 'Print', 'SourceCode']
+  };
   constructor(private fb:FormBuilder, private toastr:ToastrService,private fileser: FileuploadService,private loading :LoadingService,
     private _feedService :ServiceRegisterService,private dialogRef:MatDialogRef<FeedbackComponent>, @Inject(MAT_DIALOG_DATA) public data:any) { }
 

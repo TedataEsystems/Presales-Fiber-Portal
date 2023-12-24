@@ -1,41 +1,3 @@
-// export class registerDetail {
-//     id: number=0;
-//     creationDate?: Date;
-//     modificationDate?: Date;
-//     createdBy?: any;
-//     userGroup?: any;
-//     modifyiedBy?: any;
-//     createdByTeam?: any;
-//     modifyiedByTeam?: any;
-//     managerName?: any;
-//     contact?: any;
-//     companyName?: any;
-//     contactName?: any;
-//     email?: any;
-//     mobile?: any;
-//     otherInformation?: any;
-//     numberOfCircuits?: any;
-//     fullAddress?: any;
-//     exchangeName?: any;
-//     nearestFixedLineNumber?: any;
-//     expectedUpgrades?: any;
-//     notes?: any;
-//     name?: any;
-//     circuitProtection?: boolean;
-//     pathProtection?: boolean;
-//     promisingArea?: boolean;
-//     serviceTypeID?: any;
-//     serviceType?: any;
-//     serviceSpeedID?: any;
-//     serviceSpeed?: any;
-//     numberOfSpeed?:any;
-//     statusId?:any;
-//     acceptstatusId:any;
-//     status?:any;
-//     contractPeriod:any;
-
-// }
-
 
 export class registerDetail{
   acceptstatusId: any
@@ -85,3 +47,36 @@ canRenew?:boolean
   acceptableStatus=null
 }
 
+export interface AdvancedSearchDto {
+  id?: number
+  creationDateFrom?: string
+  creationDateTo?: string
+  modificationDateFrom?: string
+  modificationDateTo?: string
+  createdBy?: string
+  modifyiedBy?: string
+  createdByTeam?: string
+  modifyiedByTeam?: string
+  managerName?: string
+  contact?: string
+  companyName?: string
+  contactName?: string
+  email?: string
+  mobile?: string
+  numberOfCircuits?: number
+  fullAddress?: string
+  exchangeName?: string
+  nearestFixedLineNumber?: string
+  renewedBy?: string
+  renewedDateFrom?: string
+  renewedDateTo?: string
+  forwardedDateFrom?: string
+  forwardedDateTo?: string
+  forwardedTo?: string
+  rejectionReason?: string
+  contractPeriod?: string
+  serviceTypeID?: number
+  serviceSpeedID?: number
+  statusId?: number
+  sectorID?: number
+}
