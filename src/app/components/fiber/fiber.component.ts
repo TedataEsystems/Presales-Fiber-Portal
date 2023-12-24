@@ -133,10 +133,10 @@ this.route.queryParams.subscribe((params:any) => {
 
 
   }
-  getRequestdata(pageSize: number, pageNum: number, search: string, sortColumn: string, sortDir: string, initflag: boolean = false,statusId?: number) {
+  getRequestdata(pageSize: number, pageNum: number, search: string, sortColumn: string, sortDir: string, initflag: boolean = false,statusId?:number) {
 
 
-    this.supportser.getByOption(2, pageSize, pageNum, search, sortColumn, sortDir, statusId).subscribe(res => {
+    this.supportser.getByOption(2,pageSize, pageNum, search, sortColumn, sortDir,statusId,false).subscribe(res => {
 
 
       if (res.status == true) {
@@ -174,7 +174,7 @@ this.route.queryParams.subscribe((params:any) => {
   getRequestdataNext(cursize: number, pageSize: number, pageNum: number, search: string, sortColumn: string, sortDir: string) {
     this.loading.busy();
 
-    this.supportser.getByOption(this.requestid, pageSize, pageNum, search, sortColumn, sortDir).subscribe(res => {
+    this.supportser.getByOption(this.requestid, pageSize, pageNum, search, sortColumn, sortDir,0,false).subscribe(res => {
 
 
       if (res.status == true) {

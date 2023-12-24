@@ -31,10 +31,11 @@ public getAll() : Observable<any>
 }
 
 
-public getByOption(attribute:any,pageSize:number,pageNum:number ,search:string="",sortColumn:string="id",sortDir:string='ASC',statusId:number=0)
+public getByOption(attribute:any,pageSize:number,pageNum:number ,search:string="",sortColumn:string="id",sortDir:string='ASC',statusId:number=0,presalesQueue:boolean)
  {
    this.headers =this.headers.set('Authorization',"Bearer "+ this.config.UserToken());
-     var urlval=`${this.apiUrl}?statusId=${statusId}&servicetype=${attribute}&pagesize=${pageSize}&pagenumber=${pageNum}&sortcolumn=${sortColumn}&sortcolumndir=${sortDir}&searchvalue=${search}`;
+     var urlval=`${this.apiUrl}?statusId=${statusId}&servicetype=${attribute}&pagesize=${pageSize}
+     &pagenumber=${pageNum}&sortcolumn=${sortColumn}&sortcolumndir=${sortDir}&searchvalue=${search}&presalesQueue=${presalesQueue}`;
      return this.http.get<any>(urlval,{headers: this.headers});
  }
 

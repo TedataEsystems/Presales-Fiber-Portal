@@ -101,8 +101,8 @@ statusList:any
   ngOnInit() {
 this.loading.busy();
 this.searchKey = '';
-this.getSectors();
-this.getStatus();
+// this.getSectors();
+// this.getStatus();
 var groupval= this.config.UserTeam();
 if(groupval=="admin_all"){this.esptFlag=false; this.createFlag=false;}
 if(groupval=="PresalesFiber_sales") {this.createFlag=false; this.isSales=true;}
@@ -133,7 +133,7 @@ this.route.queryParams.subscribe((params:any) => {
   getRequestdata(pageSize: number, pageNum: number, search: string, sortColumn: string, sortDir: string, initflag: boolean = false,statusId?: number) {
 
 
-    this.supportser.getByOption(2, pageSize, pageNum, search, sortColumn, sortDir, statusId).subscribe(res => {
+    this.supportser.getByOption(2, pageSize, pageNum, search, sortColumn, sortDir,statusId,true).subscribe(res => {
 
 
       if (res.status == true) {
@@ -148,11 +148,24 @@ this.route.queryParams.subscribe((params:any) => {
         }
         if (initflag)
           this.RequetFilter = this.Requetss;
+   this.Requetss.forEach((element)=>{
 
 
-        this.dataSource = new MatTableDataSource<any>(this.Requetss);
+    if (element.statusId==7){
+      this.Requetss.push(element)
+      this.dataSource = new MatTableDataSource<any>(this.Requetss);
         //this.dataSource._updateChangeSubscription();
         this.dataSource.paginator = this.paginator as MatPaginator;
+    }
+    else{
+      this.Requetss.push(element)
+      this.dataSource1 = new MatTableDataSource<any>(this.Requetss);
+        //this.dataSource._updateChangeSubscription();
+        this.dataSource1.paginator = this.paginator as MatPaginator;
+    }
+   })
+
+
       }
       else
         this.notser.error(res.error)
@@ -171,7 +184,7 @@ this.route.queryParams.subscribe((params:any) => {
   getRequestdataNext(cursize: number, pageSize: number, pageNum: number, search: string, sortColumn: string, sortDir: string) {
     this.loading.busy();
 
-    this.supportser.getByOption(this.requestid, pageSize, pageNum, search, sortColumn, sortDir).subscribe(res => {
+    this.supportser.getByOption(this.requestid, pageSize, pageNum, search, sortColumn,sortDir,0,true).subscribe(res => {
 
 
       if (res.status == true) {
@@ -219,25 +232,25 @@ this.route.queryParams.subscribe((params:any) => {
   applyFilter() {
 
     let searchData = this.searchKey.trim().toLowerCase();
-    if (searchData != ""){
-      if(this.param1 != undefined){
-        //this.getRequestdata(30, 1, '', 'id', 'asc', true,this.param1);
-        console.log('paramx1:',this.param1)
-        this.getRequestdata(25, 1, searchData, this.sortColumnDef, this.SortDirDef,true,this.param1);
+    this.getRequestdata(25, 1, searchData, this.sortColumnDef, this.SortDirDef,true,7);
 
-      }else{
+    }
+    onSearchClear1() {
+      this.searchKey = '';
+      this.applyFilter1();
+    }
+    applyFilter1() {
 
-       console.log('paramx2:',this.param1)
-        this.getRequestdata(25, 1, searchData, this.sortColumnDef, this.SortDirDef,true);
+      let searchData = this.searchKey.trim().toLowerCase();
+      this.getRequestdata(25, 1, searchData, this.sortColumnDef, this.SortDirDef,true,3);
 
       }
-    }
 
-    else {
-      this.Requetss = this.RequetFilter;
-      this.dataSource.data = this.RequetFilter;
-    }
-  }
+    // else {
+    //   this.Requetss = this.RequetFilter;
+    //   this.dataSource.data = this.RequetFilter;
+    // }
+  //}
   lastcol: string = 'id';
   lastdir: string = 'asc';
   sortData(sort: any) {
@@ -297,113 +310,77 @@ this.route.queryParams.subscribe((params:any) => {
       }
     });
   }
-  //excel
-  // ExportExcel() {
-  //   this.exportIds = [];
-  //   //select all when click in all checkbox or
-  //   // not choose any row or all but click export //button or
-  //   // search but not choose all or any row
-  //   if (this.isAllSelected() || this.selection.selected.length == 0) {
-  //     this.dataSource.data.forEach((element: any) => {
-  //       this.exportIds.push(element.id)
-  //     })
-  //   }//if
-  //   //choose specific rows
-  //   //search and choose specific rows
-  //   else {
-  //     this.selection.selected.forEach((element: any) => {
-  //       this.exportIds.push(element.id)
-  //     })
-  //   }
-  //   this.missionService.ExportExcel(this.exportIds).subscribe(res => {
-  //     const blob = new Blob([res], { type: 'application/vnd.ms.excel' });
-  //     const file = new File([blob], 'Supportrequestedit' + '.xlsx', { type: 'application/vnd.ms.excel' });
-  //     saveAs(file, 'Fiber Requests' + Date.now() + '.xlsx')
-  //   }, err => {
-  //     this.toastr.warning("::failed");
-  //   }
-  //   )
 
-
-  // }
   @ViewChild('TABLE') table?: ElementRef;
   Ids: string[] = [];
 
-  @Input() param = 'file';
+  // @Input() param = 'file';
+  // @ViewChild('LIST') template!: TemplateRef<any>;
+  // @ViewChild('LISTF') templateF!: TemplateRef<any>;
+  // @ViewChild('fileInput') fileInput?: ElementRef;
+  // fileAttr = 'Choose File';
+  // fileAttrF = 'Choose File';
+  // fileuploaded: any;
+
+  // uploadFileEvt(imgFile: any) {
+  //   this.fileuploaded = imgFile.target.files[0];
+
+  //   console.log(this.fileuploaded);
+
+  //   if (imgFile.target.files && imgFile.target.files[0]) {
+  //     this.fileAttr = '';
+  //     Array.prototype.forEach.call(imgFile.target.files, (file) => {
+  //       this.fileAttr += file.name + ' - ';
+  //     });
 
 
-  @ViewChild('LIST') template!: TemplateRef<any>;
-  @ViewChild('LISTF') templateF!: TemplateRef<any>;
-  @ViewChild('fileInput') fileInput?: ElementRef;
-  fileAttr = 'Choose File';
-  fileAttrF = 'Choose File';
+  //     // HTML25 FileReader API
+  //     let reader = new FileReader();
+  //     reader.onload = (e: any) => {
+  //       let image = new Image();
+  //       image.src = e.target.result;
+  //       image.onload = rs => {
+  //         let imgBase64Path = e.target.result;
+  //       };
+  //     };
+  //     reader.readAsDataURL(imgFile.target.files[0]);
 
-  fileuploaded: any;
+  //     // Reset if duplicate image uploaded again
+  //     (this.fileInput as ElementRef).nativeElement.value = "";
+  //   } else {
+  //     this.fileAttr = 'Choose File';
+  //   }
+  // }
 
-  uploadFileEvt(imgFile: any) {
-    this.fileuploaded = imgFile.target.files[0];
+  // uploadFileEvtF(imgFile: any) {
+  //   this.fileuploaded = imgFile.target.files[0];
 
-    console.log(this.fileuploaded);
+  //   console.log(this.fileuploaded);
 
-    if (imgFile.target.files && imgFile.target.files[0]) {
-      this.fileAttr = '';
-      Array.prototype.forEach.call(imgFile.target.files, (file) => {
-        this.fileAttr += file.name + ' - ';
-      });
-
-
-      // HTML25 FileReader API
-      let reader = new FileReader();
-      reader.onload = (e: any) => {
-        let image = new Image();
-        image.src = e.target.result;
-        image.onload = rs => {
-          let imgBase64Path = e.target.result;
-        };
-      };
-      reader.readAsDataURL(imgFile.target.files[0]);
-
-      // Reset if duplicate image uploaded again
-      (this.fileInput as ElementRef).nativeElement.value = "";
-    } else {
-      this.fileAttr = 'Choose File';
-    }
-  }
-
-  uploadFileEvtF(imgFile: any) {
-    this.fileuploaded = imgFile.target.files[0];
-
-    console.log(this.fileuploaded);
-
-    if (imgFile.target.files && imgFile.target.files[0]) {
-      this.fileAttr = '';
-      Array.prototype.forEach.call(imgFile.target.files, (file) => {
-        this.fileAttr += file.name + ' - ';
-      });
-      // Array.from(imgFile.target.files).forEach((file:File)=> {
-      //   this.fileAttr += file.name + ' - ';
-
-      // });
+  //   if (imgFile.target.files && imgFile.target.files[0]) {
+  //     this.fileAttr = '';
+  //     Array.prototype.forEach.call(imgFile.target.files, (file) => {
+  //       this.fileAttr += file.name + ' - ';
+  //     });
 
 
+  //     // HTML25 FileReader API
+  //     let reader = new FileReader();
+  //     reader.onload = (e: any) => {
+  //       let image = new Image();
+  //       image.src = e.target.result;
+  //       image.onload = rs => {
+  //         let imgBase64Path = e.target.result;
+  //       };
+  //     };
+  //     reader.readAsDataURL(imgFile.target.files[0]);
 
-      // HTML25 FileReader API
-      let reader = new FileReader();
-      reader.onload = (e: any) => {
-        let image = new Image();
-        image.src = e.target.result;
-        image.onload = rs => {
-          let imgBase64Path = e.target.result;
-        };
-      };
-      reader.readAsDataURL(imgFile.target.files[0]);
-
-      // Reset if duplicate image uploaded again
-      (this.fileInput as ElementRef).nativeElement.value = "";
-    } else {
-      this.fileAttr = 'Choose File';
-    }
-  }
+  //     // Reset if duplicate image uploaded again
+  //     (this.fileInput as ElementRef).nativeElement.value = "";
+  //   } else {
+  //     this.fileAttr = 'Choose File';
+  //   }
+  // }
 
 
 
@@ -428,38 +405,38 @@ this.route.queryParams.subscribe((params:any) => {
 
   })}
 
-  resetfile() {
-    this.fileAttr = 'Choose File';
-    //(this.fileInput as ElementRef).nativeElement.value = "";
+  // resetfile() {
+  //   this.fileAttr = 'Choose File';
+  //   //(this.fileInput as ElementRef).nativeElement.value = "";
 
 
-  }
-  getSectors() {
-    this.sectorServ.getSectors().subscribe((res) => {
-      if (res.status) {
-        this.sectorList = res.data;
-      } else {
+  // }
+  // getSectors() {
+  //   this.sectorServ.getSectors().subscribe((res) => {
+  //     if (res.status) {
+  //       this.sectorList = res.data;
+  //     } else {
 
-      }
-    });
-  }
-  getStatus(){
+  //     }
+  //   });
+  // }
+  // getStatus(){
 
-    this.statusSer.getAll().subscribe(res=>{
-
-
-      if(res.status==true){
+  //   this.statusSer.getAll().subscribe(res=>{
 
 
-
-     this.statusList = res.result?.data;
-
-
-      }
-    },err=>{
+  //     if(res.status==true){
 
 
-    })
-   }
+
+  //    this.statusList = res.result?.data;
+
+
+  //     }
+  //   },err=>{
+
+
+  //   })
+  //  }
 
 }
