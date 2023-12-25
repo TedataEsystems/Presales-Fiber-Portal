@@ -103,7 +103,7 @@ statusList:any
 
   ngOnInit() {
 this.loading.busy();
-this.searchKey = '';
+
 this.getSectors();
 this.getStatus();
 var groupval= this.config.UserTeam();
@@ -117,9 +117,11 @@ this.route.queryParams.subscribe((params:any) => {
   if(this.param1 != undefined){
     this.getRequestdata(30, 1, '', 'id', 'asc', true,this.param1);
     this.showAdvanced=false
+    this.searchKey=''
 
   }else{
     this.showAdvanced=true
+    this.searchKey=''
     this.getRequestdata(30, 1, '', 'id', 'asc', true);
 
   }
@@ -237,8 +239,18 @@ this.route.queryParams.subscribe((params:any) => {
     }
 
     else {
-      this.Requetss = this.RequetFilter;
-      this.dataSource.data = this.RequetFilter;
+      // this.Requetss = this.RequetFilter;
+      // this.dataSource.data = this.RequetFilter;
+      if(this.param1 != undefined){
+        //this.getRequestdata(30, 1, '', 'id', 'asc', true,this.param1);
+        console.log('paramx1:',this.param1)
+        this.getRequestdata(25, 1, '', this.sortColumnDef, this.SortDirDef,true,this.param1);
+
+      }else{
+
+        this.getRequestdata(25, 1, '', this.sortColumnDef, this.SortDirDef,true);
+
+      }
     }
   }
   lastcol: string = 'id';

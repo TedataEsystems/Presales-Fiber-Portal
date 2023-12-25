@@ -120,7 +120,7 @@ export class CopperComponent implements OnInit {
   getRequestdata(pageSize: number, pageNum: number, search: string, sortColumn: string, sortDir: string, initflag: boolean = false,statusId: number = 0) {
     this.loading = true;
 
-    this.supportser.getByOption(this.requestid, pageSize, pageNum, search, sortColumn, sortDir, statusId).subscribe(res => {
+    this.supportser.getByOption(this.requestid, pageSize, pageNum, search, sortColumn, sortDir, statusId,false).subscribe(res => {
       this.loading = false;
 
       if (res.status == true) {
@@ -158,7 +158,7 @@ export class CopperComponent implements OnInit {
   getRequestdataNext(cursize: number, pageSize: number, pageNum: number, search: string, sortColumn: string, sortDir: string) {
     this.loading = true;
 
-    this.supportser.getByOption(this.requestid, pageSize, pageNum, search, sortColumn, sortDir).subscribe(res => {
+    this.supportser.getByOption(this.requestid, pageSize, pageNum, search, sortColumn, sortDir,0,false).subscribe(res => {
       this.loading = false;
 
       if (res.status == true) {

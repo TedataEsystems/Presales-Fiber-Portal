@@ -574,61 +574,61 @@ export class MicrowaveFormComponent implements OnInit {
 
 
 
-public convetToPDF() {
+// public convetToPDF() {
 
-window.scrollTo(0,0);
-var elem = document.getElementById('hideStatusId') as HTMLElement;
-var elemA = document.getElementById('hideStatusId0') as HTMLElement;
-var elem0 = document.getElementById('SubmitId') as HTMLElement;
- elem.style.display = 'none';
- elem0.style.display = 'none';
- elemA.style.display = 'none';
+// window.scrollTo(0,0);
+// var elem = document.getElementById('hideStatusId') as HTMLElement;
+// var elemA = document.getElementById('hideStatusId0') as HTMLElement;
+// var elem0 = document.getElementById('SubmitId') as HTMLElement;
+//  elem.style.display = 'none';
+//  elem0.style.display = 'none';
+//  elemA.style.display = 'none';
 
-   const width = this.div.nativeElement.clientWidth;
-   const height = this.div.nativeElement.clientHeight + 40;
-   let orientation = '';
-   let imageUnit = 'pt';
-   if (width > height) {
-   orientation = 'l';
-   } else {
-   orientation = 'p';
-   }
-   domToImage.toPng(this.div.nativeElement, {
-   width: width,
-   height: height
-   })
-   .then(result => {
+//    const width = this.div.nativeElement.clientWidth;
+//    const height = this.div.nativeElement.clientHeight + 40;
+//    let orientation = '';
+//    let imageUnit = 'pt';
+//    if (width > height) {
+//    orientation = 'l';
+//    } else {
+//    orientation = 'p';
+//    }
+//    domToImage.toPng(this.div.nativeElement, {
+//    width: width,
+//    height: height
+//    })
+//    .then(result => {
 
-   let jsPdfOptions = {
-   orientation: orientation,
-   unit: imageUnit ,
-   format: [width + 50, height + 220]
-   };
+//    let jsPdfOptions = {
+//    orientation: orientation,
+//    unit: imageUnit ,
+//    format: [width + 50, height + 220]
+//    };
 
-  // const pdf = new jsPDF(jsPdfOptions);
+//   // const pdf = new jsPDF(jsPdfOptions);
 
-   const pdf = new jsPDF({
-     orientation: "p",
-     unit: "pt",
-     format: [width + 50, height + 115]
-   });
-
-
-   pdf.addImage(result, 'PNG', 25, 115, width, height);
-   pdf.save(`Microwave Request Form /   ${moment().format('ll')}.pdf`);
-
-  this.NotificationService.success("PDF Downloaded");
-  elem.style.display = 'block';
-  elem0.style.display = 'block';
-  elemA.style.display = 'block';
-   }).catch(error => {
-   });
+//    const pdf = new jsPDF({
+//      orientation: "p",
+//      unit: "pt",
+//      format: [width + 50, height + 115]
+//    });
 
 
+//    pdf.addImage(result, 'PNG', 25, 115, width, height);
+//    pdf.save(`Microwave Request Form /   ${moment().format('ll')}.pdf`);
+
+//   this.NotificationService.success("PDF Downloaded");
+//   elem.style.display = 'block';
+//   elem0.style.display = 'block';
+//   elemA.style.display = 'block';
+//    }).catch(error => {
+//    });
 
 
 
 
 
-}
+
+
+// }
  }
