@@ -79,5 +79,5 @@ export interface AdvancedSearchDto {
   serviceSpeedID?: number
   statusId?: number
   sectorID?: number
-  presalesQueue?:boolean
+
 }

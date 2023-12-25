@@ -527,108 +527,108 @@ export class MicrowaveFormComponent implements OnInit {
     this.fileAttr = 'Choose File ...';
 
   }
-//   public convetToPDF() {
-//     //  this.hideflag=false;
-//     this.loading = true;
+  // public convetToPDF() {
+  //   //  this.hideflag=false;
+  //   this.loading = true;
 
-//     window.scrollTo(0, 0);
-//     var elem = document.getElementById('hideStatusId') as HTMLElement;
-//     var elem0 = document.getElementById('SubmitId') as HTMLElement;
-//     var elemA = document.getElementById('hideStatusId0') as HTMLElement;
-//     elem.style.display = 'none';
-//     elem0.style.display = 'none';
-//     elemA.style.display = 'none';
-//     const pdfTable = this.pageEl?.nativeElement;
-//     const div = document.getElementById('contentToConvert'); console.log(div)
-//     const options = {
-//       background: 'white',
-//       scale: 3
-//     };
+  //   window.scrollTo(0, 0);
+  //   var elem = document.getElementById('hideStatusId') as HTMLElement;
+  //   var elem0 = document.getElementById('SubmitId') as HTMLElement;
+  //   var elemA = document.getElementById('hideStatusId0') as HTMLElement;
+  //   elem.style.display = 'none';
+  //   elem0.style.display = 'none';
+  //   elemA.style.display = 'none';
+  //   const pdfTable = this.pageEl?.nativeElement;
+  //   const div = document.getElementById('contentToConvert'); console.log(div)
+  //   const options = {
+  //     background: 'white',
+  //     scale: 3
+  //   };
 
-//     html2canvas(div as HTMLElement, options).then((canvas) => {
+  //   html2canvas(div as HTMLElement, options).then((canvas) => {
 
-//       var img = canvas.toDataURL("image/PNG");
-//       var doc = new jsPDF('l', 'mm', 'a4');
+  //     var img = canvas.toDataURL("image/PNG");
+  //     var doc = new jsPDF('l', 'mm', 'a4');
 
-//       // Add image Canvas to PDF
-//       const bufferX = 5;
-//       const bufferY = 5;
-//       const imgProps = (<any>doc).getImageProperties(img);
-//       const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
-//       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-//       console.log(pdfHeight + " / " + pdfWidth)
-//       doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, 220, undefined, 'FAST');
-//       debugger;
-//       return doc;
-//     }).then((doc) => {
+  //     // Add image Canvas to PDF
+  //     const bufferX = 5;
+  //     const bufferY = 5;
+  //     const imgProps = (<any>doc).getImageProperties(img);
+  //     const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+  //     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+  //     console.log(pdfHeight + " / " + pdfWidth)
+  //     doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, 220, undefined, 'FAST');
+  //     debugger;
+  //     return doc;
+  //   }).then((doc) => {
 
-//       doc.save(`Microwave${Date.now()}.pdf`);
-//       this.loading = false;
+  //     doc.save(`Microwave${Date.now()}.pdf`);
+  //     this.loading = false;
 
-//       this.NotificationService.success("pdf downloaded");
-//       elem.style.display = 'block';
-//       elem0.style.display = 'block';
-//       elemA.style.display = 'block';
-//     });
-//   }
-
-
-
-// public convetToPDF() {
-
-// window.scrollTo(0,0);
-// var elem = document.getElementById('hideStatusId') as HTMLElement;
-// var elemA = document.getElementById('hideStatusId0') as HTMLElement;
-// var elem0 = document.getElementById('SubmitId') as HTMLElement;
-//  elem.style.display = 'none';
-//  elem0.style.display = 'none';
-//  elemA.style.display = 'none';
-
-//    const width = this.div.nativeElement.clientWidth;
-//    const height = this.div.nativeElement.clientHeight + 40;
-//    let orientation = '';
-//    let imageUnit = 'pt';
-//    if (width > height) {
-//    orientation = 'l';
-//    } else {
-//    orientation = 'p';
-//    }
-//    domToImage.toPng(this.div.nativeElement, {
-//    width: width,
-//    height: height
-//    })
-//    .then(result => {
-
-//    let jsPdfOptions = {
-//    orientation: orientation,
-//    unit: imageUnit ,
-//    format: [width + 50, height + 220]
-//    };
-
-//   // const pdf = new jsPDF(jsPdfOptions);
-
-//    const pdf = new jsPDF({
-//      orientation: "p",
-//      unit: "pt",
-//      format: [width + 50, height + 115]
-//    });
+  //     this.NotificationService.success("pdf downloaded");
+  //     elem.style.display = 'block';
+  //     elem0.style.display = 'block';
+  //     elemA.style.display = 'block';
+  //   });
+  // }
 
 
-//    pdf.addImage(result, 'PNG', 25, 115, width, height);
-//    pdf.save(`Microwave Request Form /   ${moment().format('ll')}.pdf`);
 
-//   this.NotificationService.success("PDF Downloaded");
-//   elem.style.display = 'block';
-//   elem0.style.display = 'block';
-//   elemA.style.display = 'block';
-//    }).catch(error => {
-//    });
+public convetToPDF() {
+
+window.scrollTo(0,0);
+var elem = document.getElementById('hideStatusId') as HTMLElement;
+var elemA = document.getElementById('hideStatusId0') as HTMLElement;
+var elem0 = document.getElementById('SubmitId') as HTMLElement;
+ elem.style.display = 'none';
+ elem0.style.display = 'none';
+ elemA.style.display = 'none';
+
+   const width = this.div.nativeElement.clientWidth;
+   const height = this.div.nativeElement.clientHeight + 40;
+   let orientation = '';
+   let imageUnit = 'pt';
+   if (width > height) {
+   orientation = 'l';
+   } else {
+   orientation = 'p';
+   }
+   domToImage.toPng(this.div.nativeElement, {
+   width: width,
+   height: height
+   })
+   .then(result => {
+
+   let jsPdfOptions = {
+   orientation: orientation,
+   unit: imageUnit ,
+   format: [width + 50, height + 220]
+   };
+
+  // const pdf = new jsPDF(jsPdfOptions);
+
+   const pdf = new jsPDF({
+     orientation: "p",
+     unit: "pt",
+     format: [width + 50, height + 115]
+   });
 
 
+   pdf.addImage(result, 'PNG', 25, 115, width, height);
+   pdf.save(`Microwave Request Form /   ${moment().format('ll')}.pdf`);
+
+  this.NotificationService.success("PDF Downloaded");
+  elem.style.display = 'block';
+  elem0.style.display = 'block';
+  elemA.style.display = 'block';
+   }).catch(error => {
+   });
 
 
 
 
 
-// }
+
+
+}
  }

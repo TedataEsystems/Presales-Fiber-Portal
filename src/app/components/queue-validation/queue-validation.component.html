@@ -6,7 +6,7 @@
      Pending Presales
 
       <div class="" style="float: right">
-        <button
+        <!-- <button
           mat-button
           class="opt"
           [hidden]="createFlag"
@@ -15,9 +15,9 @@
 
           <mat-icon class="add-new ico">add</mat-icon>
           <span class="txt mr-1"> Add New </span>
-        </button>
-        <!-- (click)="ExportExcel()" -->
-        <button *ngIf="isEspt"   mat-button class="opt" class="opt mr-1"  >
+        </button> -->
+
+        <button *ngIf="!isSales"   (click)="ExportExcel()" mat-button class="opt" class="opt mr-1"  >
           <mat-icon class="">download</mat-icon>
           <span class="txt mr-1"> Export Excel </span>
         </button>
@@ -373,7 +373,7 @@
       Pending Presales Validation
 
       <div class="" style="float: right">
-        <button
+        <!-- <button
           mat-button
           class="opt"
           [hidden]="createFlag"
@@ -382,9 +382,8 @@
 
           <mat-icon class="add-new ico">add</mat-icon>
           <span class="txt mr-1"> Add New </span>
-        </button>
-        <!-- (click)="ExportExcel()" -->
-        <button *ngIf="isEspt"   mat-button class="opt" class="opt mr-1"  >
+        </button> -->
+        <button *ngIf="!isSales"   (click)="ExportExcel1()" mat-button class="opt" class="opt mr-1"  >
           <mat-icon class="">download</mat-icon>
           <span class="txt mr-1"> Export Excel </span>
         </button>
@@ -416,8 +415,7 @@
     </mat-form-field>
   </div>
 
-  <!-- <app-loader *ngIf="dataSource==null;else table"></app-loader>
-<ng-template #table> -->
+
   <div class="example-container mat-elevation-z8">
     <mat-table
       [dataSource]="dataSource1"

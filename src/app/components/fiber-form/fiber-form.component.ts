@@ -555,7 +555,7 @@ export class FiberFormComponent implements OnInit {
     acceptstatusId: new FormControl(null),
     rejectionReason: new FormControl(''),
     sectorID: new FormControl(0, Validators.required),
-    sector:new FormControl(null,Validators.required),
+    sector:new FormControl(null),
     serviceType:new FormControl(null),
     acceptableStatus: new FormControl(null),
     serviceSpeed:new FormControl(null),
@@ -638,11 +638,11 @@ onDelete(id:number){
     this.NotificationService.success(':: Submitted successfully');
   }
   onSubmit() {
-
+debugger
     this.loading.busy();
 
     this.form.controls.serviceType.setValue(null);
-    this.form.controls.sector.setValue(null);
+     this.form.controls.sector.setValue(null);
     this.form.controls.status.setValue(null);
     this.form.controls.acceptableStatus.setValue(null);
     this.form.controls.serviceSpeed.setValue(null);

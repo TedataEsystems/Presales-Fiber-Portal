@@ -232,18 +232,20 @@
       Fiber Service Requests
 
       <div class="" style="float: right">
+        <!-- [hidden]="createFlag" -->
         <button
           mat-button
           class="opt"
-          [hidden]="createFlag"
+  *ngIf="isSales && !param1"
           (click)="onCreate()"
         >
+
 
           <mat-icon class="add-new ico">add</mat-icon>
           <span class="txt mr-1"> Add New </span>
         </button>
         <!-- (click)="ExportExcel()" -->
-        <button *ngIf="isEspt" (click)="ExportExcel()"  mat-button class="opt" class="opt mr-1"  >
+        <button *ngIf="!isSales" (click)="ExportExcel()"  mat-button class="opt" class="opt mr-1"  >
           <mat-icon class="">download</mat-icon>
           <span class="txt mr-1"> Export Excel </span>
         </button>

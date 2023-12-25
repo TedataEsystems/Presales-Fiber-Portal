@@ -27,6 +27,7 @@ export class QueueValidationComponent implements OnInit {
 
   searchKey: string = '';
   renwed=false;
+  exportIds:number[]
   public Requetss: any[] = [];
   public RequetFilter: any[] = [];
   showAdvanced:boolean=false
@@ -314,75 +315,53 @@ this.route.queryParams.subscribe((params:any) => {
   @ViewChild('TABLE') table?: ElementRef;
   Ids: string[] = [];
 
-  // @Input() param = 'file';
-  // @ViewChild('LIST') template!: TemplateRef<any>;
-  // @ViewChild('LISTF') templateF!: TemplateRef<any>;
-  // @ViewChild('fileInput') fileInput?: ElementRef;
-  // fileAttr = 'Choose File';
-  // fileAttrF = 'Choose File';
-  // fileuploaded: any;
+  //excel
+  ExportExcel() {
 
-  // uploadFileEvt(imgFile: any) {
-  //   this.fileuploaded = imgFile.target.files[0];
+    this.exportIds = [];
+    //select all when click in all checkbox or
+    // not choose any row or all but click export //button or
+    // search but not choose all or any row
+     if (this.dataSource.data.length > 0) {
+      this.dataSource.data.forEach((element:any) => {
+        this.exportIds.push(element.id)
+      })
+     }
 
-  //   console.log(this.fileuploaded);
-
-  //   if (imgFile.target.files && imgFile.target.files[0]) {
-  //     this.fileAttr = '';
-  //     Array.prototype.forEach.call(imgFile.target.files, (file) => {
-  //       this.fileAttr += file.name + ' - ';
-  //     });
-
-
-  //     // HTML25 FileReader API
-  //     let reader = new FileReader();
-  //     reader.onload = (e: any) => {
-  //       let image = new Image();
-  //       image.src = e.target.result;
-  //       image.onload = rs => {
-  //         let imgBase64Path = e.target.result;
-  //       };
-  //     };
-  //     reader.readAsDataURL(imgFile.target.files[0]);
-
-  //     // Reset if duplicate image uploaded again
-  //     (this.fileInput as ElementRef).nativeElement.value = "";
-  //   } else {
-  //     this.fileAttr = 'Choose File';
-  //   }
-  // }
-
-  // uploadFileEvtF(imgFile: any) {
-  //   this.fileuploaded = imgFile.target.files[0];
-
-  //   console.log(this.fileuploaded);
-
-  //   if (imgFile.target.files && imgFile.target.files[0]) {
-  //     this.fileAttr = '';
-  //     Array.prototype.forEach.call(imgFile.target.files, (file) => {
-  //       this.fileAttr += file.name + ' - ';
-  //     });
+    this.supportser.ExportExcel(this.exportIds,2).subscribe(res => {
+      const blob = new Blob([res], { type: 'application/vnd.ms.excel' });
+      const file = new File([blob], 'Supportrequestedit' + '.xlsx', { type: 'application/vnd.ms.excel' });
+      saveAs(file,'Fiber Requests' + Date.now() + '.xlsx')
+    }, err => {
+      this.toastr.warning("::failed");
+    }
+    )
 
 
-  //     // HTML25 FileReader API
-  //     let reader = new FileReader();
-  //     reader.onload = (e: any) => {
-  //       let image = new Image();
-  //       image.src = e.target.result;
-  //       image.onload = rs => {
-  //         let imgBase64Path = e.target.result;
-  //       };
-  //     };
-  //     reader.readAsDataURL(imgFile.target.files[0]);
+  }
+  ExportExcel1() {
 
-  //     // Reset if duplicate image uploaded again
-  //     (this.fileInput as ElementRef).nativeElement.value = "";
-  //   } else {
-  //     this.fileAttr = 'Choose File';
-  //   }
-  // }
+    this.exportIds = [];
+    //select all when click in all checkbox or
+    // not choose any row or all but click export //button or
+    // search but not choose all or any row
+     if (this.dataSource1.data.length > 0) {
+      this.dataSource1.data.forEach((element:any) => {
+        this.exportIds.push(element.id)
+      })
+     }
+
+    this.supportser.ExportExcel(this.exportIds,2).subscribe(res => {
+      const blob = new Blob([res], { type: 'application/vnd.ms.excel' });
+      const file = new File([blob], 'Supportrequestedit' + '.xlsx', { type: 'application/vnd.ms.excel' });
+      saveAs(file,'Fiber Requests' + Date.now() + '.xlsx')
+    }, err => {
+      this.toastr.warning("::failed");
+    }
+    )
 
 
+  }
 
   ForwardRequest(id:any){
     const dialogConfig= new MatDialogConfig();
@@ -405,38 +384,5 @@ this.route.queryParams.subscribe((params:any) => {
 
   })}
 
-  // resetfile() {
-  //   this.fileAttr = 'Choose File';
-  //   //(this.fileInput as ElementRef).nativeElement.value = "";
-
-
-  // }
-  // getSectors() {
-  //   this.sectorServ.getSectors().subscribe((res) => {
-  //     if (res.status) {
-  //       this.sectorList = res.data;
-  //     } else {
-
-  //     }
-  //   });
-  // }
-  // getStatus(){
-
-  //   this.statusSer.getAll().subscribe(res=>{
-
-
-  //     if(res.status==true){
-
-
-
-  //    this.statusList = res.result?.data;
-
-
-  //     }
-  //   },err=>{
-
-
-  //   })
-  //  }
 
 }
