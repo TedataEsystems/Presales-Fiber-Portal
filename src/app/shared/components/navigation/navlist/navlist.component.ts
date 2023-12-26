@@ -75,8 +75,11 @@ isSales=false;
       this.statusList = res.result?.data;
       this.statusEsptList=this.statusList.filter((x:any)=>
         (x.value=='Pending ESPT' ||  x.value=='Pending ESPT Validation' || x.value=='Pending TE'))
+        this.statusList=this.statusList.filter((x:any)=> (x.value !=='Pending Presales' &&  x.value !=='Pending Presales Validation'))
   }
     );
+
+
 
 }
 
