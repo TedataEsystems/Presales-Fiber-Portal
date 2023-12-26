@@ -33,7 +33,9 @@ export class QueueValidationComponent implements OnInit {
   showAdvanced:boolean=false
   advSearchRequest:AdvancedSearchDto={}
   @ViewChild(MatSort) sort?: MatSort;
-  @ViewChild(MatPaginator) paginator?: MatPaginator;
+  @ViewChild("MatPaginator") paginator?: MatPaginator;
+  @ViewChild(MatSort) sort1?: MatSort;
+  @ViewChild("MatPaginator1") paginator1?: MatPaginator;
   displayedColumns: string[] = ['id', 'action','renew', 'managerName', 'companyName', 'contactName'
     , 'email', "mobile", 'numberOfCircuits', 'fullAddress', 'exchangeName', 'nearestFixedLineNumber', 'expectedUpgrades', 'contractPeriod','sector','serviceSpeed'
     ,'status','rejectionReason', 'notes','ForwardedTo','ForwardedDate','creationDate', 'modificationDate','renewedDate' ,'createdBy', 'modifyiedBy','renewedBy','createdByTeam', 'modifyiedByTeam'
@@ -51,6 +53,8 @@ export class QueueValidationComponent implements OnInit {
   valdata = ""; valuid = 0;
   dataSource = new MatTableDataSource<any>();
   dataSource1 = new MatTableDataSource<any>();
+  request:registerDetail[];
+  request1:registerDetail[];
   delpic: any;
   listName: string = '';
   selected: boolean = false;
@@ -82,6 +86,8 @@ statusList:any
 
     this.dataSource.sort = this.sort as MatSort;
    this.dataSource.paginator = this.paginator as MatPaginator;
+   this.dataSource1.sort= this.sort1 as MatSort;
+   this.dataSource1.paginator = this.paginator1 as MatPaginator;
 
   }
 
@@ -149,24 +155,15 @@ this.route.queryParams.subscribe((params:any) => {
         }
         if (initflag)
           this.RequetFilter = this.Requetss;
-   this.Requetss.forEach((element)=>{
+  this.request= this.Requetss.filter((element)=> element.statusId==7)
+  this.dataSource = new MatTableDataSource<any>(this.request);
+  //this.dataSource._updateChangeSubscription();
+  this.dataSource.paginator = this.paginator as MatPaginator;
 
-
-    if (element.statusId==7){
-      this.Requetss.push(element)
-      this.dataSource = new MatTableDataSource<any>(this.Requetss);
-        //this.dataSource._updateChangeSubscription();
-        this.dataSource.paginator = this.paginator as MatPaginator;
-    }
-    else{
-      this.Requetss.push(element)
-      this.dataSource1 = new MatTableDataSource<any>(this.Requetss);
-        //this.dataSource._updateChangeSubscription();
-        this.dataSource1.paginator = this.paginator as MatPaginator;
-    }
-   })
-
-
+   this.request1=this.Requetss.filter((element)=> element.statusId==3)
+   this.dataSource1 = new MatTableDataSource<any>(this.request1);
+   //this.dataSource._updateChangeSubscription();
+   this.dataSource1.paginator = this.paginator1 as MatPaginator;
       }
       else
         this.notser.error(res.error)
@@ -196,9 +193,19 @@ this.route.queryParams.subscribe((params:any) => {
         this.Requetss.push(...res.result.data);
         //this.Requetss = res.result.data;
         this.Requetss.length = res.result.totalrecords;
-        this.dataSource = new MatTableDataSource<any>(this.Requetss);
-        this.dataSource._updateChangeSubscription();
+        // this.dataSource = new MatTableDataSource<any>(this.Requetss);
+        // this.dataSource._updateChangeSubscription();
+        // this.dataSource.paginator = this.paginator as MatPaginator;
+        // this.request.length = cursize
+        this.request= this.Requetss.filter((element)=> element.statusId==7)
+        this.dataSource = new MatTableDataSource<any>(this.request);
+        //this.dataSource._updateChangeSubscription();
         this.dataSource.paginator = this.paginator as MatPaginator;
+
+         this.request1=this.Requetss.filter((element)=> element.statusId==3)
+         this.dataSource1 = new MatTableDataSource<any>(this.request1);
+         //this.dataSource._updateChangeSubscription();
+         this.dataSource1.paginator = this.paginator1 as MatPaginator;
       }
       else
         this.notser.error(res.error)

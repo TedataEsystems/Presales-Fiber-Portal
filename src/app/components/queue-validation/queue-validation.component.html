@@ -375,6 +375,7 @@
   <!-- </ng-template> -->
 
   <mat-paginator
+  #MatPaginator1
     [pageSizeOptions]="[30, 50, 100]"
     [pageSize]="30"
     (page)="pageChanged($event)"
@@ -739,6 +740,7 @@
   <!-- </ng-template> -->
 
   <mat-paginator
+  #MatPaginator
     [pageSizeOptions]="[30, 50, 100]"
     [pageSize]="30"
     (page)="pageChanged($event)"
