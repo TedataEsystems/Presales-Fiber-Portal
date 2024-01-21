@@ -1151,3 +1151,21 @@ mat-footer-cell{
     bottom: -15px;
     font-weight: 600;
 }
+
+.mat-checkbox-frame {
+  border-color: rgb(128 145 153) !important;
+}
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: var(--fifth-color) !important;
+}
+.mat-radio-button.mat-accent .mat-radio-inner-circle,
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: var(--forth-color);
+}
+.mat-datepicker-content {
+  background-color: #fff !important;
+}
+.mat-calendar-body-selected {
+  background-color: var(--main-color) !important;
+  color: #fff !important;
+}

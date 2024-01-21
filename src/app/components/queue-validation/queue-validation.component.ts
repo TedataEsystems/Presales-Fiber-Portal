@@ -26,6 +26,7 @@ import { statusService } from 'src/app/shared/services/status.service';
 export class QueueValidationComponent implements OnInit {
 
   searchKey: string = '';
+  searchKey1: string = '';
   renwed=false;
   exportIds:number[]
   public Requetss: any[] = [];
@@ -244,12 +245,12 @@ this.route.queryParams.subscribe((params:any) => {
 
     }
     onSearchClear1() {
-      this.searchKey = '';
+      this.searchKey1 = '';
       this.applyFilter1();
     }
     applyFilter1() {
 
-      let searchData = this.searchKey.trim().toLowerCase();
+      let searchData = this.searchKey1.trim().toLowerCase();
       this.getRequestdata(25, 1, searchData, this.sortColumnDef, this.SortDirDef,true,3);
 
       }

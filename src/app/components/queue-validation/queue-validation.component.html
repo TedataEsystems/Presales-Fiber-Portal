@@ -33,7 +33,7 @@
     <mat-form-field class="search-form-field sr" floatLabel="never">
       <input
         matInput
-        [(ngModel)]="searchKey"
+        [(ngModel)]="searchKey1"
         placeholder="Search"
         autocomplete="off"
         (keyup)="applyFilter1()"
@@ -43,7 +43,7 @@
         matSuffix
         mat-icon-button
         aria-label="Clear"
-        *ngIf="searchKey"
+        *ngIf="searchKey1"
         (click)="onSearchClear1()"
       >
         <mat-icon>close</mat-icon>
