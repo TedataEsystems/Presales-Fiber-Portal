@@ -1,4 +1,3 @@
-
 <!-- <div fxlayout="column" fxlayoutalign="center center" class="user-block py-3" style="flex-direction: column; box-sizing: border-box; display: flex; place-content: center; align-items: center;">
     <img src="../../../../../assets/image/user2.png" alt="user-image">
     <h2 class="mt-2 mb-0 ng-star-inserted">App3</h2>
@@ -6,57 +5,88 @@
 </div>
 <mat-divider></mat-divider> -->
 <mat-list>
-  <a mat-list-item routerLink="./"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" *ngIf="isAdmin || isPresales">
-
+  <a
+    mat-list-item
+    routerLink="./"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    *ngIf="isAdmin || isPresales"
+  >
     <span class="nav-caption">Home</span>
-</a>
-<!-- -------Fiber ------------ -->
-<a mat-list-item   (click)="showSubmenu2 = !showSubmenu2;" class="parent" >
+  </a>
+  <!-- -------Fiber ------------ -->
+  <a mat-list-item (click)="showSubmenu2 = !showSubmenu2" class="parent">
+    <span class="full-width nav-caption" *ngIf="isExpanded2 || isShowing2"
+      >Fiber</span
+    >
 
-  <span class=" full-width  nav-caption" *ngIf="isExpanded2 || isShowing2">Fiber</span>
-
-  <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu2}" *ngIf="isExpanded2 || isShowing2">expand_more
-  </mat-icon>
-</a>
-<div class="submenu" [ngClass]="{'expanded' : showSubmenu2}" *ngIf="isShowing2 || isExpanded2">
-
-
-  <a mat-list-item routerLink="./fiber"  routerLinkActive="active">
+    <mat-icon
+      class="menu-button"
+      [ngClass]="{ rotated: showSubmenu2 }"
+      *ngIf="isExpanded2 || isShowing2"
+      >expand_more
+    </mat-icon>
+  </a>
+  <div
+    class="submenu"
+    [ngClass]="{ expanded: showSubmenu2 }"
+    *ngIf="isShowing2 || isExpanded2"
+  >
+    <a mat-list-item routerLink="./fiber" routerLinkActive="active">
       <mat-icon class="dot">brightness_1</mat-icon>
       <span class="nav-caption">Summary</span>
-  </a>
-  <ng-container *ngIf="isAdmin || isPresales || isSales">
-  <ng-container *ngFor="let status of statusList">
-  <a mat-list-item routerLink="./fiber" [queryParams]="{statusid:  status.id }"  routerLinkActive="active">
-      <mat-icon class="dot">brightness_1</mat-icon>
-      <span class="nav-caption">{{status.value}}</span>
-  </a>
-  </ng-container>
-  <a mat-list-item routerLink="./queValidation"   routerLinkActive="active">
-    <mat-icon class="dot">brightness_1</mat-icon>
-    <span class="nav-caption">Presales Queue</span>
-</a>
-
-  </ng-container>
-  <ng-container *ngIf="isEspt">
-    <ng-container *ngFor="let status of statusEsptList">
-    <a mat-list-item routerLink="./fiber" [queryParams]="{statusid:  status.id }"  routerLinkActive="active">
-        <mat-icon class="dot">brightness_1</mat-icon>
-        <span class="nav-caption">{{status.value}}</span>
     </a>
+    <ng-container *ngIf="isPresales">
+      <ng-container *ngFor="let status of statusList">
+        <a
+          mat-list-item
+          routerLink="./fiber"
+          [queryParams]="{ statusid: status.id }"
+          routerLinkActive="active"
+        >
+          <mat-icon class="dot">brightness_1</mat-icon>
+          <span class="nav-caption">{{ status.value }}</span>
+        </a>
+      </ng-container>
+      <a mat-list-item routerLink="./queValidation" routerLinkActive="active">
+        <mat-icon class="dot">brightness_1</mat-icon>
+        <span class="nav-caption">Presales Queue</span>
+      </a>
     </ng-container>
+    <ng-container *ngIf="isEspt">
+      <ng-container *ngFor="let status of statusEsptList">
+        <a
+          mat-list-item
+          routerLink="./fiber"
+          [queryParams]="{ statusid: status.id }"
+          routerLinkActive="active"
+        >
+          <mat-icon class="dot">brightness_1</mat-icon>
+          <span class="nav-caption">{{ status.value }}</span>
+        </a>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="isSales || isAdmin">
+      <ng-container *ngFor="let status of statusSalesList">
+        <a
+          mat-list-item
+          routerLink="./fiber"
+          [queryParams]="{ statusid: status.id }"
+          routerLinkActive="active"
+        >
+          <mat-icon class="dot">brightness_1</mat-icon>
+          <span class="nav-caption">{{ status.value }}</span>
+        </a>
+      </ng-container>
     </ng-container>
 
-  <!-- <a mat-list-item routerLink="./feedBack"  routerLinkActive="active" *ngIf="isPresales">
+    <!-- <a mat-list-item routerLink="./feedBack"  routerLinkActive="active" *ngIf="isPresales">
     <mat-icon class="dot">brightness_1</mat-icon>
     <span class="nav-caption">Feedback</span>
 </a> -->
-
-
-
-</div>
-<!-- ----------Microwave----------------------- -->
-<!-- <a mat-list-item   (click)="showSubmenu1 = !showSubmenu1;" class="parent" >
+  </div>
+  <!-- ----------Microwave----------------------- -->
+  <!-- <a mat-list-item   (click)="showSubmenu1 = !showSubmenu1;" class="parent" >
 
   <span class=" full-width  nav-caption" *ngIf="isExpanded1 || isShowing1">Microwave</span>
 
@@ -81,10 +111,8 @@
 
 </div> -->
 
-
-
- <!-- --------   Copper  ---------- -->
- <!-- <a mat-list-item   (click)="showSubmenu3 = !showSubmenu3;" class="parent" >
+  <!-- --------   Copper  ---------- -->
+  <!-- <a mat-list-item   (click)="showSubmenu3 = !showSubmenu3;" class="parent" >
 
   <span class=" full-width  nav-caption" *ngIf="isExpanded3 || isShowing3">Copper</span>
 
@@ -106,14 +134,8 @@
 </ng-container>
 
 </div> -->
-
-
-
-
 </mat-list>
 
- <!-- <div class="last ">
+<!-- <div class="last ">
 <img src="../../../../assets/image/ccc.png" height="35"  width="80%">
  </div> -->
-
-

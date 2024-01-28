@@ -84,12 +84,12 @@ mat-radio-button{
   color: var(--main-color);
 }
 mat-label {
-  color: #000000 !important;
-  font-weight: 600 !important;
-  font-size: 16px !important ;
-  display: inline-block;
-  padding: 0.5rem 0;
-  height: 40px;
+  color: #494646 !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    display: inline-block;
+    padding: 0.4rem 0;
+    height: 30px;
 
 }
 mat-list-item
@@ -104,6 +104,12 @@ mat-list-item
 .fileList{
   height: 120px;
     overflow-y: auto;
+}
+textarea{
+  border: 0.6px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 5px;
+  box-sizing: border-box;
 }
 mat-grid-list
 {

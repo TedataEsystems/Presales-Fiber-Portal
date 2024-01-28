@@ -6,13 +6,11 @@ import { FeedbackDto } from 'src/app/Models/feedbackDTO';
 import { FileuploadService } from 'src/app/shared/services/fileupload.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 import { ServiceRegisterService } from 'src/app/shared/services/service-register.service';
-import { ToolbarService, LinkService, ImageService, HtmlEditorService, TableService, PasteCleanupService} from '@syncfusion/ej2-angular-richtexteditor';
 
 @Component({
   selector: 'app-feedback',
   templateUrl: './feedback.component.html',
-  styleUrls: ['./feedback.component.css'],
-  providers: [ToolbarService, LinkService, ImageService, HtmlEditorService,TableService,PasteCleanupService]
+  styleUrls: ['./feedback.component.css']
 })
 export class FeedbackComponent implements OnInit {
   dialogTitle=""
@@ -20,25 +18,20 @@ export class FeedbackComponent implements OnInit {
   fileVal :File[]=[];
   registerDetailID:number=0;
   isTriggered:boolean=false;
-  public iframe: object = { enable: true };
-  public height: number = 300;
-  public tools: object = {
-    type:'MultiRow',
-    items: ['Undo', 'Redo', '|',
-        'Bold', 'Italic', 'Underline', 'StrikeThrough', '|',
-        'FontName', 'FontSize', 'FontColor', 'BackgroundColor', '|',
-        'SubScript', 'SuperScript', '|',
-        'LowerCase', 'UpperCase', '|',
-        'Formats', 'Alignments', '|', 'OrderedList', 'UnorderedList', '|',
-        'Indent', 'Outdent', '|', 'CreateLink','CreateTable',
-        'Image', '|', 'ClearFormat', 'Print', 'SourceCode']
-  };
+
   constructor(private fb:FormBuilder, private toastr:ToastrService,private fileser: FileuploadService,private loading :LoadingService,
     private _feedService :ServiceRegisterService,private dialogRef:MatDialogRef<FeedbackComponent>, @Inject(MAT_DIALOG_DATA) public data:any) { }
 
   form:FormGroup=this.fb.group({
     id:[0],
-    textData:[''],
+    comment:[''],
+    clientName:[''],
+    clientAddress:[''],
+    centralConnectivity:[''],
+    CustomerObligations:[''],
+    requiredTasks:[''],
+    transmissionCapacity:[''],
+    possibilityValidity:[''],
     Availability:[null],
     Distance:[null],
      registerDetailID:[0]
@@ -55,10 +48,18 @@ export class FeedbackComponent implements OnInit {
       this.dialogTitle = 'Update';
       if (this.data.row) {
         this.form.controls['id'].setValue(this.data.row.id);
-        this.form.controls['textData'].setValue(this.data.row?.comment);
+        this.form.controls['comment'].setValue(this.data.row?.comment);
         this.form.controls['Availability'].setValue(this.data.row?.availability);
         this.form.controls['Distance'].setValue(this.data.row?.distance);
+        this.form.controls['clientName'].setValue(this.data.row?.clientName);
+        this.form.controls['clientAddress'].setValue(this.data.row?.clientAddress);
+        this.form.controls['centralConnectivity'].setValue(this.data.row?.centralConnectivity);
+        this.form.controls['CustomerObligations'].setValue(this.data.row?.CustomerObligations);
+        this.form.controls['requiredTasks'].setValue(this.data.row?.requiredTasks);
+        this.form.controls['transmissionCapacity'].setValue(this.data.row?.transmissionCapacity);
+        this.form.controls['possibilityValidity'].setValue(this.data.row?.possibilityValidity);
         this.form.controls['registerDetailID'].setValue(this.data.registerDetailID);
+
         if(this.data.row?.attaches){
           this.fileVal=this.data.row?.attaches;
           // for(let i=0 ; i< this.fileVal?.length;i++){
@@ -88,15 +89,22 @@ this.loading.busy();
 
       let feedobj={
         id: 0,
-        comment:this.form.controls['textData'].value,
+        comment:this.form.controls['comment'].value,
         Availability: this.form.controls['Availability'].value,
         Distance:this.form.controls['Distance'].value,
+        clientName:this.form.controls['clientName'].value,
+        clientAddress:this.form.controls['clientAddress'].value,
+        centralConnectivity:this.form.controls['centralConnectivity'].value,
+        CustomerObligations:this.form.controls['CustomerObligations'].value,
+        requiredTasks:this.form.controls['requiredTasks'].value,
+        transmissionCapacity:this.form.controls['transmissionCapacity'].value,
+        possibilityValidity:this.form.controls['possibilityValidity'].value,
         registerDetailID:Number(this.form.controls['registerDetailID'].value)
       }
 
       if(this.form.controls['id'].value == 0 &&
       this.form.controls['Availability'].value == null
-      && this.form.controls['textData'].value == '' &&
+      && this.form.controls['comment'].value == '' &&
       this.form.controls['Distance'].value == null){
         if(!this.isTriggered){
           return
@@ -129,16 +137,23 @@ this.loading.busy();
       debugger
       let feedobj={
         id: this.form.controls['id'].value,
-        comment:this.form.controls['textData'].value,
+        comment:this.form.controls['comment'].value,
         Availability: this.form.controls['Availability'].value,
         Distance:this.form.controls['Distance'].value,
+        clientName:this.form.controls['clientName'].value,
+        clientAddress:this.form.controls['clientAddress'].value,
+        centralConnectivity:this.form.controls['centralConnectivity'].value,
+        CustomerObligations:this.form.controls['CustomerObligations'].value,
+        requiredTasks:this.form.controls['requiredTasks'].value,
+        transmissionCapacity:this.form.controls['transmissionCapacity'].value,
+        possibilityValidity:this.form.controls['possibilityValidity'].value,
 
         registerDetailID:Number(this.form.controls['registerDetailID'].value)
       }
 
       if(this.form.controls['id'].value == this.data.row.id &&
       this.form.controls['Availability'].value == this.data.row.availability
-      && this.form.controls['textData'].value == this.data.row.comment &&
+      && this.form.controls['comment'].value == this.data.row.comment &&
       this.form.controls['Distance'].value == this.data.row.distance){
         if(!this.isTriggered){
           return

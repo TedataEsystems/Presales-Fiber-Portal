@@ -31,10 +31,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   --cr3-color:#791a75;
   --cr4-color:#8e2279;
 }
-/* :root{
-  --main-color:#CFB840;
-  --second-color:#918d76;
-} */
+
 
 button,[mat-icon-button]{
     outline: none !important;
@@ -345,71 +342,24 @@ overflow: hidden;
             .mat-dialog-container{
               max-width: 100% !important;
             }
-            /* .mat-table {
-              border: 0;
-              vertical-align: middle
+            .modals-dialog{
+width: 100%;
             }
+            mat-cell, mat-header-cell{
+              word-wrap: break-word !important;
+              white-space: unset !important;
+              flex: 0 0 180px !important;
+              width: 180px ;
+              overflow-wrap: break-word;
+              word-wrap: break-word;
+              word-break: break-word;
+            padding-right: 5px;
+              -ms-hyphens: auto;
+              -moz-hyphens: auto;
+              -webkit-hyphens: auto;
+              hyphens: auto;
 
-            .mat-table caption {
-              font-size: 1em;
-            } */
-
-            /*  Enable this to hide header*/
-            /* .mat-table .mat-header-row{
-              display: none;
-            }
-            .mat-table .mat-header-cell {
-
-              border: 10px solid;
-              clip: rect(0 0 0 0);
-              height: 1px;
-              margin: -1px;
-              padding: 0;
-              position: absolute;
-              width: 1px;
-            }
-
-            .mat-table .mat-row {
-              border-bottom: 5px solid var(--main-color);
-              display: block;
-            } */
-            /*
-            .mat-table .mat-row:nth-child(even) {background: #CCC}
-            .mat-table .mat-row:nth-child(odd) {background: #FFF}
-            */
-            /* .mat-table .mat-cell {
-              border-bottom: 1px solid #d3cead;
-              display: block;
-              font-size: 1em;
-              text-align: right;
-              font-weight: bold;
-              height:30px;
-
-
-
-              padding-right: 20px;
-            } */
-            /* .mat-table .mat-cell:before {
-
-              content: attr(data-label);
-              float: left;
-              text-transform: uppercase;
-              font-weight: normal;
-              font-size: .85em;
-              padding-left: 5px;
-              color:#182940;
-            }
-            .mat-table .mat-cell:last-child {
-              border-bottom: 0;
-            }
-              .mat-table .mat-cell:first-child {
-              margin-top:4%;
-            }
-            .mat-cell, .mat-header-cell,.mat-footer-cell{
-              width: 100% !important;
-              flex:1 !important;
-              border-bottom:1px solid #c6c9cc42 !important;
-            } */
+              }
            }
 
            .mat-radio-outer-circle{

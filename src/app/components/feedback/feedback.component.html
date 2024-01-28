@@ -16,24 +16,42 @@
   <mat-divider class="my-1"></mat-divider> -->
   <div class="mt-2">
     <form  [formGroup]="form" class="normal-form mx-0" (submit)="onSubmit()" >
-      <mat-grid-list cols="2" rowHeight="350px">
+      <mat-grid-list cols="2" rowHeight="700px">
         <mat-grid-tile >
           <div class="controles-container commentbox">
              <input type="hidden" formControlName="id">
+             <mat-label>Client Name</mat-label>
+             <mat-form-field appearance="outline">
 
-            <mat-label>Notes</mat-label>
-            <mat-form-field appearance="outline">
-              <textarea rows="9" formControlName="textData" matInput placeholder="write your notes here...."></textarea>
+              <input  formControlName="clientName" matInput>
             </mat-form-field>
+            <mat-label>Client Address</mat-label>
+            <mat-form-field appearance="outline">
+
+              <input  formControlName="clientAddress" matInput>
+            </mat-form-field>
+            <mat-label>  Central Connectivity</mat-label>
+            <mat-form-field appearance="outline">
+
+              <input  formControlName="centralConnectivity" matInput>
+            </mat-form-field>
+
+              <mat-label>  Customer Obligations</mat-label>
+
+              <textarea rows="5" formControlName="CustomerObligations" matInput placeholder="write your Obligations here...."></textarea>
+
+
+
+              <mat-label>Required Tasks</mat-label>
+
+              <textarea rows="5" formControlName="requiredTasks" matInput placeholder="write your Tasks here...."></textarea>
+
+
 
 
           </div>
 
-          <!-- <div class="controles-container">
-            <ejs-richtexteditor id='defaultRTE' [toolbarSettings]='tools'[iframeSettings]='iframe' [height]='height'>
 
-              </ejs-richtexteditor>
-          </div> -->
         </mat-grid-tile>
         <mat-grid-tile >
           <div class="controles-container">
@@ -48,7 +66,7 @@
   </div>
   <div class="w-100  mb-2">
     <mat-radio-group class="d-flex w-100"  formControlName="Distance">
-  <mat-label class="mr-4 w-25 ">Distance :</mat-label>
+  <mat-label class="mr-2 w-25 ">Distance :</mat-label>
 
    <div class="w-75 mt-3">
     <mat-radio-button  value="Less than 5KM" >Less than 5KM</mat-radio-button>
@@ -62,6 +80,21 @@
 
   </mat-radio-group>
   </div>
+  <mat-label>Transmission Capacity </mat-label>
+  <mat-form-field appearance="outline">
+
+    <input  formControlName="transmissionCapacity" matInput>
+  </mat-form-field>
+  <mat-label>  Possibility Validity </mat-label>
+  <mat-form-field appearance="outline">
+
+    <input  formControlName="possibilityValidity" matInput>
+  </mat-form-field>
+  <mat-label>Notes</mat-label>
+  <!-- <mat-form-field appearance="outline"> -->
+
+    <textarea rows="5" formControlName="comment" matInput placeholder="write your notes here...."></textarea>
+  <!-- </mat-form-field> -->
             <div class=" d-inline-block">
               <mat-label>Upload an Attachments</mat-label>
               <br>

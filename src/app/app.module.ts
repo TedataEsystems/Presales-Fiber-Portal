@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from './shared/components/layout/layout.module';
 
 import { LoginModule } from './shared/components/login/login.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InterceptorService } from './shared/interceptors/interceptor-service.interceptor';
 
 
 
@@ -26,7 +28,10 @@ import { LoginModule } from './shared/components/login/login.module';
 
 
   ],
-  providers: [],
+  providers: [
+     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+
+            ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

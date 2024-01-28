@@ -591,7 +591,8 @@ onCreate(){
   dialogGonfig.data = { dialogTitle: 'Add', registerDetailID:this.param1};
   dialogGonfig.disableClose = true;
   dialogGonfig.autoFocus = true;
-  dialogGonfig.width = '50%';
+  dialogGonfig.width = '70%';
+  dialogGonfig.height = '600px';
   dialogGonfig.panelClass = 'modals-dialog';
   this.dialog
       .open(FeedbackComponent, dialogGonfig)
@@ -606,7 +607,8 @@ onEditFeedback(row:any){
   dialogGonfig.data = { dialogTitle: 'Edit', row: row, registerDetailID:this.param1};
   dialogGonfig.disableClose = true;
   dialogGonfig.autoFocus = true;
-  dialogGonfig.width = '50%';
+  dialogGonfig.width = '70%';
+  dialogGonfig.height = '600px';
   dialogGonfig.panelClass = 'modals-dialog';
   this.dialog
       .open(FeedbackComponent, dialogGonfig)

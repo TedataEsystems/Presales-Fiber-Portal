@@ -10,6 +10,7 @@ import { statusService } from 'src/app/shared/services/status.service';
 export class NavlistComponent implements OnInit {
 
   statusList:any=[];
+  statusSalesList:any=[];
   statusEsptList:any=[];
   isExpanded= true;
   isExpanded1= true;
@@ -73,8 +74,11 @@ isSales=false;
   ngOnInit(): void {
     this.statusSer.getAll().subscribe(res=>{
       this.statusList = res.result?.data;
+      this.statusSalesList=this.statusList
       this.statusEsptList=this.statusList.filter((x:any)=>
         (x.value=='Pending ESPT' ||  x.value=='Pending ESPT Validation' || x.value=='Pending TE'))
+
+
         this.statusList=this.statusList.filter((x:any)=> (x.value !=='Pending Presales' &&  x.value !=='Pending Presales Validation'))
   }
     );
