@@ -2,7 +2,8 @@
   <mat-card class="example-card">
       <mat-card-header>
         <mat-card-title>
-       View Details
+
+          View Details
 
         <button class="btn-dialog-close" mat-button tabIndex="-1" (click)="onClose()">
           <mat-icon>clear</mat-icon>
@@ -11,25 +12,57 @@
     </mat-card-header>
     <mat-divider></mat-divider>
 
-          <div class="example-container mat-elevation-z8 mt-1" #TABLE>
+          <div class="example-container mt-1" #TABLE>
 
 
-            <table class="table">
-              <thead>
+            <table class="table w-100 mat-elevation-z8 mx-auto" dir="rtl">
+              <thead class="bg-main">
                 <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
+                  <th scope="col">المطلوب</th>
+                  <th scope="col">البيان</th>
 
                 </tr>
               </thead>
               <tbody>
 
                 <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-
+                  <th scope="row">اسم العميل</th>
+                  <td> {{feedback.clientName}}</td>
                 </tr>
-              
+                <tr>
+                  <th scope="row">عنوان العميل</th>
+                  <td> {{feedback.clientAddress}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">سنترال الربط</th>
+                  <td> {{feedback.centralConnectivity}}</td>
+                </tr>
+
+                <tr>
+                  <th scope="row">المسافة الكلية</th>
+                  <td> {{feedback.distance}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">   التزامات العميل</th>
+                    <td> {{feedback.customerObligations}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">السعة التراسلية </th>
+                  <td> {{feedback.transmissionCapacity}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">الأعمال المطلوبة</th>
+                  <td> {{feedback.requiredTasks}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">صلاحية الامكانية</th>
+                  <td>{{feedback.possibilityValidity}}</td>
+                </tr>
+                <tr>
+                  <th scope="row"> الملاحظات</th>
+                  <td> {{feedback.comment}}</td>
+                </tr>
+
               </tbody>
             </table>
       </div>

@@ -609,8 +609,8 @@ viewFeedback(row:any){
   dialogGonfig.data = { dialogTitle: 'View', row: row};
   dialogGonfig.disableClose = true;
   dialogGonfig.autoFocus = true;
-  dialogGonfig.width = '70%';
-  dialogGonfig.height = '500px';
+  dialogGonfig.width = '40%';
+  dialogGonfig.height = '571px';
   dialogGonfig.panelClass = 'modals-dialog';
   this.dialog
       .open(ViewFeedbackComponent, dialogGonfig)

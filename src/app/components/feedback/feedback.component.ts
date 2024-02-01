@@ -54,7 +54,7 @@ export class FeedbackComponent implements OnInit {
         this.form.controls['clientName'].setValue(this.data.row?.clientName);
         this.form.controls['clientAddress'].setValue(this.data.row?.clientAddress);
         this.form.controls['centralConnectivity'].setValue(this.data.row?.centralConnectivity);
-        this.form.controls['CustomerObligations'].setValue(this.data.row?.CustomerObligations);
+        this.form.controls['CustomerObligations'].setValue(this.data.row?.customerObligations);
         this.form.controls['requiredTasks'].setValue(this.data.row?.requiredTasks);
         this.form.controls['transmissionCapacity'].setValue(this.data.row?.transmissionCapacity);
         this.form.controls['possibilityValidity'].setValue(this.data.row?.possibilityValidity);

@@ -20,29 +20,39 @@
         <mat-grid-tile >
           <div class="controles-container commentbox">
              <input type="hidden" formControlName="id">
-             <mat-label>Client Name</mat-label>
+             <mat-label>Client Name
+              <small class="text-secondary">    اسم العميل </small>
+             </mat-label>
              <mat-form-field appearance="outline">
 
               <input  formControlName="clientName" matInput>
             </mat-form-field>
-            <mat-label>Client Address</mat-label>
+            <mat-label>Client Address
+              <small class="text-secondary">    عنوان العميل </small>
+            </mat-label>
             <mat-form-field appearance="outline">
 
               <input  formControlName="clientAddress" matInput>
             </mat-form-field>
-            <mat-label>  Central Connectivity</mat-label>
+            <mat-label>  Central Connectivity
+              <small class="text-secondary">    سنترال الربط </small>
+            </mat-label>
             <mat-form-field appearance="outline">
 
               <input  formControlName="centralConnectivity" matInput>
             </mat-form-field>
 
-              <mat-label>  Customer Obligations</mat-label>
+              <mat-label>  Customer Obligations
+                <small class="text-secondary">    التزامات العميل </small>
+              </mat-label>
 
               <textarea rows="5" formControlName="CustomerObligations" matInput placeholder="write your Obligations here...."></textarea>
 
 
 
-              <mat-label>Required Tasks</mat-label>
+              <mat-label>Required Tasks
+                <small class="text-secondary">    الأعمال المطلوبة </small>
+              </mat-label>
 
               <textarea rows="5" formControlName="requiredTasks" matInput placeholder="write your Tasks here...."></textarea>
 
@@ -57,7 +67,10 @@
           <div class="controles-container">
             <div class="w-100 mb-2 mt-5">
               <mat-radio-group  formControlName="Availability">
-            <mat-label class="mr-4">Availability:</mat-label>
+            <mat-label class="mr-4">Availability:
+
+              <small class="text-secondary">    الصلاحية </small>
+            </mat-label>
 
               <mat-radio-button value="Available" >Available</mat-radio-button>
                 <mat-radio-button  value="Not Available" >Not Available</mat-radio-button>
@@ -66,7 +79,7 @@
   </div>
   <div class="w-100  mb-2">
     <mat-radio-group class="d-flex w-100"  formControlName="Distance">
-  <mat-label class="mr-2 w-25 ">Distance :</mat-label>
+  <mat-label class="mr-2 w-25 ">Distance :  <br>  <small class="text-secondary"> المسافة الكلية</small></mat-label>
 
    <div class="w-75 mt-3">
     <mat-radio-button  value="Less than 5KM" >Less than 5KM</mat-radio-button>
@@ -80,23 +93,25 @@
 
   </mat-radio-group>
   </div>
-  <mat-label>Transmission Capacity </mat-label>
+  <mat-label>Transmission Capacity <small class="text-secondary">  السعة التراسلية </small></mat-label>
   <mat-form-field appearance="outline">
 
     <input  formControlName="transmissionCapacity" matInput>
   </mat-form-field>
-  <mat-label>  Possibility Validity </mat-label>
+  <mat-label>  Possibility Validity  <small class="text-secondary">   صلاحية الامكانية </small></mat-label>
   <mat-form-field appearance="outline">
 
     <input  formControlName="possibilityValidity" matInput>
   </mat-form-field>
-  <mat-label>Notes</mat-label>
+  <mat-label>Notes     <small class="text-secondary">    الملاحظات </small></mat-label>
   <!-- <mat-form-field appearance="outline"> -->
 
     <textarea rows="5" formControlName="comment" matInput placeholder="write your notes here...."></textarea>
   <!-- </mat-form-field> -->
             <div class=" d-inline-block">
-              <mat-label>Upload an Attachments</mat-label>
+              <mat-label>Upload an Attachments
+                <small class="text-secondary">    تحميل ملفات </small>
+              </mat-label>
               <br>
 
               <div class="input-group">
