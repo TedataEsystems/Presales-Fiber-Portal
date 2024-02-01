@@ -32,6 +32,7 @@ import { FeedbackComponent } from '../feedback/feedback.component';
 import { FeedbackDto } from 'src/app/Models/feedbackDTO';
 import html2canvas from 'html2canvas';
 import { LoadingService } from 'src/app/shared/services/loading.service';
+import { ViewFeedbackComponent } from '../view-feedback/view-feedback.component';
 
 var mimetype = [
   { ext: 'txt', fileType: 'text/plain' },
@@ -601,6 +602,24 @@ onCreate(){
         this.getFeedback();
 
       });
+}
+
+viewFeedback(row:any){
+  const dialogGonfig = new MatDialogConfig();
+  dialogGonfig.data = { dialogTitle: 'View', row: row};
+  dialogGonfig.disableClose = true;
+  dialogGonfig.autoFocus = true;
+  dialogGonfig.width = '70%';
+  dialogGonfig.height = '500px';
+  dialogGonfig.panelClass = 'modals-dialog';
+  this.dialog
+      .open(ViewFeedbackComponent, dialogGonfig)
+      .afterClosed()
+      .subscribe((result) => {
+
+
+      });
+
 }
 onEditFeedback(row:any){
   const dialogGonfig = new MatDialogConfig();

@@ -8,13 +8,13 @@ import { LayoutModule } from './shared/components/layout/layout.module';
 
 import { LoginModule } from './shared/components/login/login.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { InterceptorService } from './shared/interceptors/interceptor-service.interceptor';
-
+import { InterceptorService } from './shared/interceptors/interceptor-service.interceptor'
 
 
 @NgModule({
   declarations: [
     AppComponent,
+
 
 
 

@@ -1,0 +1,120 @@
+
+.submit{
+  background-color: var(--fifth-color);
+  color:#fff;
+  width: 100px;
+}.clr{
+  background-color: #747678;
+
+}
+mat-toolbar.top{
+  background-color: var(--main-color);
+  color:#fff;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+}
+mat-toolbar.bottom{
+  background-color: #c6cacd;
+  color:#fff;
+  position: absolute;
+  bottom: 0;
+  z-index: 2;
+
+}
+
+.btn-dialog-close {
+  width: 45px;
+  min-width: 0px !important;
+  height: 40px;
+  padding: 0px !important;
+  float: right;
+}
+.import-excel {
+  width: 80%;
+}
+.file-upload-btn {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  height: 35px;
+  color:#fff;
+  background: var(--fifth-color);
+
+}
+
+.help-block {
+  display: block;
+  margin-top: -4px;
+  margin-bottom: 10px;
+  color: crimson;
+}
+.file-upload-input {
+    bottom: 0;
+    cursor: inherit;
+    font-size: 1000px;
+    margin: 0;
+    opacity: 0;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 100%;
+}
+.browse{
+  height: 35px;
+    box-shadow: inset 0px 0px 6px #a2a2a1, inset 0px 0px 6px #a2a2a1;
+    border: 0;
+    background: var(--main-color);
+    border-radius: 2px;
+    z-index: 1;
+   font-size: 10px;
+   line-height: 2.2;
+    color: #fff;
+}
+.form-control{
+  height: 35px;
+  box-shadow: inset 2px 2px 6px var(--third-color), inset -2px -2px 6px var(--third-color);
+  border: 0;
+}
+.mat-form-field {
+  margin-bottom: 20px;
+}
+mat-radio-button{
+  color: var(--main-color);
+}
+mat-label {
+  color: #494646 !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    display: inline-block;
+    padding: 0.4rem 0;
+    height: 30px;
+
+}
+mat-list-item
+{
+  font-size: 12px !important;
+    height: 18px !important;
+
+}
+.text-sm{
+  font-size: 12px !important;
+}
+.fileList{
+  height: 120px;
+    overflow-y: auto;
+}
+textarea{
+  border: 0.6px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+mat-grid-list
+{
+  margin-top: 70px
+}
+.commentbox{
+  margin-top: -78px;
+}

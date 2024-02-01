@@ -43,6 +43,7 @@ import { SectorsComponent } from 'src/app/Settings/sectors/sectors.component';
 import { ForwardedToComponent } from 'src/app/components/forwarded-to/forwarded-to.component';
 import { RichTextEditorModule } from '@syncfusion/ej2-angular-richtexteditor';
 import { QueueValidationComponent } from '../../../components/queue-validation/queue-validation.component';
+import { ViewFeedbackComponent } from 'src/app/components/view-feedback/view-feedback.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { QueueValidationComponent } from '../../../components/queue-validation/q
     FeedbackComponent,
     SectorsComponent,
     ForwardedToComponent,
-    QueueValidationComponent
+    QueueValidationComponent,
+    ViewFeedbackComponent
 
   ],
   imports: [
